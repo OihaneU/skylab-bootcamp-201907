@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 const { Schema } = mongoose
 
+const {Card} = require("../index")
+
+
+
 module.exports = new Schema({
     name: {
         type: String,
@@ -21,4 +25,6 @@ module.exports = new Schema({
         type: String,
         required: true
     }
+    ,
+    cards: [Card]
 })

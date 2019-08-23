@@ -6,6 +6,7 @@ const authenticateUser = require('./authenticate-user')
 const retrieveUser = require('./retrieve-user')
 const updateUser = require('./update-user')
 const unregisterUser = require('./unregister-user')
+const registerVehicle = require("./register-vehicle")
 
 const router = Router()
 
@@ -20,5 +21,7 @@ router.get('/users/:id', [tokenMiddleware, jsonBodyParser], retrieveUser)
 router.patch('/users/:id', [tokenMiddleware, jsonBodyParser], updateUser)
 
 router.delete('/users/:id', [tokenMiddleware, jsonBodyParser], unregisterUser)
+
+router.post("/users/:id/vehicles", jsonBodyParser, registerVehicle)
 
 module.exports = router
