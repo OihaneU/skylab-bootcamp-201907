@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const { Schema } = mongoose
 
-const {Card} = require("../index")
+//const {Card} = require("../index")
 
 
 
@@ -24,7 +24,6 @@ module.exports = new Schema({
     password: {
         type: String,
         required: true
-    }
-    ,
-    cards: [Card]
+    },
+  //  card: [Card]
 })

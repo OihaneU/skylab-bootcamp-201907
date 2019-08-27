@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose
+
+const { Schema, Schema: { Types: { ObjectId } } } = mongoose
 
 module.exports = new Schema({
     brand: {
@@ -30,7 +31,7 @@ module.exports = new Schema({
         required: true,
         default: false
     },
-    license:{
+    licence:{
         type: String,
         required: true
     },
