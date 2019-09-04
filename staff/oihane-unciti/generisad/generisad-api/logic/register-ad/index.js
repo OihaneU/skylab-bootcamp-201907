@@ -1,9 +1,9 @@
-const { models: { Advertisement } } = require('generisad-data')
+const { models: { Advertisement, User } } = require('generisad-data')
 const { validate } = require('generisad-utils')
 
 /**
  * 
- * @param {String} img
+ * @param {String} image
  * @param {String} title 
  * @param {String} description 
  * @param {String} location 
@@ -11,9 +11,9 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
-module.exports = function(img, title, description, price, location, date ) {
+module.exports = function(image, title, description, price, location, date , userId) {
 
-    validate.string(img, 'img')
+    validate.string(image, 'image')
     validate.string(title, 'title')
     validate.string(description, 'description') 
     validate.string(price, 'price') 
@@ -22,6 +22,10 @@ module.exports = function(img, title, description, price, location, date ) {
     
 
     return (async () => {
-       await Advertisement.create({img, title, description, price, location, date})
+        const user = await User.findById(userId)
+        if(!user) throw Error
+       const ad = await Advertisement.create({image, title, description, price, location, date , userId})
+    
+       return ad.id
     })()    
 }
