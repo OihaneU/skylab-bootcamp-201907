@@ -3,10 +3,8 @@ const { validate } = require('generisad-utils')
 
 /**
  * 
- * @param {String} img
- * @param {String} product 
- * @param {String} description 
- * @param {String} location 
+ * @param {String} adId
+ *
  * 
  * @returns {Promise}
  */

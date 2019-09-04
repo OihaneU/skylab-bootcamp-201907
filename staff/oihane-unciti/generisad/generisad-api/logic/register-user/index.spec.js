@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const registerUser = require('.')
-const { database, models: { User } } = require('../register-ad/node_modules/generisad-data')
+const { database, models: { User } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
 

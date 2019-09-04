@@ -4,7 +4,7 @@ const { validate } = require('generisad-utils')
 /**
  * 
  * @param {String} img
- * @param {String} product 
+ * @param {String} title 
  * @param {String} description 
  * @param {String} location 
  * 

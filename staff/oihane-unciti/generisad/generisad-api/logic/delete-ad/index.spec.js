@@ -9,7 +9,6 @@ const { env: { DB_URL_TEST }} = process
 
 describe.only('logic - retrieve ad', () => {
     before(() => database.connect(DB_URL_TEST))
-    //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
 
     let img, title, description, location
 
