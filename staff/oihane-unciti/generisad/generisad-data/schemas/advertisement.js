@@ -5,6 +5,10 @@ module.exports = new Schema({
         type: String,
         required: true
     },
+    title: {
+        type: String,
+        required: true
+    },
     description: {
         type: Number,
         required: true
@@ -13,9 +17,13 @@ module.exports = new Schema({
         type: Number,
         required: true
     },
-    ubication: {
+    location: {
         type: String,
         required: true
+    },
+    date: {
+        type:Date,
+        require: true
     },
 
     owner: [{ type: ObjectId, ref: 'User' }] 
