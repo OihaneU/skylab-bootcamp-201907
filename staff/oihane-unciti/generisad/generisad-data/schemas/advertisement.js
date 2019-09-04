@@ -26,5 +26,5 @@ module.exports = new Schema({
         require: true
     },
 
-    owner: { type: ObjectId, ref: 'User' } 
+    owner: [{ type: ObjectId, ref: 'User' }]
 })
