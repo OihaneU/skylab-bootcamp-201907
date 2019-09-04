@@ -10,11 +10,11 @@ module.exports = new Schema({
         required: true
     },
     description: {
-        type: Number,
+        type: String,
         required: true
     },
     price: {
-        type: Number,
+        type: String,
         required: true
     },
     location: {
