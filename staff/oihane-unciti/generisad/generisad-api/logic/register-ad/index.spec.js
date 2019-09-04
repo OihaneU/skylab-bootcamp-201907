@@ -33,16 +33,17 @@ describe.only('logic - register ad', () => {
     })
 
     it('should succeed on correct data', async () =>{debugger
-        const idAdvertisement = await registerAd(image, title, description, price, location, date , id )
+        const idAdvertisement = await registerAd(image, title, description, price, location, date, owner )
         const result = await Advertisement.findById(idAdvertisement) 
 
             expect(result).to.exist
-           // expect(result.id).to.equal(idAdvertisement)
+            expect(result.id).to.equal(idAdvertisement)
             expect(result.image).to.equal(image)
             expect(result.title).to.equal(title)
             expect(result.description).to.equal(description)
             expect(result.price).to.equal(price)
             expect(result.location).to.equal(location)
+            expect(result.date).to.equal(date)
             expect(result.owner).to.equal(id)
     })
 
