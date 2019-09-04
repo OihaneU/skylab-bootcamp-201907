@@ -11,17 +11,17 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
-module.exports = function(img, title, description, location) {
+module.exports = function(img, title, description, price, location, date ) {
 
     validate.string(img, 'img')
     validate.string(title, 'title')
     validate.string(description, 'description') 
+    validate.string(price, 'price') 
     validate.string(location, 'location')
+    //validate
     
 
     return (async () => {
-        const product = await User.findOne({ img })
-            if (product) throw new Error(`user with e-mail ${img} already exists`)
-            else await Advertisement.create({img, title, description, location})
+       await Advertisement.create({img, title, description, price, location, date})
     })()    
 }

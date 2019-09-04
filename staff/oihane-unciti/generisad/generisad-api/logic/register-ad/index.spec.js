@@ -7,16 +7,17 @@ const { database, models: { User, Advertisement } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
 
-describe('logic - register ad', () => {
+describe.only('logic - register ad', () => {
     before(() => database.connect(DB_URL_TEST))
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
 
-    let img, title, description, location
+    let img, title, description, price, location, date
 
-    beforeEach(async () => {
+    beforeEach(async () => {debugger
         img = `img-${Math.random()}`
         title = `title-${Math.random()}`
         description = `description-${Math.random()}`
+        price = `price-${Math.random()}`
         location = `location-${Math.random()}`
 
         await Advertisement.deleteMany()
@@ -31,7 +32,7 @@ describe('logic - register ad', () => {
     })
 
     it('should succeed on correct data', async () =>{debugger
-        const result = await registerAd(img, title, description, location)
+        const result = await registerAd(img, title, description, price, location, date )
             adId = result
             expect(adId).to.exist
 
@@ -41,16 +42,8 @@ describe('logic - register ad', () => {
                 expect(ad.img).to.equal(img)
                 expect(ad.title).to.equal(title)
                 expect(ad.description).to.equal(description)
+                expect(ad.price).to.equal(price)
                 expect(ad.location).to.equal(location)
-    })
-    it('should fail if the vehicle already exists', async () => {
-        await Vehicle.create({ img, title, description, location })
-            try{
-                await registerAd(id, img, title, description, location)
-            }catch(error) {
-                    expect(error).to.exist
-                    expect(error.message).to.equal(`Vehicle already exists.`)
-            }    
     })
 
     it('should fail on empty img', () =>

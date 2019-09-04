@@ -7,7 +7,7 @@ const { database, models: { User, Advertisement } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - delete ad', () => {
+describe('logic - delete ad', () => {
     before(() => database.connect(DB_URL_TEST))
 
     let img, title, description, location
