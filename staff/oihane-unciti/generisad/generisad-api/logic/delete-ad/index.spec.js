@@ -2,12 +2,12 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const deleteUser = require('.')
+const deleteAd = require('.')
 const { database, models: { User, Advertisement } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - retrieve ad', () => {
+describe.only('logic - delete ad', () => {
     before(() => database.connect(DB_URL_TEST))
 
     let img, title, description, location
@@ -35,7 +35,7 @@ describe.only('logic - retrieve ad', () => {
 
     })
 
-    it('should succeed on correct data', async () => {
+    it('should succeed on correct data', async () => {debugger
         await deleteAd(adId , userId)
             const ad = await Advertisement.findOne({ adId })
                 expect(add).not.to.exist

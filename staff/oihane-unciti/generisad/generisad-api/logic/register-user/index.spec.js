@@ -7,7 +7,7 @@ const { database, models: { User } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - register user', () => {
+describe('logic - register user', () => {
     before(() => database.connect(DB_URL_TEST))
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
 

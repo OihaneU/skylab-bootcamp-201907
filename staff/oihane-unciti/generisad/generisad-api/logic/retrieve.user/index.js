@@ -1,5 +1,5 @@
-const { models: { User } } = require('../register-ad/node_modules/generisad-data')
-const { validate } = require('../register-ad/node_modules/generisad-utils')
+const { models: { User } } = require('generisad-data')
+const { validate } = require('generisad-utils')
 
 /**
  * 
