@@ -1,7 +1,7 @@
 const logic = require('../logic')
 
 module.exports = (req, res) => {
-    debugger
+
     const { userId,  body: { image, title, description, price, location } } = req
     try {
         logic.registerAd(image, title, description, price, location, userId )

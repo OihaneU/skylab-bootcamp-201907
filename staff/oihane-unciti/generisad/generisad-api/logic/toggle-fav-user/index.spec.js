@@ -8,7 +8,7 @@ const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
 
-describe('logic - toggle fav', () => {
+describe.only('logic - toggle fav', () => {
     before(() => database.connect(DB_URL_TEST))
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
 
@@ -56,6 +56,46 @@ describe('logic - toggle fav', () => {
         expect(result).to.exist
         expect(result.length).to.equal(0) 
     })  
+    it('should fail if the user ad does not exist', async () => { debugger
+        try{
+            await toggleFavUser(userId, "5d712e297ea98990acdc78bd")
+            const ad = await Advertisement.findById(adId)
+            expect(ad).to.be.null
+        }catch(error){
+            expect(error).to.exist
+            expect(error.message).to.equal(`advertisement with id 5d712e297ea98990acdc78bd does not exist`)
+            
+        }
+    })
+   
+
+    it("should fail on unexisting user" , async () => {
+        
+        try{debugger
+            await toggleFavUser( "5d712e2v7ea98990acdc78bd", adId )
+            const ad = await Advertisement.findById(adId)
+            expect(ad).to.be.null
+        }catch(error){
+            expect(error).to.exist
+            expect(error.message).to.equal(`user with id 5d712e2v7ea98990acdc78bd is not found `)
+        }
+            
+    })
+    it('should fail on empty user id', () => 
+        expect(() => toggleFavUser( "", adId)).to.throw('id is empty or blank')
+    )
+    
+    it('should fail on wrong user id type', () => 
+        expect(() => toggleFavUser(123, adId)).to.throw('id with value 123 is not a string')
+    )
+    
+    it('should fail on empty ad id', () => 
+        expect(() => toggleFavUser(userId, "" )).to.throw('adId is empty or blank')
+    )
+    
+    it('should fail on wrong ad id type', () => 
+        expect(() => toggleFavUser( userId, 123)).to.throw('adId with value 123 is not a string')
+    )
 
 
     

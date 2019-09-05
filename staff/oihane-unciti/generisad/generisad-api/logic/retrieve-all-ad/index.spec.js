@@ -57,6 +57,8 @@ describe('logic - retrieve all ads', () => {
                 expect(ad[1].price).to.equal(price2)
                 expect(ad[1].location).to.equal(location2)
     })
+
+    
     // it('should fail on wrong ad id', async () => {
     //     try {
     //         await retrieveAd('5d5d5530531d455f75da9fF9')

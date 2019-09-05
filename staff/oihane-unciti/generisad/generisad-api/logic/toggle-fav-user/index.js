@@ -14,18 +14,18 @@ const { validate } = require('generisad-utils')
 
 module.exports = function(userId, adId ) {
 
-    validate.string(userId, 'favorites')
+    validate.string(userId, 'id')
     validate.string(adId, 'adId')
    
 
     return (async () => {debugger
         const ad = await Advertisement.findById(adId).lean()
 
-        if (!ad) throw new Error(`ad with id ${adId} not found`)
+        if (!ad) throw new Error(`advertisement with id ${adId} does not exist`)
 
         const user = await User.findById(userId)
 
-        if (!user) throw new Error(`ad with id ${userId} not found`)
+        if (!user) throw new Error(`user with id ${userId} is not found `)
 
 
         const fav = user.favorites.indexOf(adId)

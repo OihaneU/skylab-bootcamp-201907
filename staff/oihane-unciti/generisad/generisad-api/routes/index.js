@@ -23,7 +23,7 @@ const jsonBodyParser = bodyParser.json()
 router.post('/users', jsonBodyParser, registerUser)
 router.post('/auth', jsonBodyParser, authenticateUser)
 router.get('/users', [tokenMiddleware, jsonBodyParser], retrieveUser)
-// router.get('/users/:id/ads', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
+//router.get('/users/ads', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
 // router.get('/users/:id/favorites/user', [tokenMiddleware, jsonBodyParser], retrieveUserFav)
 // router.get('/users/:id/favorites', [tokenMiddleware, jsonBodyParser], toggleUserFav)
 
@@ -34,10 +34,10 @@ router.get('/users', [tokenMiddleware, jsonBodyParser], retrieveUser)
 
 //AD
 router.post('/users/ads', [tokenMiddleware, jsonBodyParser], registerAd)
-// router.get('/ads',  jsonBodyParser, retrieveAllAd)
+router.get('/ads',  jsonBodyParser, retrieveAllAd)
 // router.get('/ads/q',  jsonBodyParser, searchAd)
-// router.get('/ads/:id',  jsonBodyParser, retrieveAd)
-// router.delete('/ad/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
+router.get('/ads/:id', jsonBodyParser, retrieveAd)
+//router.delete('/ads', [tokenMiddleware, jsonBodyParser], deleteAd)
 
 
 

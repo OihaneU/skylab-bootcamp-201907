@@ -58,16 +58,18 @@ describe.only('logic - delete ad', () => {
     })
    
 
-    // it("should fail on unexisting user" , async () => {
-    //     await deleteAd(adId , "1111111")
-    //     try{
-    //         const ad = await Advertisement.findById(adId)
-    //         expect(ad).to.be.null
-    //     }catch(error){
-    //         throw Error("should not reach this point")
-    //     }
+    it("should fail on unexisting user" , async () => {
+        
+        try{
+            await deleteAd(adId , "5d712e2v7ea98990acdc78bd")
+            const ad = await Advertisement.findById(adId)
+            expect(ad).to.be.null
+        }catch(error){
+            expect(error).to.exist
+            expect(error.message).to.equal(`user with id 5d712e2v7ea98990acdc78bd is not owner of advertisement with id ${adId}`)
+        }
             
-
+    })
     it('should fail on empty user id', () => 
         expect(() => deleteAd(adId , "")).to.throw('user id is empty or blank')
     )

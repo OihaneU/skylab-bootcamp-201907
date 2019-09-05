@@ -12,10 +12,11 @@ const { validate } = require('generisad-utils')
 module.exports = function(adId) {
     validate.string(adId)
 
-    return (async () => { debugger
+    return (async () => {
         const ad = await Advertisement.findById(adId)
             if (!ad) throw Error(`Advertisement with id ${adId} does not exist.`)
             else {
+                ad.id = adId
                 return ad
             }
     })()
