@@ -20,7 +20,12 @@ module.exports = function(adId, userId) {
              if(!ad) throw new Error(`advertisement with id ${adId} does not exist`)
             else{
                 if(ad.owner.toString() !== userId) throw new Error (`user with id ${userId} is not owner of advertisement with id ${adId}`)
-                else return await Advertisement.findByIdAndRemove( adId )
+                else {
+                    const res= await Advertisement.findByIdAndDelete( adId )
+                    return res
+                }
+
+                
             }
     })()
 }

@@ -8,7 +8,7 @@ const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - toggle fav', () => {
+describe('logic - toggle fav', () => {
     before(() => database.connect(DB_URL_TEST))
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
 
@@ -29,7 +29,7 @@ describe.only('logic - toggle fav', () => {
         date = new Date()
 
         await User.deleteMany()
-        const user = await User.create({ name, surname, email, password })
+        const user = await User.create({ name, surname, email, password, favorites })
         id = user.id
         await Advertisement.deleteMany()
         const ad = await Advertisement.create({ image, title, description, price, location, date })
@@ -37,15 +37,29 @@ describe.only('logic - toggle fav', () => {
     })
 
     it('should succeed on correct push', async () =>{debugger
-        const result = await toggleFavUser(favorites, adId)
+        const result = await toggleFavUser(id, adId)
             expect(result).to.exist
-            expect(user.favorites.length).to.equal(1) 
-            expect(user.favorites[0]).to.equal(favorites[0])
+            expect(result.length).to.equal(1) 
+            expect(result[0].toString()).to.equal(adId)
+
+
     })
 
-    // it('should succeed on correct delete', async () =>{debugger
-    //     const result = await registerUser(name, surname, email, password, favorites)
-    //         expect(result).not.to.exist
+
+
+    it('should succeed on correct delete', async () =>{debugger
+        const user = await User.findById(id)
+        user.favorites.push(adId)
+        await user.save()
+        
+        const result = await toggleFavUser(id, adId)
+        expect(result).to.exist
+        expect(result.length).to.equal(0) 
+    })  
+
+
+    
+     
 
     //         const user = await User.findOne({ email })
     //             expect(user).to.exist

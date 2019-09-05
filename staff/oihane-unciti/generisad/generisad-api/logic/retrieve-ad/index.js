@@ -9,13 +9,14 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
- //idowner
- module.exports = function() {
-    
-    return (async () => {
-        const ads = await Advertisement.find( {},{ __v: 0 }).sort({_id:1}).lean() 
-        if (!ads) throw Error(`there are not ads with query ${query}`)   
-        
-        return ads
+module.exports = function(adId) {
+    validate.string(adId)
+
+    return (async () => { debugger
+        const ad = await Advertisement.findById(adId)
+            if (!ad) throw Error(`Advertisement with id ${adId} does not exist.`)
+            else {
+                return ad
+            }
     })()
 }

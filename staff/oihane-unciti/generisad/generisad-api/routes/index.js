@@ -6,6 +6,9 @@ const registerUser = require('./register-user')
 const authenticateUser = require('./authenticate-user')
 const retrieveUser = require('./retrieve-user')
 
+const registerAd = require('./register-ad')
+
+
 
 const router = Router()
 
@@ -16,6 +19,10 @@ router.post('/users', jsonBodyParser, registerUser)
 router.post('/auth', jsonBodyParser, authenticateUser)
 
 router.get('/users/:id', [tokenMiddleware, jsonBodyParser], retrieveUser)
+
+router.post('/ads', jsonBodyParser, registerAd)
+
+
 
 // router.patch('/users/:id', [tokenMiddleware, jsonBodyParser], updateUser)
 

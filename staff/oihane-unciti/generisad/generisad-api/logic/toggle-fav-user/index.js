@@ -12,26 +12,30 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
-module.exports = function(favorites, adId ) {
+module.exports = function(userId, adId ) {
 
-    validate.array(favorites, 'favorites')
+    validate.string(userId, 'favorites')
     validate.string(adId, 'adId')
    
 
-    return (async () => {
+    return (async () => {debugger
         const ad = await Advertisement.findById(adId).lean()
 
         if (!ad) throw new Error(`ad with id ${adId} not found`)
 
-        
+        const user = await User.findById(userId)
 
-        const fav = User.find({'adId': { $in: favorites }})
+        if (!user) throw new Error(`ad with id ${userId} not found`)
 
-        if (!fav) user.favorites.push(adId)
+
+        const fav = user.favorites.indexOf(adId)
+
+        if (fav==-1) user.favorites.push(adId)
+        else user.favorites.pull(adId)
         //if (!fav) user.favorites.push(ObjectId("adId"))
-        user.save()
+        await user.save()
         //else favorites.pull({adId})
 
-        return favorites
+        return user.favorites
     })()
 }

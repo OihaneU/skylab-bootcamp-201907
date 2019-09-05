@@ -36,8 +36,14 @@ describe('logic - delete ad', () => {
     })
 
     it('should succeed on correct data', async () => {debugger
-        const ad = await deleteAd(adId , userId)
-                expect(ad).not.to.exist
+        await deleteAd(adId , userId)
+        try{
+            const ad = await Advertisement.findById(adId)
+            expect(ad).to.be.null
+        }catch(error){
+            throw Error("should not reach this point")
+        }
+                
     })
 
    
