@@ -7,7 +7,7 @@ const { database, models: { User, Advertisement } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - register ad', () => {
+describe('logic - register ad', () => {
     before(() => database.connect(DB_URL_TEST))
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
     let image, title, description, price, location, date
@@ -42,8 +42,9 @@ describe.only('logic - register ad', () => {
             expect(result.description).to.equal(description)
             expect(result.price).to.equal(price)
             expect(result.location).to.equal(location)
-            expect(result.date).to.equal(date)
-            expect(result.owner).to.equal(id)
+            expect(result.date).to.deep.equal(date)
+            debugger
+            expect(result.owner.toString()).to.equal(id)
     })
 
    /*  it('should fail on empty image', () =>

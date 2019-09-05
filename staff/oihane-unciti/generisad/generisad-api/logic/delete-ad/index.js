@@ -10,21 +10,17 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
-module.exports = function(adId, id) {
+module.exports = function(adId, userId) {
 
     validate.string(adId, 'Advertisement id')
-    validate.string(id, 'user id')
+    validate.string(userId, 'user id')
 
-    return (async () => {
-        const user = await User.findById(id)
-            if(!user) throw new Error (`user with id ${id} does not exist`)
+    return (async () => {debugger
+        const ad = await Advertisement.findById(adId)
+             if(!ad) throw new Error(`advertisement with id ${adId} does not exist`)
             else{
-                const ad = await Advertisement.findById(adId)
-                    if(!ad) throw new Error(`advertisement with id ${adId} does not exist`)
-                    else{
-                        if(!ad.owner.includes(id)) throw new Error (`user with id ${id} is not owner of advertisement with id ${adId}`)
-                        else return Advertisement.deleteOne({ _id : adId })
-                    }   
+                if(ad.owner.toString() !== userId) throw new Error (`user with id ${userId} is not owner of advertisement with id ${adId}`)
+                else return await Advertisement.findByIdAndRemove( adId )
             }
     })()
 }

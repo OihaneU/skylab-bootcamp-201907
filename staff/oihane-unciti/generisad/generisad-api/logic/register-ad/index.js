@@ -18,13 +18,14 @@ module.exports = function(image, title, description, price, location, date , use
     validate.string(description, 'description') 
     validate.string(price, 'price') 
     validate.string(location, 'location')
-    //validate
+    
+    validate.string(userId, "userId")
     
 
     return (async () => {
         const user = await User.findById(userId)
         if(!user) throw Error
-       const ad = await Advertisement.create({image, title, description, price, location, date , userId})
+       const ad = await Advertisement.create({image, title, description, price, location, date , owner: userId})
     
        return ad.id
     })()    
