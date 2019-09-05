@@ -51,6 +51,21 @@ describe.only('logic - retrieve ad detail', () => {
                 expect(ad.location).to.equal(location1)
 
     })
+    it('should fail on wrong vehicle id', async () => {
+        try {
+            await logic.retrieveVehicle('5d5d5530531d455f75da9fF9')
+        }catch({ message }) {
+            expect(message).to.equal('Vehicle with id 5d5d5530531d455f75da9fF9 does not exist.')
+        }
+    })
+
+    it('should fail on empty vehicle id', () => 
+        expect(() => logic.retrieveVehicle("")).to.throw('Vehicle id is empty or blank')
+    )
+    
+    it('should fail on wrong vehicle id type', () => 
+        expect(() => logic.retrieveVehicle(123)).to.throw('Vehicle id with value 123 is not a string')
+    )
    
    
     after(() => database.disconnect())

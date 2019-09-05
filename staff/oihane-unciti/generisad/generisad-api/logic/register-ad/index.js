@@ -11,7 +11,7 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
-module.exports = function(image, title, description, price, location, date , userId) {
+module.exports = function(image, title, description, price, location, userId) {
 
     validate.string(image, 'image')
     validate.string(title, 'title')
@@ -21,12 +21,13 @@ module.exports = function(image, title, description, price, location, date , use
     
     validate.string(userId, "userId")
     
-
+    const date = new Date()
     return (async () => {
         const user = await User.findById(userId)
-        if(!user) throw Error
+        if(!user) throw Error('NO HAY USUARIO')
        const ad = await Advertisement.create({image, title, description, price, location, date , owner: userId})
-    
+       // ad._id = ad.id
+       //return ad
        return ad.id
     })()    
 }
