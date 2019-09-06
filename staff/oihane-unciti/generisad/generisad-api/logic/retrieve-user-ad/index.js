@@ -10,11 +10,12 @@ const { validate } = require('generisad-utils')
  */
 
 module.exports = function(userId) {
-    validate.string(userId)
+    validate.string(userId ,"userId")
 
     return (async () => { 
+
         const ads = await Advertisement.find({owner :userId},{ __v: 0 }).lean();
-            if (!ads) throw Error(`Advertisement with id ${adId} does not exist.`)
+            if (!ads) throw Error(`User does not have an ad with ad id`)
             else {
                 return ads
             }

@@ -15,6 +15,7 @@ module.exports = function(query) {debugger
     return (async () => {
         const ads = await Advertisement.find( {"title": { "$regex": `${query}`, "$options": "i" }},{ __v: 0 }).sort({_id:1}).lean() 
         if (!ads) throw Error(`there are not ads with query ${query}`)   
+        //Return empty array in client Site
         
         return ads
     })()

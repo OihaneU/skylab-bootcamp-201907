@@ -50,7 +50,10 @@ describe('logic - retrieve user ad', () => {
 
 
     it('should succeed on correct data', async () =>{debugger
+
+        
         const ad = await retrieveUserAd(id)
+
                 expect(ad).to.exist
                 expect(ad.length).to.equal(2)
                 expect(ad[0]).to.exist
@@ -68,23 +71,26 @@ describe('logic - retrieve user ad', () => {
                 expect(ad[1].location).to.equal(location2)
     })
 
-    it('should fail if there are no id', async () =>{ 
+    it('should fail if there are not id', async () =>{ 
         try{
-        const res = await retrieveUserAd('5d65115f8f58cc540cc376ca')
-            expect(res).not.to.exist
+             await retrieveUserAd('5d7204963b3ea6a2f0c7a6a2')
         }catch(error) {
                 expect(error).to.exist
-                expect(error.message).to.equal(`Advertisement with id 5d65115f8f58cc540cc376ca does not exist.`)
+                expect(error.message).to.equal(`User does not have an ad with ad id`)
             }
     })
 
 
+
     it('should fail on wrong ad id type', () => 
-    expect(() => retrieveUserAd(123)).to.throw(`undefined with value 123 is not a string`)
+    expect(() => retrieveUserAd(123)).to.throw(`userId with value 123 is not a string`)
     )
     it('should fail on wrong ad id type', () => 
-    expect(() => retrieveUserAd(undefined)).to.throw(`undefined with value undefined is not a string`)
+    expect(() => retrieveUserAd(undefined)).to.throw(`userId with value undefined is not a string`)
 )
+    it('should fail on empty or blank', () => 
+    expect(() => retrieveUserAd("")).to.throw(`userId is empty or blank`)
+    )
    
    
     after(() => database.disconnect())

@@ -8,7 +8,7 @@ const { random } = Math
 const { env: { DB_URL_TEST }} = process
 
 
-describe('logic - search ads', () => {debugger
+describe.only('logic - search ads', () => {debugger
     before(() => database.connect(DB_URL_TEST))
 
     let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2, query 
@@ -53,6 +53,28 @@ describe('logic - search ads', () => {debugger
                 expect(ad[1].price).to.equal(price2)
                 expect(ad[1].location).to.equal(location2)
     })
+
+    it('should succeed on query not found', async () =>{
+        let wrongquery = "oihane"
+        try{
+            const ad = await searchAd(wrongquery)
+        }catch(error) {
+                expect(error).to.exist
+                expect(error.message).to.equal(`there are not ads with query ${wrongquery}`)
+            }
+
+    })
+    it('should fail on wrong ad id type', () => 
+    expect(() => searchAd(123)).to.throw(`query with value 123 is not a string`)
+    )
+    it('should fail on empty or blank', () => 
+    expect(() => searchAd("")).to.throw(`query is empty or blank`)
+    )
+    it('should fail on wrong ad id type', () => 
+    expect(() => searchAd(undefined)).to.throw(`query with value undefined is not a string`)
+)
    
+   
+
     after(() => database.disconnect())
 })
