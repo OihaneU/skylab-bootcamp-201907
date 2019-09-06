@@ -10,7 +10,7 @@ const { validate } = require('generisad-utils')
  */
 
 module.exports = function(userId) {
-    validate.string(userId)
+    validate.string(userId, "userId")
 
     return (async () => { 
 

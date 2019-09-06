@@ -7,7 +7,7 @@ const { database, models: { User, Advertisement } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - delete ad', () => {
+describe('logic - delete ad', () => {
     before(() => database.connect(DB_URL_TEST))
 
     let image, title, description, price, date, location
@@ -36,7 +36,7 @@ describe.only('logic - delete ad', () => {
     })
 
     it('should succeed on correct data', async () => { 
-        await deleteAd(adId , userId)
+        await deleteAd(userId , adId)
         try{
             const ad = await Advertisement.findById(adId)
             expect(ad).to.be.null
@@ -45,9 +45,9 @@ describe.only('logic - delete ad', () => {
         }
                 
     })
-    it('should fail if the user ad does not exist', async () => { debugger
+    it('should fail if the user ad does not exist', async () => { 
         try{
-            await deleteAd("5d712e297ea98990acdc78bd" , userId)
+            await deleteAd( userId, "5d712e297ea98990acdc78bd")
             const ad = await Advertisement.findById(adId)
             expect(ad).to.be.null
         }catch(error){
@@ -61,7 +61,7 @@ describe.only('logic - delete ad', () => {
     it("should fail on unexisting user" , async () => {
         
         try{
-            await deleteAd(adId , "5d712e2v7ea98990acdc78bd")
+            await deleteAd( "5d712e2v7ea98990acdc78bd", adId )
             const ad = await Advertisement.findById(adId)
             expect(ad).to.be.null
         }catch(error){
@@ -71,19 +71,19 @@ describe.only('logic - delete ad', () => {
             
     })
     it('should fail on empty user id', () => 
-        expect(() => deleteAd(adId , "")).to.throw('user id is empty or blank')
+        expect(() => deleteAd("", adId)).to.throw('user id is empty or blank')
     )
     
     it('should fail on wrong user id type', () => 
-        expect(() => deleteAd(adId , 123)).to.throw('user id with value 123 is not a string')
+        expect(() => deleteAd( 123, adId)).to.throw('user id with value 123 is not a string')
     )
     
     it('should fail on empty ad id', () => 
-        expect(() => deleteAd("" , userId)).to.throw('id is empty or blank')
+        expect(() => deleteAd(userId, "" )).to.throw('id is empty or blank')
     )
     
     it('should fail on wrong ad id type', () => 
-        expect(() => deleteAd(123 , userId)).to.throw('id with value 123 is not a string')
+        expect(() => deleteAd( userId, 123 )).to.throw('id with value 123 is not a string')
     )
 
    

@@ -14,7 +14,7 @@ const { validate } = require('generisad-utils')
 
 module.exports = function(userId, adId ) {
 
-    validate.string(userId, 'id')
+    validate.string(userId, 'userId')
     validate.string(adId, 'adId')
    
 

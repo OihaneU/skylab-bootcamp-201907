@@ -1,6 +1,6 @@
 require('dotenv').config()
 const { expect } = require('chai')
-const searchAdQuery = require('.')
+const searchAd = require('.')
 const { database, models: { Advertisement } } = require('generisad-data')
 const { random: { number, boolean, value } } = require('generisad-utils')
 const { random } = Math
@@ -38,7 +38,7 @@ describe('logic - search ads', () => {debugger
 
     it('should succeed on correct data', async () =>{
         query = "title"
-        const ad = await searchAdQuery(query)
+        const ad = await searchAd(query)
                 expect(ad[0]).to.exist
                 expect(ad[0].image).to.equal(image1)
                 expect(ad[0].title).to.equal(title1)

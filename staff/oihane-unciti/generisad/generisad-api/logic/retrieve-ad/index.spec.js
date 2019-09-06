@@ -9,7 +9,7 @@ const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - retrieve ad detail', () => {
+describe('logic - retrieve ad detail', () => {
     before(() => database.connect(DB_URL_TEST))
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
 

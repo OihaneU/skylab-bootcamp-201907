@@ -67,6 +67,24 @@ describe('logic - retrieve user ad', () => {
                 expect(ad[1].price).to.equal(price2)
                 expect(ad[1].location).to.equal(location2)
     })
+
+    it('should fail if there are no id', async () =>{ 
+        try{
+        const res = await retrieveUserAd('5d65115f8f58cc540cc376ca')
+            expect(res).not.to.exist
+        }catch(error) {
+                expect(error).to.exist
+                expect(error.message).to.equal(`Advertisement with id 5d65115f8f58cc540cc376ca does not exist.`)
+            }
+    })
+
+
+    it('should fail on wrong ad id type', () => 
+    expect(() => retrieveUserAd(123)).to.throw(`undefined with value 123 is not a string`)
+    )
+    it('should fail on wrong ad id type', () => 
+    expect(() => retrieveUserAd(undefined)).to.throw(`undefined with value undefined is not a string`)
+)
    
    
     after(() => database.disconnect())

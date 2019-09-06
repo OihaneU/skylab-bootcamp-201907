@@ -10,10 +10,10 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
-module.exports = function(adId, userId) {
-
-    validate.string(adId, 'Advertisement id')
+module.exports = function(userId, adId) {
     validate.string(userId, 'user id')
+    validate.string(adId, 'Advertisement id')
+    
 
     return (async () => {debugger
         const ad = await Advertisement.findById(adId)

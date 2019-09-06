@@ -2,19 +2,19 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const toggleFavUser = require('.')
+const toggleUserFav = require('.')
 const { database, models: { User, Advertisement } } = require('generisad-data')
 const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - toggle fav', () => {
+describe('logic - toggle fav', () => {
     before(() => database.connect(DB_URL_TEST))
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
 
     let name, surname, email, password, favorites, image, title, description, price, location, date
 
-    beforeEach(async () => {debugger
+    beforeEach(async () => {
         name = `name-${Math.random()}`
         surname = `surname-${Math.random()}`
         email = `email-${Math.random()}@domain.com`
@@ -36,8 +36,8 @@ describe.only('logic - toggle fav', () => {
         adId = ad.id
     })
 
-    it('should succeed on correct push', async () =>{debugger
-        const result = await toggleFavUser(id, adId)
+    it('should succeed on correct push', async () =>{
+        const result = await toggleUserFav(id, adId)
             expect(result).to.exist
             expect(result.length).to.equal(1) 
             expect(result[0].toString()).to.equal(adId)
@@ -47,18 +47,18 @@ describe.only('logic - toggle fav', () => {
 
 
 
-    it('should succeed on correct delete', async () =>{debugger
+    it('should succeed on correct delete', async () =>{
         const user = await User.findById(id)
         user.favorites.push(adId)
         await user.save()
         
-        const result = await toggleFavUser(id, adId)
+        const result = await toggleUserFav(id, adId)
         expect(result).to.exist
         expect(result.length).to.equal(0) 
     })  
-    it('should fail if the user ad does not exist', async () => { debugger
+    it('should fail if the advertisement ad does not exist', async () => { 
         try{
-            await toggleFavUser(userId, "5d712e297ea98990acdc78bd")
+            await toggleUserFav(id, "5d712e297ea98990acdc78bd")
             const ad = await Advertisement.findById(adId)
             expect(ad).to.be.null
         }catch(error){
@@ -69,32 +69,32 @@ describe.only('logic - toggle fav', () => {
     })
    
 
-    it("should fail on unexisting user" , async () => {
+    it("should fail on unexisting user" , async () => {debugger
         
         try{debugger
-            await toggleFavUser( "5d712e2v7ea98990acdc78bd", adId )
+            await toggleUserFav( "5d717e463a7bd156f0294270", adId )
             const ad = await Advertisement.findById(adId)
             expect(ad).to.be.null
         }catch(error){
             expect(error).to.exist
-            expect(error.message).to.equal(`user with id 5d712e2v7ea98990acdc78bd is not found `)
+            expect(error.message).to.equal(`user with id 5d717e463a7bd156f0294270 is not found `)
         }
             
     })
     it('should fail on empty user id', () => 
-        expect(() => toggleFavUser( "", adId)).to.throw('id is empty or blank')
+        expect(() => toggleUserFav("", adId)).to.throw("userId is empty or blank")
     )
     
     it('should fail on wrong user id type', () => 
-        expect(() => toggleFavUser(123, adId)).to.throw('id with value 123 is not a string')
+        expect(() => toggleUserFav(123, adId)).to.throw('userId with value 123 is not a string')
     )
     
     it('should fail on empty ad id', () => 
-        expect(() => toggleFavUser(userId, "" )).to.throw('adId is empty or blank')
+        expect(() => toggleUserFav(id, "" )).to.throw('adId is empty or blank')
     )
     
     it('should fail on wrong ad id type', () => 
-        expect(() => toggleFavUser( userId, 123)).to.throw('adId with value 123 is not a string')
+        expect(() => toggleUserFav( id, 123)).to.throw('adId with value 123 is not a string')
     )
 
 

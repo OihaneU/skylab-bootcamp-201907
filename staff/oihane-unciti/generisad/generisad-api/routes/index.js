@@ -6,7 +6,7 @@ const registerUser = require('./register-user')
 const authenticateUser = require('./authenticate-user')
 const retrieveUser = require('./retrieve-user')
 const retrieveUserAd = require('./retrieve-user-ad')
-const retrieveUserFav = require('./retrieve-user-fav')
+const retrieveFav = require('./retrieve-fav')
 const toggleUserFav = require('./toggle-user-fav')
 
 const registerAd = require('./register-ad')
@@ -23,11 +23,10 @@ const jsonBodyParser = bodyParser.json()
 router.post('/users', jsonBodyParser, registerUser)
 router.post('/auth', jsonBodyParser, authenticateUser)
 router.get('/users', [tokenMiddleware, jsonBodyParser], retrieveUser)
-//router.get('/users/ads', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
-// router.get('/users/:id/favorites/user', [tokenMiddleware, jsonBodyParser], retrieveUserFav)
-// router.get('/users/:id/favorites', [tokenMiddleware, jsonBodyParser], toggleUserFav)
+router.get('/ads/owner', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
 
-
+router.get('/users/favorites', [tokenMiddleware, jsonBodyParser], retrieveFav)
+router.post('/ads/:id/favorite', [tokenMiddleware, jsonBodyParser], toggleUserFav)
 
 
 
@@ -35,9 +34,9 @@ router.get('/users', [tokenMiddleware, jsonBodyParser], retrieveUser)
 //AD
 router.post('/users/ads', [tokenMiddleware, jsonBodyParser], registerAd)
 router.get('/ads',  jsonBodyParser, retrieveAllAd)
-// router.get('/ads/q',  jsonBodyParser, searchAd)
+router.get('/ads/search',  jsonBodyParser, searchAd)
 router.get('/ads/:id', jsonBodyParser, retrieveAd)
-//router.delete('/ads', [tokenMiddleware, jsonBodyParser], deleteAd)
+router.delete('/ads/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
 
 
 

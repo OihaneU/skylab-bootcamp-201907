@@ -5,10 +5,10 @@ module.exports = {
     registerAd: require('./register-ad'),
     retrieveAllAd: require('./retrieve-all-ad'),
     deleteAd: require('./delete-ad'),
-    searchAdQuery: require('./search-ad-query'), 
+    searchAd: require('./search-ad'), 
     retrieveUserAd: require('./retrieve-user-ad'),
     //retrieveAllAd: require('./retrieve-all-ad'),
-    toggleFavUser: require("./toggle-fav-user"),
+    toggleUserFav: require("./toggle-user-fav"),
     retrieveFav: require("./retrieve-fav")
 
 

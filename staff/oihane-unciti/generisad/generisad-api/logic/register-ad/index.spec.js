@@ -32,7 +32,7 @@ describe('logic - register ad', () => {
     })
 
     it('should succeed on correct data', async () =>{debugger
-        const idAdvertisement = await registerAd(image, title, description, price, location, date, id)
+        const idAdvertisement = await registerAd(image, title, description, price, location, id)
         const result = await Advertisement.findById(idAdvertisement) 
 
             expect(result).to.exist
@@ -42,83 +42,100 @@ describe('logic - register ad', () => {
             expect(result.description).to.equal(description)
             expect(result.price).to.equal(price)
             expect(result.location).to.equal(location)
-            expect(result.date).to.deep.equal(date)
-            debugger
+            //expect(result.date).to.deep.equal(date)
             expect(result.owner.toString()).to.equal(id)
     })
 
-   /*  it('should fail on empty image', () =>
+    it('should fail on empty image', () =>
         expect(() =>
-            registerAd(id, '', model, year, type, color, electric, plate)
+            registerAd('',title, description, price, location)
         ).to.throw('image is empty or blank')
     )
 
     it('should fail on undefined image', () =>
         expect(() =>
-            registerAd(id, undefined,title, description, location)
+            registerAd(undefined, title, description, price, location)
         ).to.throw(`image with value undefined is not a string`)
     )
 
     it('should fail on wrong data type', () =>
         expect(() =>
-            registerAd(id, 123, title, description, location)
+            registerAd(123, title, description, price, location)
         ).to.throw(`image with value 123 is not a string`)
     )
 
     it('should fail on empty title', () =>
         expect(() =>
-            registerAd(id, image, "", description, location)
+            registerAd( image, "", description, price, location)
         ).to.throw('title is empty or blank')
     )
 
     it('should fail on undefined title', () =>
         expect(() =>
-            registerAd(id, image, undefined, description, location)
+            registerAd(image, undefined, description, price, location)
         ).to.throw(`title with value undefined is not a string`)
     )
 
     it('should fail on wrong data type', () =>
         expect(() =>
-            registerAd(id, image, 123, description, location)
+            registerAd(image, 123, description, price, location)
         ).to.throw(`title with value 123 is not a string`)
     )
 
     it('should fail on empty description', () =>
         expect(() =>
-            registerAd(image, title, "", location)
-        ).to.throw(`year with value  is not a description`)
+            registerAd( image, title, "", price, location )
+        ).to.throw(`description is empty or blank`)
     )
 
     it('should fail on undefined description', () =>
         expect(() =>
-            registerAd(id, image, title, undefined, location)
+            registerAd( image, title, undefined, price, location)
         ).to.throw(`description with value undefined is not a string`)
     )
 
     it('should fail on wrong data type', () =>
         expect(() =>
-            registerAd(id, image, title, 123, location)
-        ).to.throw(`title with value 123 is not a string`)
+            registerAd(image, title, 123, price, location)
+        ).to.throw(`description with value 123 is not a string`)
+    )
+
+    it('should fail on empty price', () =>
+        expect(() =>
+            registerAd(image, title, description, "", location)
+        ).to.throw(`price is empty or blank`)
+    )
+
+    it('should fail on undefined price', () =>
+        expect(() =>
+            registerAd( image, title, description, undefined, location,)
+        ).to.throw(`price with value undefined is not a string`)
+    )
+
+    it('should fail on wrong data type', () =>
+        expect(() =>
+            registerAd(image, title, description, 123, location)
+        ).to.throw(`price with value 123 is not a string`)
     )
 
     it('should fail on empty location', () =>
         expect(() =>
-            registerAd(image, title, description, "")
-        ).to.throw(`year with value  is not a location`)
+            registerAd(image, title, description, price, "")
+        ).to.throw(`location is empty or blank`)
     )
 
     it('should fail on undefined location', () =>
         expect(() =>
-            registerAd(id, image, title, description, undefined)
+            registerAd( image, title, description, price, undefined)
         ).to.throw(`location with value undefined is not a string`)
     )
 
     it('should fail on wrong data type', () =>
         expect(() =>
-            registerAd(id, image, title, description, 123)
+            registerAd(image, title, description, price,  123)
     ).to.throw(`location with value 123 is not a string`)
 
-    ) */
+    )
    
     after(() => database.disconnect())
 })

@@ -51,26 +51,33 @@ describe('logic - retrieve user fav', () => {
                     await user.save()
     })
 
+    it('should fail if the user ad does not exist', async () => { 
+        try{
+            const result = await retrieveFav(id)
+                expect(result).to.exist
+                expect(result.length).to.equal(2)
+        }catch(error){
+            expect(error).to.exist
+            expect(error.message).to.equal(`advertisement with id 5d712e297ea98990acdc78bd does not exist`)
+            
+        }
+    })
+
 
     it('should succeed on correct data', async () =>{debugger
         const result = await retrieveFav(id)
                 expect(result).to.exist
                 expect(result.length).to.equal(2)
-                // expect(ad[0]).to.exist
-                // expect(ad[0].image).to.equal(image1)
-                // expect(ad[0].title).to.equal(title1)
-                // expect(ad[0].description).to.equal(description1)
-                // expect(ad[0].price).to.equal(price1)
-                // expect(ad[0].location).to.equal(location1)
-
-                // expect(ad[1]).to.exist
-                // expect(ad[1].image).to.equal(image2)
-                // expect(ad[1].title).to.equal(title2)
-                // expect(ad[1].description).to.equal(description2)
-                // expect(ad[1].price).to.equal(price2)
-                // expect(ad[1].location).to.equal(location2)
     })
-   
+
+    it('should fail on empty user id', () => 
+    expect(() => retrieveFav("")).to.throw("userId is empty or blank")
+    )
+
+    it('should fail on wrong user id type', () => 
+    expect(() => retrieveFav(123)).to.throw('userId with value 123 is not a string')
+    )
+
    
     after(() => database.disconnect())
 })
