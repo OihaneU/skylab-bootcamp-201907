@@ -1,4 +1,5 @@
 const { models: { User } } = require('generisad-data')
+const bcrypt = require('bcryptjs')
 const { validate } = require('generisad-utils')
 
  /**
@@ -16,8 +17,15 @@ module.exports = function(email, password) {
     validate.string(password, 'password')
     
     return (async () => {
-        const user = await User.findOne({ email, password })
-            if (!user) throw new Error('Wrong credentials.')
-            else return user.id
+
+        const user = await User.findOne({ email })
+
+        if(!user) throw new Error (`user with email ${email} does not exist`)
+
+        const match = await bcrypt.compare(password , user.password)
+
+        if(!match) throw new Error ('wrong credentials')
+        
+        return user.id
     })()
 }

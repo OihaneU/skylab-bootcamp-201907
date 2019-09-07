@@ -1,5 +1,6 @@
 const { models: { User } } = require('generisad-data')
 const { validate } = require('generisad-utils')
+const bcrypt = require('bcryptjs')
 
 /**
  * 
@@ -21,9 +22,16 @@ module.exports = function(name, surname, email, password, favorites) {
     validate.string(password, 'password')
     validate.array(favorites, "favorites")
 
-    return (async () => {
+    return(async ()=>{
+        debugger
         const user = await User.findOne({ email })
-            if (user) throw new Error(`user with e-mail ${email} already exists`)
-            else await User.create({name, surname, email, password, favorites})
-    })()    
+         
+        if(user) throw new Error (`user with e-mail ${email} already exists`)
+
+        const hash = await bcrypt.hash(password,10)
+        
+        await User.create({ name , surname ,  email , password : hash })
+        return { }
+     })()
+
 }

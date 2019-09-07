@@ -3,6 +3,7 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const authenticateUser = require('.')
+const bcrypt = require('bcryptjs')
 const { database, models: { User } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
@@ -19,7 +20,7 @@ describe('logic - authenticate user', () => {
         password = `password-${Math.random()}`
 
         await User.deleteMany()
-            const user = await User.create({ name, surname, email, password })
+            const user = await User.create({ name, surname, email, password : await bcrypt.hash(password,10) })
             id = user.id
     })
 
@@ -29,6 +30,8 @@ describe('logic - authenticate user', () => {
                 expect(id).to.be.a('string')
                 expect(id).to.equal(id)
     })
+
+
     it('should fail on incorrect mail', async () =>{
         email = "pepito@mail.com"
         try{
@@ -36,7 +39,7 @@ describe('logic - authenticate user', () => {
             throw new Error('should not reach this point')
         } catch(error) {
             expect(error).to.exist
-            expect(error.message).to.equal('Wrong credentials.')
+            expect(error.message).to.equal(`user with email ${email} does not exist`)
         }
     })
     it('should fail on wrong password', async () => {
@@ -46,7 +49,7 @@ describe('logic - authenticate user', () => {
             throw new Error('should not reach this point')
         }catch(error) {
             expect(error).to.exist
-            expect(error.message).to.equal('Wrong credentials.')
+            expect(error.message).to.equal('wrong credentials')
             }
         })
 

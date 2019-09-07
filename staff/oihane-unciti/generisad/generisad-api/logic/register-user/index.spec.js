@@ -4,6 +4,7 @@ require('dotenv').config()
 const { expect } = require('chai')
 const registerUser = require('.')
 const { database, models: { User } } = require('generisad-data')
+const bcrypt = require('bcryptjs')
 
 const { env: { DB_URL_TEST }} = process
 
@@ -25,14 +26,15 @@ describe('logic - register user', () => {
 
     it('should succeed on correct data', async () =>{debugger
         const result = await registerUser(name, surname, email, password, favorites)
-            expect(result).not.to.exist
+            expect(result).to.exist
 
             const user = await User.findOne({ email })
                 expect(user).to.exist
                 expect(user.name).to.equal(name)
                 expect(user.surname).to.equal(surname)
                 expect(user.email).to.equal(email)
-                expect(user.password).to.equal(password)
+                const match = await bcrypt.compare(password,user.password)
+                expect(match).to.be.true
                 expect(user.favorites.length).to.equal(0)
     })
     it('should fail if the mail already exists', async () => {
