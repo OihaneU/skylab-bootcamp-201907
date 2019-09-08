@@ -8,10 +8,10 @@ const { env: { DB_URL_TEST }} = process
 
 describe('logic - send message', () => {
     before(() => database.connect(DB_URL_TEST))
-    //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
-    let image, title, description, price, location, date, name, surname, email, password, titleMessage, body, owner
+   
+    let image, title, description, price, location, date, name, surname, email, password, titleMessage, body
 
-    beforeEach(async () => {debugger
+    beforeEach(async () => {
 
         await Mail.deleteMany()
         titleMessage =`title-${Math.random()}`
@@ -42,7 +42,7 @@ describe('logic - send message', () => {
             adId = ad.id
     })
 
-    it('should succeed on correct data', async () =>{debugger
+    it('should succeed on correct data', async () =>{
         const message = await sendMessage(idSend, adId,titleMessage, body)
             expect(message).to.exist
 

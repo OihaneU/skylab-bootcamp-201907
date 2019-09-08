@@ -23,7 +23,7 @@ const { validate } = require('generisad-utils')
     
     const date = new Date()
 
-    return (async () => { debugger
+    return (async () => {
         const user = await User.findById(userId)
             if(!user) throw Error(`userId with id ${userId} not found`)
 

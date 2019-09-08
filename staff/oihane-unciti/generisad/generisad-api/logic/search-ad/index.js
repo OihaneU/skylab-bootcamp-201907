@@ -8,7 +8,7 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
 */
 
-module.exports = function(query) {debugger
+module.exports = function(query) {
     
     validate.string(query, 'query')
 

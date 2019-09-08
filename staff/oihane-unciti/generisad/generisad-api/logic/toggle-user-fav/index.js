@@ -29,9 +29,9 @@ module.exports = function(userId, adId ) {
 
         if (fav==-1) user.favorites.push(adId)
         else user.favorites.pull(adId)
-        //if (!fav) user.favorites.push(ObjectId("adId"))
+       
         await user.save()
-        //else favorites.pull({adId})
+       
 
         return user.favorites
     })()
