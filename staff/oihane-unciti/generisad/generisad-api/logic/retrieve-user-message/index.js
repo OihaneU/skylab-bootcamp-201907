@@ -13,7 +13,7 @@ module.exports = function(userId) {
 
     validate.string(userId ,"userId")
 
-    return (async () => { debugger
+    return (async () => { 
 
         const user = await User.findById(userId)
         if (!user) throw Error(`user with id ${userId} not found`)

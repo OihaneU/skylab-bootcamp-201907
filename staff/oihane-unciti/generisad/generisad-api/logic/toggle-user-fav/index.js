@@ -3,11 +3,8 @@ const { validate } = require('generisad-utils')
 
 /**
  * 
- * @param {*} name 
- * @param {*} surname 
- * @param {*} email 
- * @param {*} password 
- * @param {*} favorites 
+ * @param {*} userId 
+ * @param {*} adId 
  * 
  * @returns {Promise}
  */
@@ -18,7 +15,7 @@ module.exports = function(userId, adId ) {
     validate.string(adId, 'adId')
    
 
-    return (async () => {debugger
+    return (async () => {
         const ad = await Advertisement.findById(adId).lean()
 
         if (!ad) throw new Error(`advertisement with id ${adId} does not exist`)

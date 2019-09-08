@@ -9,10 +9,9 @@ const { env: { DB_URL_TEST }} = process
 
 describe('logic - register ad', () => {
     before(() => database.connect(DB_URL_TEST))
-    //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
-    let image, title, description, price, location, date
+    let image, title, description, price, location
 
-    beforeEach(async () => {debugger
+    beforeEach(async () => {
         image = `image-${Math.random()}`
         title = `title-${Math.random()}`
         description = `description-${Math.random()}`
@@ -31,7 +30,7 @@ describe('logic - register ad', () => {
                 id = user.id
     })
 
-    it('should succeed on correct data', async () =>{debugger
+    it('should succeed on correct data', async () =>{
         const idAdvertisement = await registerAd(image, title, description, price, location, id)
         const result = await Advertisement.findById(idAdvertisement) 
 
@@ -42,8 +41,19 @@ describe('logic - register ad', () => {
             expect(result.description).to.equal(description)
             expect(result.price).to.equal(price)
             expect(result.location).to.equal(location)
-            expect(result.date).to.deep.equal(date)
+            //expect(result.date).to.deep.equal(date)
             expect(result.owner.toString()).to.equal(id)
+    })
+
+    it('should fail on incorrect user id', async () =>{
+        let wrongUserId = "5d74a0957005f2ab0c8d5645"
+        try{
+            await registerAd(image, title, description, price, location, wrongUserId)
+            throw new Error('should not reach this point')
+        } catch(error) {
+            expect(error).to.exist
+            expect(error.message).to.equal(`user with id 5d74a0957005f2ab0c8d5645 not found`)
+        }
     })
 
     it('should fail on empty image', () =>

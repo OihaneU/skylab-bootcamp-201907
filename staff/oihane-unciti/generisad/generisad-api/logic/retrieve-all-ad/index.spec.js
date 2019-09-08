@@ -13,7 +13,7 @@ describe('logic - retrieve all ads', () => {
     before(() => database.connect(DB_URL_TEST))
     let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2 
 
-    beforeEach(async () => { debugger
+    beforeEach(async () => { 
        
         image1 = `img-${Math.random()}`
         title1 = `TitLe-${random()}`
@@ -39,7 +39,7 @@ describe('logic - retrieve all ads', () => {
                 adId2 = ad2.id
     })
 
-    it('should succeed on correct data', async () =>{debugger
+    it('should succeed on correct data', async () =>{
         const ad = await retrieveAllAd()
                 expect(ad).to.exist
                 expect(ad.length).to.equal(2)
@@ -58,23 +58,5 @@ describe('logic - retrieve all ads', () => {
                 expect(ad[1].location).to.equal(location2)
     })
 
-    
-    // it('should fail on wrong ad id', async () => {
-    //     try {
-    //         await retrieveAd('5d5d5530531d455f75da9fF9')
-    //     }catch({ message }) {
-    //         expect(message).to.equal('Ad with id 5d5d5530531d455f75da9fF9 does not exist.')
-    //     }
-    // })
-
-    // it('should fail on empty ad id', () => 
-    //     expect(() => retrieveAd("")).to.throw('Ad id is empty or blank')
-    // )
-    
-    // it('should fail on wrong ad id type', () => 
-    //     expect(() => retrieveAd(123)).to.throw('Ad id with value 123 is not a string')
-    // )
-
-   
     after(() => database.disconnect())
 })

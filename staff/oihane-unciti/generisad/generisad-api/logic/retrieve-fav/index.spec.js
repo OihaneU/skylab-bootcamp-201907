@@ -4,18 +4,17 @@ require('dotenv').config()
 const { expect } = require('chai')
 const retrieveFav = require('.')
 const { database, models: { User, Advertisement } } = require('generisad-data')
-const { random: { number, boolean, value } } = require('generisad-utils')
 const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
 
 describe('logic - retrieve user fav', () => {
     before(() => database.connect(DB_URL_TEST))
-    //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
+    
 
     let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2 
 
-    beforeEach(async () => { debugger
+    beforeEach(async () => { 
          name = `name-${Math.random()}`
         surname = `surname-${Math.random()}`
         email = `email-${Math.random()}@domain.com`
@@ -36,7 +35,7 @@ describe('logic - retrieve user fav', () => {
         location2 = `location-${Math.random()}`
         date2 = new Date()
 
-        debugger
+        
             await User.deleteMany()
                 const user = await User.create({ name, surname, email, password })
                     id = user.id
@@ -64,7 +63,7 @@ describe('logic - retrieve user fav', () => {
     })
 
 
-    it('should succeed on correct data', async () =>{debugger
+    it('should succeed on correct data', async () =>{
         const result = await retrieveFav(id)
                 expect(result).to.exist
                 expect(result.length).to.equal(2)

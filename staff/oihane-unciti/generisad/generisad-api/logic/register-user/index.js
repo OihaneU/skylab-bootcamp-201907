@@ -23,7 +23,7 @@ module.exports = function(name, surname, email, password, favorites) {
     validate.array(favorites, "favorites")
 
     return(async ()=>{
-        debugger
+
         const user = await User.findOne({ email })
          
         if(user) throw new Error (`user with e-mail ${email} already exists`)

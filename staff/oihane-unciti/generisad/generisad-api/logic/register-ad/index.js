@@ -26,8 +26,6 @@ module.exports = function(image, title, description, price, location, userId) {
         const user = await User.findById(userId)
         if(!user) throw Error(`user with id ${userId} not found`)
        const ad = await Advertisement.create({image, title, description, price, location, date , owner: userId})
-       // ad._id = ad.id
-       //return ad
        return ad.id
     })()    
 }

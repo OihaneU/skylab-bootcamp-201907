@@ -15,7 +15,7 @@ module.exports = function(userId, adId) {
     validate.string(adId, 'Advertisement id')
     
 
-    return (async () => {debugger
+    return (async () => {
         const ad = await Advertisement.findById(adId)
              if(!ad) throw new Error(`advertisement with id ${adId} does not exist`)
             else{

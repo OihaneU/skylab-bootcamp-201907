@@ -2,13 +2,12 @@ require('dotenv').config()
 const { expect } = require('chai')
 const searchAd = require('.')
 const { database, models: { Advertisement } } = require('generisad-data')
-const { random: { number, boolean, value } } = require('generisad-utils')
 const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
 
 
-describe('logic - search ads', () => {debugger
+describe('logic - search ads', () => {
     before(() => database.connect(DB_URL_TEST))
 
     let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2, query 

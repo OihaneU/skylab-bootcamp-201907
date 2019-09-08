@@ -6,7 +6,7 @@ const { database, models: { User, Advertisement, Mail } } = require('generisad-d
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - retreive message', () => {
+describe('logic - retreive message', () => {
     before(() => database.connect(DB_URL_TEST))
 
     let  title1, body1,image, description, price, location, date, name, surname, email, password, titleAd
@@ -56,7 +56,7 @@ describe.only('logic - retreive message', () => {
             expect(message.length).to.equal(1)
     })
 
-    it('should fail if there are not id', async () =>{ debugger
+    it('should fail if there are not id', async () =>{ 
         try{
             await retrieveUserMessage('5d7204963b3ea6a2f0c7a6a2')
         }catch(error) {

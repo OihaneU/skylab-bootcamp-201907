@@ -1,15 +1,15 @@
 const { models: { Advertisement, User, Mail } } = require('generisad-data')
 const { validate } = require('generisad-utils')
 
-// /**
-//  * 
-//  * @param {String} image
-//  * @param {String} title 
-//  * @param {String} description 
-//  * @param {String} location 
-//  * 
-//  * @returns {Promise}
-//  */
+/**
+ * 
+ * @param {String} userId
+ * @param {String} adId 
+ * @param {String} title 
+ * @param {String} body 
+ * 
+ * @returns {Promise}
+ */
 
  module.exports = function(userId, adId,title, body ) {
 
@@ -23,7 +23,7 @@ const { validate } = require('generisad-utils')
     
     const date = new Date()
 
-    return (async () => { debugger
+    return (async () => { 
         const user = await User.findById(userId)
             if(!user) throw Error(`user with id ${userId} not found`)
 

@@ -11,11 +11,11 @@ const { env: { DB_URL_TEST }} = process
 
 describe('logic - retrieve ad detail', () => {
     before(() => database.connect(DB_URL_TEST))
-    //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
+    
 
     let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2 
 
-    beforeEach(async () => { debugger
+    beforeEach(async () => {
         image1 = `img-${Math.random()}`
         title1 = `TitLe-${random()}`
         description1 = `description-${Math.random()}`
@@ -41,7 +41,7 @@ describe('logic - retrieve ad detail', () => {
     })
 
 
-    it('should succeed on correct data', async () =>{debugger
+    it('should succeed on correct data', async () =>{
         const ad = await retrieveAd(adId1)
                 expect(ad).to.exist
                 expect(ad.image).to.equal(image1)
@@ -64,7 +64,7 @@ describe('logic - retrieve ad detail', () => {
 
 
     it('should fail on empty or blanck', () => 
-    expect(() => retrieveAd(" ")).to.throw(`ad is empty or blanck`)
+    expect(() => retrieveAd(" ")).to.throw(`ad id is empty or blank`)
     )
     it('should fail on wrong ad id type', () => 
     expect(() => retrieveAd(123)).to.throw(`ad id with value 123 is not a string`)
