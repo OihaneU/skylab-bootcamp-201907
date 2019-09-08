@@ -6,7 +6,7 @@ const { database, models: { User, Advertisement, Mail } } = require('generisad-d
 
 const { env: { DB_URL_TEST }} = process
 
-describe('logic - retreive message', () => {
+describe.only('logic - retreive message', () => {
     before(() => database.connect(DB_URL_TEST))
 
     let  title1, body1,image, description, price, location, date, name, surname, email, password, titleAd

@@ -18,7 +18,7 @@ module.exports = function(userId) {
         const user = await User.findById(userId)
         if (!user) throw Error(`user with id ${userId} not found`)
 
-        const mail = await Mail.find({receiver: userId})
+        const mail = await Mail.find({$or:[{receiver: userId},{sender:userId}]})
             if (!mail) throw Error(`There are not message`)
             else {
                 return mail
