@@ -7,6 +7,7 @@ const { validate } = require('generisad-utils')
  * @param {String} title 
  * @param {String} description 
  * @param {String} location 
+ * @param {String} userId 
  * 
  * @returns {Promise}
  */

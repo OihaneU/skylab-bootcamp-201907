@@ -1,15 +1,15 @@
 const { models: { User, Mail } } = require('generisad-data')
 const { validate } = require('generisad-utils')
 
-// /**
-//  * 
-//  * @param {String} image
-//  * @param {String} title 
-//  * @param {String} description 
-//  * @param {String} location 
-//  * 
-//  * @returns {Promise}
-//  */
+/**
+ * 
+ * @param {String} userId
+ * @param {String} mailId 
+ * @param {String} title 
+ * @param {String} body 
+ * 
+ * @returns {Promise}
+ */
 
  module.exports = function(userId, mailId, title, body ) {
 

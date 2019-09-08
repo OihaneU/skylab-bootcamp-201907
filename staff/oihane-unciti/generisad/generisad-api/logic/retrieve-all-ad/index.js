@@ -3,7 +3,7 @@ const { validate } = require('generisad-utils')
 
 /**
  * 
- * @param {String} adId
+ * @param 
  *
  * 
  * @returns {Promise}
