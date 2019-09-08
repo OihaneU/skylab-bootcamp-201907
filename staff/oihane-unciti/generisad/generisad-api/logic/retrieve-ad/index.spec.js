@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const retrieveAd = require('.')
-const { database, models: { User, Advertisement } } = require('generisad-data')
+const { database, models: { Advertisement } } = require('generisad-data')
 const { random: { number, boolean, value } } = require('generisad-utils')
 const { random } = Math
 
@@ -63,11 +63,14 @@ describe('logic - retrieve ad detail', () => {
     })
 
 
-    it('should fail on wrong ad id type', () => 
-    expect(() => retrieveAd(123)).to.throw(`undefined with value 123 is not a string`)
+    it('should fail on empty or blanck', () => 
+    expect(() => retrieveAd(" ")).to.throw(`ad is empty or blanck`)
     )
     it('should fail on wrong ad id type', () => 
-    expect(() => retrieveAd(undefined)).to.throw(`undefined with value undefined is not a string`)
+    expect(() => retrieveAd(123)).to.throw(`ad id with value 123 is not a string`)
+    )
+    it('should fail on wrong ad id type', () => 
+    expect(() => retrieveAd(undefined)).to.throw(`ad id with value undefined is not a string`)
 )
         
    

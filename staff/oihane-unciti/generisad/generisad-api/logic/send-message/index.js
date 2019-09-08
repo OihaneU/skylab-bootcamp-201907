@@ -1,5 +1,5 @@
-// const { models: { Advertisement, User, Conversation, Mail } } = require('generisad-data')
-// const { validate } = require('generisad-utils')
+const { models: { Advertisement, User, Mail } } = require('generisad-data')
+const { validate } = require('generisad-utils')
 
 // /**
 //  * 
@@ -11,29 +11,31 @@
 //  * @returns {Promise}
 //  */
 
-// module.exports = function(title, body, author, userId, adId ) {
+ module.exports = function(userId, adId,title, body ) {
 
-//     validate.string(title, 'title')
-//     validate.string(body, 'body')
-//     validate.string(author, 'author')
+    validate.string(userId, "userId")
+    validate.string(adId, "adId")
+    validate.string(title, 'title')
+    validate.string(body, 'body')
     
-//     validate.string(userId, "userId")
-//     validate.string(adId, "adId")
     
-//     const date = new Date()
+    
+    
+    const date = new Date()
 
-//     return (async () => {
-//         const user = await Advertisement.findById(userId)
-//         if(!user) throw Error(`ad with id ${userId} not found`)
+    return (async () => { debugger
+        const user = await User.findById(userId)
+            if(!user) throw Error(`user with id ${userId} not found`)
 
-//         const ad = await Advertisement.findById(adId)
-//         if(!ad) throw Error(`ad with id ${adId} not found`)
+        const ad = await Advertisement.findById(adId)
+            if(!ad) throw Error(`ad with id ${adId} not found`)
+            else receiverId = ad.owner
+            
 
-//        const mail = await Mail.create({date, title, body, author: userId, receiver: owner })
-//        // ad._id = ad.id
-//        //return ad
-//        return mail.id
-//     })()    
-// }
+       const mail = await Mail.create({sender: userId, receiver: receiverId, title, body, ad: adId, date })
+       
+       return mail.id
+    })()    
+}
 
 // //schema Mail add destinatario y titulo

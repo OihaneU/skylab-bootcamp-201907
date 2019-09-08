@@ -1,11 +1,11 @@
 const logic = require('../logic')
 
-module.exports = (req, res) => {
-    const { body:{query} } = req
+module.exports = (req, res) => { debugger
+    const { userId }= req
 
     try {
-        logic.searchAd(query)
-            .then(ad => res.json({ message: 'ad retrieved correctly', ad }))
+        logic.retrieveUserMessage(userId)
+            .then(mail => res.json({ message: 'mail retrieved correctly', mail }))
             .catch(({ message }) => res.status(404).json({ error: message }))
     } catch ({ message }) {
         res.status(404).json({ error: message })

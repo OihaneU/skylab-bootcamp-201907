@@ -15,6 +15,10 @@ const retrieveAd = require('./retrieve-ad')
 const deleteAd = require('./delete-ad')
 const searchAd = require('./search-ad')
 
+const sendMessage = require('./send-message')
+const responseEmail = require("./response-email")
+const retrieveUserMessage =  require("./retrieve-user-message")
+
 
 //USER
 const router = Router()
@@ -38,7 +42,10 @@ router.get('/ads/search',  jsonBodyParser, searchAd)
 router.get('/ads/:id', jsonBodyParser, retrieveAd)
 router.delete('/ads/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
 
-
+//MAIl
+router.post('/users/ads/:id/message', [tokenMiddleware, jsonBodyParser], sendMessage)
+router.post('/users/message/:id', [tokenMiddleware, jsonBodyParser], responseEmail)
+router.get('/users/message', [tokenMiddleware, jsonBodyParser], retrieveUserMessage)
 
 
 

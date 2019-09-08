@@ -2,14 +2,23 @@ module.exports = {
     registerUser: require('./register-user'),
     authenticateUser: require('./authenticate-user'),
     retrieveUser: require('./retrieve-user'),
+    retrieveUserAd: require('./retrieve-user-ad'),
+    toggleUserFav: require("./toggle-user-fav"),
+    
+
     registerAd: require('./register-ad'),
-    retrieveAllAd: require('./retrieve-all-ad'),
+    retrieveAllAd: require('./retrieve-all-ad'), 
+    retrieveAd: require('./retrieve-ad'),
     deleteAd: require('./delete-ad'),
     searchAd: require('./search-ad'), 
-    retrieveUserAd: require('./retrieve-user-ad'),
+   
+    
     //retrieveAllAd: require('./retrieve-all-ad'),
-    toggleUserFav: require("./toggle-user-fav"),
-    retrieveFav: require("./retrieve-fav")
+  
+    
+    sendMessage: require("./send-message"),
+    responseEmail: require("./response-email"),
+    retrieveUserMessage: require("./retrieve-user-message")
 
 
     // updateUser: require('./update-user'),

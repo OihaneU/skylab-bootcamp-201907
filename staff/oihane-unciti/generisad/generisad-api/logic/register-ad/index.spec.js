@@ -42,7 +42,7 @@ describe('logic - register ad', () => {
             expect(result.description).to.equal(description)
             expect(result.price).to.equal(price)
             expect(result.location).to.equal(location)
-            //expect(result.date).to.deep.equal(date)
+            expect(result.date).to.deep.equal(date)
             expect(result.owner.toString()).to.equal(id)
     })
 
