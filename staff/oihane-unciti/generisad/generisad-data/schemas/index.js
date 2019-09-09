@@ -1,6 +1,6 @@
 module.exports = {
     user: require('./user'),
     conversation: require('./conversation'),
-    product: require('./product'),
+    advertisement: require('./advertisement'),
     mail: require('./mail')
 }
