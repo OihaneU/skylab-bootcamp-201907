@@ -1,5 +1,4 @@
 
-require('dotenv').config()
 
 const validate = require('./')
 const { expect } = require('chai')
@@ -7,7 +6,7 @@ const { expect } = require('chai')
 const { env: { DB_URL_TEST }} = process
 
 describe("validate", () => {
-    before(() => database.connect(DB_URL_TEST))
+  
     
    describe("validate string", () => {
        it ("should detect that it's a string and not throw error", () => {
@@ -61,29 +60,9 @@ describe("validate", () => {
        })
        
        it ("should throw error if its not a number ", () => {
-           expect(() => { validate.number("hola", "number") }).to.throw(Error, "number with value hola is not a valid number")
+           expect(() => { validate.number("hola", "number") }).to.throw(Error, "number with value hola is not a number")
        })
    })
 
-   describe("validate array", () => {
-       it("should detect that it's an array and not throw error", () => {
-           validate.array([], "array")
-           expect(true).to.be.true
-       })
-
-       it("should throw error if its not an array", () => {
-           expect(() => {validate.array("hola", "number")}).to.throw(Error, "number with value hola is not an array")
-       })
-   })
-
-   describe("validate object", () => {
-       it("should detect that it's an array and not throw error", () => {
-           validate.object({}, "object")
-           expect(true).to.be.true
-       })
-
-       it("should throw error if its not an array", () => {
-           expect(() => {validate.array("hola", "number")}).to.throw(Error, "number with value hola is not an array")
-       })
-   })
+   
 })
