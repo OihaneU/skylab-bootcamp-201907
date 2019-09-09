@@ -11,7 +11,7 @@ const { env: { DB_URL_TEST }} = process
 describe('logic - toggle fav', () => {
     before(() => database.connect(DB_URL_TEST))
     
-    let name, surname, email, password, favorites, image, title, description, price, location, date
+    let name, surname, email, password, favorites, image, title, description, price, location, date, id
 
     beforeEach(async () => {
         name = `name-${Math.random()}`

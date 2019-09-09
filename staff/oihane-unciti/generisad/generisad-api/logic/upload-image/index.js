@@ -1,18 +1,19 @@
 require('dotenv').config()
 
+const { validate } = require('generisad-utils')
 const { models: { Advertisement } } = require('generisad-data')
 const { models: { User } } = require('generisad-data')
 
 const streamifier = require('streamifier')
 const cloudinary = require('cloudinary')
 
-const { CLOUDINARY_API_KEY, CLOUDINARY_NAME, CLOUDINARY_SECRET_KEY } = require('../config')
+const { env: { CLOUDINARY_API_KEY, CLOUDINARY_NAME, CLOUDINARY_SECRET_KEY } } = process
 
 /**
 * Update user information.
 * 
 * @param {String} adId 
-* @param {Buffer} buffer 
+* @param {Stream} image
 * 
 * @throws {TypeError} - if userId is not a string or buffer is not a buffer.
 * @throws {Error} - if any param is empty, user is not found or image could not be uploaded.
@@ -20,12 +21,14 @@ const { CLOUDINARY_API_KEY, CLOUDINARY_NAME, CLOUDINARY_SECRET_KEY } = require('
 * @returns {Object} - user.  
 */
 
-module.exports = function (adId, buffer) {
-
+module.exports = function (userId, adId, image) {
+    validate.string(userId, 'user id')
     validate.string(adId, 'ad id')
-    validate.object(buffer, 'buffer');
+    validate.object(image, 'stream');
 
     return (async () => {
+        // TODO check user existence and user vs ad
+
         const ad = await Advertisement.findById(adId)
         if (!ad) throw new Error(`user with userId ${adId} not found`)
 
@@ -33,24 +36,19 @@ module.exports = function (adId, buffer) {
             cloud_name: CLOUDINARY_NAME,
             api_key: CLOUDINARY_API_KEY,
             api_secret: CLOUDINARY_SECRET_KEY
-            })
-        
-        const image = await new Promise((resolve, reject) => {
+        })
 
-            const upload_stream = cloudinary.uploader.upload_stream((err,image) => {
+        const _image = await new Promise((resolve, reject) => {
 
-                if (err) return reject (`Image could not be uploaded: ${err}`)
+            const upload_stream = cloudinary.v2.uploader.upload_stream((err, image) => {
+                if (err) return reject(err)
 
                 resolve(image)
             })
-            streamifier.createReadStream(buffer).pipe(upload_stream)
+
+            image.pipe(upload_stream)
         })
 
-        let _ad = await User.findByIdAndUpdate(adId, { image: image.secure_url }, { new: true, runValidators: true }).select('-__v -password').lean()
-        
-        _ad.id = ad._id.toString()
-        delete _ad._id
-
-        return _ad
+        await Advertisement.findByIdAndUpdate(adId, { image: _image.secure_url }, { new: true, runValidators: true })
     })()
 }

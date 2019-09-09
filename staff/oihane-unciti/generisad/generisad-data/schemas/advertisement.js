@@ -2,8 +2,7 @@ const { Schema, SchemaTypes: { ObjectId } } = require('mongoose')
 
 module.exports = new Schema({
     image: {
-        type: String,
-        required: true
+        type: String
     },
     title: {
         type: String,
@@ -26,5 +25,9 @@ module.exports = new Schema({
         require: true
     },
 
-    owner: { type: ObjectId, ref: 'User' }
+    owner: { 
+        type: ObjectId, 
+        ref: 'User',
+        required: true
+    }
 })
