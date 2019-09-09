@@ -18,9 +18,6 @@ const { validate } = require('generisad-utils')
     validate.string(title, 'title')
     validate.string(body, 'body')
     
-    
-    
-    
     const date = new Date()
 
     return (async () => {

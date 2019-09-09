@@ -3,11 +3,7 @@ const { validate } = require('generisad-utils')
 
 /**
  * 
- * @param {*} name 
- * @param {*} surname 
- * @param {*} email 
- * @param {*} password 
- * @param {*} repassword 
+ * @param {*} id 
  * 
  * @returns {Promise}
 */
