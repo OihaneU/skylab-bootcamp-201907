@@ -5,18 +5,26 @@ module.exports = new Schema({
         type: String,
         required: true
     },
-    description: {
-        type: Number,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    ubication: {
+    title: {
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    date: {
+        type:Date,
+        require: true
+    },
 
-    owner: [{ type: ObjectId, ref: 'User' }] 
+    owner: { type: ObjectId, ref: 'User' }
 })

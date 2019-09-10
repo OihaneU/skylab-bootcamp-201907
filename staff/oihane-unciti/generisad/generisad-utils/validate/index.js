@@ -31,5 +31,8 @@ module.exports = {
 
     date(target, name) {
         if (!(target instanceof Date)) throw TypeError(`${name} with value ${target} is not a date`)
+    },
+    object(target, name) {
+        if (!(target instanceof Object && target.constructor === Object)) throw TypeError(`${name} with value ${target} is not an object`) 
     }
 }
