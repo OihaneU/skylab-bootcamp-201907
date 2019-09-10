@@ -1,11 +1,15 @@
 // const { env: { REACT_APP_API_URL } } = process
-
+//import de validate
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
 export default function (name, surname, email, password) {
-    // validate fields
+    // validate.string(name, 'name')
+    // validate.string(surname, 'surname')
+    // validate.string(email, 'email')
+    // validate.email(email, 'email')
+    // validate.string(password, 'password')
 
-    return (async () => {
+    return (async () => {debugger
         const response = await fetch(`${REACT_APP_API_URL}/users`, {
             method: 'post',
             headers: { 'content-type': 'application/json' },

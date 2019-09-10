@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import Context from '../Context'
+import logic from '../../logic'
+import { withRouter } from 'react-router-dom'
 
-export default function({ onSignUp, onClose, toLogIn, error }) {
+
+function Login({ history, onSignUp, onClose, toLogIn, error }) {
+    
+  const {  } = useContext(Context)
+  
+  function handleSubmit(event) {
+      event.preventDefault()
+      const { target: { email: { value: email }, password: { value: password } } } = event
+      handleLogin(email, password)
+  }
+
+  async function handleLogin(email, password) {
+      try {
+          const { token } = await logic.authenticateUser(email, password)
+          
+          logic.userCredentials =  token 
+          history.push('/')
+      } catch(error) {
+          console.log(error.message)
+      }
+  }
     return <>
-        <a href="" className="close" onClick={event => {
-            event.preventDefault()
-
-            onClose()
-        }}></a>
+        
         <div className="form-panel">
 
         <section class = "modal">
@@ -16,25 +35,23 @@ export default function({ onSignUp, onClose, toLogIn, error }) {
             <h2 class="register-title">Accede</h2>
           </div>
           <div class="modal__body">
-            <form action="">
-                <label for="">Email</label>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="">Email</label>
                 <input class="modal__input" type="email" name="email" id=""/>
-                <label for="">Contraseña</label>
-                <input class="modal__input" type="text" name="password" id=""/>
+                <label htmlFor="">Contraseña</label>
+                <input class="modal__input" type="password" name="password" id=""/>
 
                 <p class="modal__p">¿Todavia no tienes cuenta? <a href={`/#/register`}>Accede</a></p>
-                {/* {error && <Feedback message={error} />} */}
-                <button class= "button">Registrate</button>
+                {/* {error && <Feedback message={error} />} */}  
+                <button class= "button">Accede</button>
             </form>
+            
           </div>
         </div>
       
       </section>
-        <a href="" className="button" onClick={event => {
-            event.preventDefault()
-
-            toLogIn()
-        }}></a>
-        </div>
+  
+      </div>
     </>
 }
+export default withRouter(Login)

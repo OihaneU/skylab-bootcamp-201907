@@ -11,22 +11,26 @@ import queryString from 'query-string'
 import Detail from '../Detail'
 import Publish from '../Publish'
 
-import { withRouter, Route } from 'react-router-dom'
+
+import { withRouter, Route, Redirect } from 'react-router-dom'
+
+
+
 
 function App(props) {
-  const [query, setQuery] = useState()
+  // const { } = useContext(Context)
+  
+// function handleSearch(query) {
+//     setQuery(query)
 
-  function handleSearch(query) {
-    setQuery(query)
+//     props.history.push(`/search?q=${query}`)
+//   }
 
-    props.history.push(`/search?q=${query}`)
-  }
+//   useEffect(() => {
+//     const { q: query } = queryString.parse(props.location.search)
 
-  useEffect(() => {
-    const { q: query } = queryString.parse(props.location.search)
-
-    setQuery(query)
-  }, [])
+//     setQuery(query)
+//   }, [])
 
 
 
@@ -47,11 +51,10 @@ function App(props) {
         </a>
       </header> */}
       <Route exact path="/" render={() => <Landing/>} />
-      <Route path="/ad" render={() => <Search onSearch={handleSearch}  />} />
-      <Route path="/publish" render={() => <Publish onSearch={handleSearch}/>} />
+      {/* <Route path="/ad" render={() => <Search onSearch={handleSearch}  />} /> */}
       <Route path="/register" render={() => <Register />} />
       <Route path="/auth" render={() => <Login />} />
-
+      <Route path='/publish' render={() => <Publish/> } />
 
       {/* <Route path="/ad/search" render={() => <Results query={query} />} /> */}
       {/* <Route path="/ad/search/:id" render={props => <Detail id={props.match.params.id} />} /> */}

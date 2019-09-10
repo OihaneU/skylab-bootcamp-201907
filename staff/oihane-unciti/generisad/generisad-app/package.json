@@ -1,20 +1,20 @@
 {
-  "name": "react-router-dom-demo",
+  "name": "generisad",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "generisad-utils": "file:../../generisad-utils",
     "node-sass": "^4.12.0",
-    "query-string": "^6.8.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:inspect": "react-scripts --inspect-brk=9230 test --runInBand --no-cache"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +30,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "generisad-data": "file:../../generisad-data"
   }
 }
+

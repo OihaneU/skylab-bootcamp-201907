@@ -1,12 +1,27 @@
 import React from 'react'
+import logic from '../../logic'
+import { withRouter } from 'react-router-dom'
 
-export default function({ onSignUp, onClose, toLogIn, error }) {
+function Register({ history }) {
+
+      function handleSubmit(event) {
+        event.preventDefault()
+        const { target: { name: {value:name}, surname: {value:surname}, email: { value: email }, password: { value: password } } } = event
+       handleRegister(name, surname, email, password)
+      }
+
+      async function handleRegister(name, surname, email, password) {
+        try {
+            await logic.registerUser(name, surname, email, password)
+            debugger
+            history.push('/auth')
+        } catch(error) {
+            console.log(error.message)
+        }
+    }
+
     return <>
-        <a href="" className="close" onClick={event => {
-            event.preventDefault()
-
-            onClose()
-        }}></a>
+       
         <div className="form-panel">
 
         <section class = "modal">
@@ -16,7 +31,7 @@ export default function({ onSignUp, onClose, toLogIn, error }) {
             <h2 class="register-title">Registrate</h2>
           </div>
           <div class="modal__body">
-            <form action="">
+          <form onSubmit={handleSubmit}>
                 <label for="">Nombre</label>
                 <input class="modal__input" type="text" name="name" id=""/>
                 <label for="">Apellido</label>
@@ -32,13 +47,10 @@ export default function({ onSignUp, onClose, toLogIn, error }) {
             </form>
           </div>
         </div>
-      
-      </section>
-        <a href="" className="button" onClick={event => {
-            event.preventDefault()
 
-            toLogIn()
-        }}></a>
+      </section>
         </div>
     </>
 }
+
+export default withRouter(Register)
