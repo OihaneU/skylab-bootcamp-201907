@@ -19,6 +19,8 @@ const sendMessage = require('./send-message')
 const responseEmail = require("./response-email")
 const retrieveUserMessage =  require("./retrieve-user-message")
 
+const uploadPhoto =  require("./upload-photo")
+
 
 //USER
 const router = Router()
@@ -32,6 +34,9 @@ router.get('/ads/owner', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
 router.get('/users/favorites', [tokenMiddleware, jsonBodyParser], retrieveFav)
 router.post('/ads/:id/favorite', [tokenMiddleware, jsonBodyParser], toggleUserFav)
 
+//IMAGE
+
+router.post('/users/ads/:id/upload', [tokenMiddleware], uploadPhoto)
 
 
 

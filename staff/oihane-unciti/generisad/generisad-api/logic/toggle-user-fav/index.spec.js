@@ -31,7 +31,7 @@ describe('logic - toggle fav', () => {
         const user = await User.create({ name, surname, email, password, favorites })
         id = user.id
         await Advertisement.deleteMany()
-        const ad = await Advertisement.create({ image, title, description, price, location, date })
+        const ad = await Advertisement.create({ image, title, description, price, location, date, owner:id})
         adId = ad.id
     })
 

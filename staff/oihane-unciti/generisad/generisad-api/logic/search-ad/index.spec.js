@@ -1,7 +1,7 @@
 require('dotenv').config()
 const { expect } = require('chai')
 const searchAd = require('.')
-const { database, models: { Advertisement } } = require('generisad-data')
+const { database, models: {User, Advertisement } } = require('generisad-data')
 const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
@@ -10,9 +10,16 @@ const { env: { DB_URL_TEST }} = process
 describe('logic - search ads', () => {
     before(() => database.connect(DB_URL_TEST))
 
-    let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2, query 
+    let name, surname, email, password, image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2, query 
 
     beforeEach(async () => {
+
+        name = `name-${Math.random()}`
+        surname = `surname-${Math.random()}`
+        email = `email-${Math.random()}@domain.com`
+        password = `password-${Math.random()}`
+
+
         image1 = `img-${Math.random()}`
         title1 = `TitLe-${random()}`
         description1 = `description-${Math.random()}`
@@ -27,11 +34,14 @@ describe('logic - search ads', () => {
         location2 = `location-${Math.random()}`
         date2 = new Date()
     
-
+        await User.deleteMany()
+        const user = await User.create({ name, surname, email, password })
+            id = user.id
         await Advertisement.deleteMany()
-            const product1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1 }) 
+
+            const product1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1, owner:id }) 
             product1Id= product1.id
-            const product2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2})
+            const product2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:id})
             product2Id= product2.id
     })
 

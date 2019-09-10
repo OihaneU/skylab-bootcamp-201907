@@ -18,7 +18,10 @@ module.exports = {
     
     sendMessage: require("./send-message"),
     responseEmail: require("./response-email"),
-    retrieveUserMessage: require("./retrieve-user-message")
+    retrieveUserMessage: require("./retrieve-user-message"),
+    
+
+    uploadImage: require("./upload-image")
 
 
     // updateUser: require('./update-user'),

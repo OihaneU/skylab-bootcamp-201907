@@ -12,7 +12,7 @@ describe('logic - retrieve user fav', () => {
     before(() => database.connect(DB_URL_TEST))
     
 
-    let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2 
+    let name, surname, email, password, image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2 
 
     beforeEach(async () => { 
          name = `name-${Math.random()}`
@@ -40,34 +40,34 @@ describe('logic - retrieve user fav', () => {
                 const user = await User.create({ name, surname, email, password })
                     id = user.id
                     await Advertisement.deleteMany()
-                const ad1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1 })
+                const ad1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1, owner:id })
                     adId1 = ad1.id
 
-                const ad2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2})
+                const ad2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:id})
                     adId2 = ad2.id
                     user.favorites.push(adId1)
                     user.favorites.push(adId2)
                     await user.save()
     })
 
-    it('should fail if the user ad does not exist', async () => { 
-        try{
-            const result = await retrieveFav(id)
-                expect(result).to.exist
-                expect(result.length).to.equal(2)
-        }catch(error){
-            expect(error).to.exist
-            expect(error.message).to.equal(`advertisement with id 5d712e297ea98990acdc78bd does not exist`)
-            
-        }
-    })
-
-
     it('should succeed on correct data', async () =>{
         const result = await retrieveFav(id)
                 expect(result).to.exist
                 expect(result.length).to.equal(2)
     })
+
+    it('should fail if the user ad does not exist', async () => { 
+        try{
+             await retrieveFav("5d712e297ea98990acdc78bd")
+        }catch(error){
+            expect(error).to.exist
+            expect(error.message).to.equal(`User with id 5d712e297ea98990acdc78bd does not exist.`)
+            
+        }
+    })
+
+
+    
 
     it('should fail on empty user id', () => 
     expect(() => retrieveFav("")).to.throw("userId is empty or blank")

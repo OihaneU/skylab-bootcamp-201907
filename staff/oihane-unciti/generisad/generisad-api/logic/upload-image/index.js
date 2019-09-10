@@ -4,7 +4,6 @@ const { validate } = require('generisad-utils')
 const { models: { Advertisement } } = require('generisad-data')
 const { models: { User } } = require('generisad-data')
 
-const streamifier = require('streamifier')
 const cloudinary = require('cloudinary')
 
 const { env: { CLOUDINARY_API_KEY, CLOUDINARY_NAME, CLOUDINARY_SECRET_KEY } } = process
@@ -22,15 +21,16 @@ const { env: { CLOUDINARY_API_KEY, CLOUDINARY_NAME, CLOUDINARY_SECRET_KEY } } = 
 */
 
 module.exports = function (userId, adId, image) {
-    validate.string(userId, 'user id')
-    validate.string(adId, 'ad id')
+    validate.string(userId, 'userId')
+    validate.string(adId, 'adId')
     validate.object(image, 'stream');
 
     return (async () => {
-        // TODO check user existence and user vs ad
+        const user = await User.findById(userId)
+        if (!user) throw new Error(`user with userId ${userId} not found`)
 
         const ad = await Advertisement.findById(adId)
-        if (!ad) throw new Error(`user with userId ${adId} not found`)
+        if (!ad) throw new Error(`ad with adId ${adId} not found`)
 
         cloudinary.config({
             cloud_name: CLOUDINARY_NAME,
