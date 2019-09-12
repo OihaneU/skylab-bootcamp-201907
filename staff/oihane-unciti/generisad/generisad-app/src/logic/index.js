@@ -1,6 +1,12 @@
 import registerUser from './register-user'
 import authenticateUser from './authenticate-user'
-import searchAds from './search'
+import publish from './publish'
+import upload from "./upload"
+import search from "./search"
+import retrieveAd from "./retrieve-ad"
+
+//import translateError from './translate-error'
+
 
 //import authenticateUser from './authenticate-user'
 //import retrieveUser from './retrieve-user'
@@ -8,16 +14,26 @@ export default {
     set userCredentials(token){
         sessionStorage.token = token
     },
+
     get userCredentials(){
         return sessionStorage.token
     },
-    isUserLogged(){
+
+    isUserLoggedIn(){
         return !!this.userCredentials
+    },
+
+    logoutUser() {
+        sessionStorage.clear()
     },
     
     registerUser,
     authenticateUser,
-    searchAds
+    search,
+    retrieveAd,
+    publish,
+    upload,
+    //translateError
 }
 
 

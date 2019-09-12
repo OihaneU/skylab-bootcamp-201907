@@ -1,4 +1,4 @@
-import authenticateUser from '.'
+import logic from '..'
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
 const {random} = Math
@@ -6,7 +6,7 @@ const {random} = Math
 describe('logic-authenticate user', ()=>{
     let name, surname, email, password
     beforeEach(()=>{
-        
+        sessionStorage.clear()
         name= `name-${random()}`
         surname= `surname-${random()}`
         email= `email-${random()}@mail.com`
@@ -29,13 +29,11 @@ describe('logic-authenticate user', ()=>{
 })
     it('should succeed on correct data', async () => {
         
-        const user = await authenticateUser(email, password)
-        debugger
-        expect(user).toBeDefined()
-        const id = user.id
-        const token = user.token
-        expect(id).toBeDefined()
-        expect(token).toBeDefined()
+         const resp = await logic.authenticateUser(email, password)
+       
+        expect(resp).toBeUndefined()
+
+        expect(logic.userCredentials).toBeDefined()
     })
     // it('should fail on incorrect data', async ()=>{
     //     let password = "fail"

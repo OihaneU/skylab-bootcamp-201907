@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "generisad-utils": "file:../../generisad-utils",
+    "generisad-utils": "file:../generisad-utils",
     "node-sass": "^4.12.0",
+    "query-string": "^6.8.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1"
   },
   "scripts": {
@@ -33,7 +35,6 @@
   },
   "devDependencies": {
     "jsonwebtoken": "^8.5.1",
-    "generisad-data": "file:../../generisad-data"
+    "generisad-data": "file:../generisad-data"
   }
 }
-

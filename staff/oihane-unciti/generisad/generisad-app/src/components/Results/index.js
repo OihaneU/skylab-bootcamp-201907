@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import logic from '../../logic/result'
+import logic from '../../logic'
 
 export default function ({ query }) {
     const [ads, setAds] = useState()
 
     useEffect(() => {
         (async () => {
-            const ads = await logic.searchAds(query)
+            const ads = await logic.search(query)
 
             setAds(ads)
         })()

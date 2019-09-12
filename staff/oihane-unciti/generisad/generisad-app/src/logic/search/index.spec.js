@@ -1,8 +1,8 @@
 import retrieveUser from '.'
-// import { database, models } from 'generisad-data'
+import { database, models } from 'generisad-data'
 import jwt from 'jsonwebtoken'
 
-const { User } = models
+const { User, Advertisement } = models
 
 // const { env: { DB_URL_TEST }} = process // WARN this destructuring doesn't work in react-app :(
 const REACT_APP_DB_URL_TEST = process.env.REACT_APP_DB_URL_TEST
@@ -48,8 +48,8 @@ describe('logic - retrieve user', () => {
     })
     it('should succeed on correct data', async () =>{
         query = "title"
-        const ad = await searchAd(query)
-                expect(ad[0]).query = "title"
+        const result = await searchAd(query)
+                expect(result[0]).query = "title"
         const ad = await searchAd(query)
                 expect(ad[0]).toBeDefined()
                 expect(ad[0].image).toBe(image1)

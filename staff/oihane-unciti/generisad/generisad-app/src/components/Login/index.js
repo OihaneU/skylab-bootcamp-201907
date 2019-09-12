@@ -1,12 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Context from '../Context'
+import { Link , withRouter } from 'react-router-dom'
 import logic from '../../logic'
-import { withRouter } from 'react-router-dom'
+//import Feedback from '../Feedback'
 
 
-function Login({ history, onSignUp, onClose, toLogIn, error }) {
+function Login({ history }) {debugger
     
-  const {  } = useContext(Context)
+  const { } = useContext(Context)
+  const  [error, setError]  = useState()
   
   function handleSubmit(event) {
       event.preventDefault()
@@ -16,12 +18,14 @@ function Login({ history, onSignUp, onClose, toLogIn, error }) {
 
   async function handleLogin(email, password) {
       try {
-          const { token } = await logic.authenticateUser(email, password)
+          await logic.authenticateUser(email, password)
           
-          logic.userCredentials =  token 
+          
           history.push('/')
       } catch(error) {
-          console.log(error.message)
+        console.log(error.message)
+        //let translatedMessage = logic.translateError(message , email)
+        //setError(message)
       }
   }
     return <>
@@ -42,7 +46,7 @@ function Login({ history, onSignUp, onClose, toLogIn, error }) {
                 <input class="modal__input" type="password" name="password" id=""/>
 
                 <p class="modal__p">¿Todavia no tienes cuenta? <a href={`/#/register`}>Accede</a></p>
-                {/* {error && <Feedback message={error} />} */}  
+                {/* {error && <Feedback message={error} />} */}
                 <button class= "button">Accede</button>
             </form>
             

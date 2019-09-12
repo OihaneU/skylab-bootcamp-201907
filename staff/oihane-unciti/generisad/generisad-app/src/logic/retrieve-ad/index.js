@@ -1,12 +1,25 @@
-const { env: { REACT_APP_API_URL } } = process
-
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
 export default function (id) {
 
-        const response = await fetch(`http://localhost:8080/api/ads/${id}`)
+        return (async () => { 
+                const response = await fetch(`${REACT_APP_API_URL}/ads/${id}`, {
+                        method: 'get',
+                        headers: {}
+                })
 
-        const ad = await response.json()
+                if (response.status !== 200) {
+                        const { error } = await response.json()
+        
+                        throw Error(error)
+                }else{
+                        const ad = await response.json()
 
-        return ad
+                        return ad
+                }
+        
+        })()
+
+
+        
 }

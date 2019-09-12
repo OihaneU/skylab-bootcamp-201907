@@ -5,8 +5,8 @@ import logic from '../../logic'
 
 export default function({ }) {
 
-    function handleLogout (){
-        delete sessionStorage.clear()
+    function handleLogout ()  {
+        logic.logoutUser()
     }
 
     // const { credentials} = useContext(Context)

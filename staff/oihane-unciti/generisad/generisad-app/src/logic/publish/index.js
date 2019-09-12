@@ -1,23 +1,26 @@
+import logic from '..'
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
-export default function (image, title, description, location) {
+export default function ({name}, title, description, price, location) {
     // validate fields
-
+    const token = logic.userCredentials
+    const image = name
     return (async () => {
-        const response = await fetch(`${REACT_APP_API_URL}/auth`, {
+        const response = await fetch(`${REACT_APP_API_URL}/users/ads`, {
             method: 'post',
             headers: { 'content-type': 'application/json', authorization: `bearer ${token}` },
-            body: JSON.stringify({image, title, description, location })
+            body: JSON.stringify({image , title, description, price, location })
         })
+        debugger
+        if (response.status === 201) {
+            const { adId } = await response.json()
+            return adId
 
-        if (response.status === 200) {
-            const { token } = await response.json()
-
-            return { token }
+        } else {
+            const { error } = await response.json()
+            throw new Error(error)
         }
 
-        const { error } = await response.json()
-
-        throw Error(error)
     })()
 }
+

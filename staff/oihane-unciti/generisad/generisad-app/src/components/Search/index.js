@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function({onSearch}) {
+export default function ({onSearch}) {
     return <form onSubmit={event => {
         event.preventDefault()
 
