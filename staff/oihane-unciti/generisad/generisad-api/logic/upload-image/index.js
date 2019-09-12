@@ -25,6 +25,7 @@ module.exports = function (userId, adId, image) {
     validate.string(adId, 'adId')
     validate.object(image, 'stream');
 
+    debugger
     return (async () => {
         const user = await User.findById(userId)
         if (!user) throw new Error(`user with userId ${userId} not found`)

@@ -5,7 +5,7 @@ module.exports = (req, res) => {
     const { userId,  body: { image, title, description, price, location } } = req
     try {
         logic.registerAd(image, title, description, price, location, userId )
-            .then(() => res.status(201).json({ message: 'ad correctly registered' }))
+            .then(adId => res.status(201).json({ adId }))
             .catch(({ message }) => res.status(400).json({ error: message }))
     } catch ({ message }) {
         res.status(400).json({ error: message })
