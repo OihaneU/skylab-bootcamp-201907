@@ -2,11 +2,14 @@
 import React from 'react'
 import logic from '../../logic'
 
+import { withRouter, Route, Redirect } from 'react-router-dom'
 
-export default function({ }) {
+
+function Nav ({ history}) {
 
     function handleLogout ()  {
         logic.logoutUser()
+        history.push("/")
     }
 
     // const { credentials} = useContext(Context)
@@ -23,20 +26,23 @@ export default function({ }) {
 
                 {!token ?
                    <ul class="nav__menu">
-                        <a class= "menu-nav__list" href={`/#/ads`}><li>Busca un anuncio</li></a>
+                        <a class= "menu-nav__list" href={`/#/ad`}><li>Busca un anuncio</li></a>
                         <a class= "menu-nav__list"  href={`/#/publish`}><li>Publica tu anuncio</li></a>
                         <hr/>
-                        <a class= "menu-nav__list" href={`/#/register`}><li>Registrate</li></a>
+                        <a class= "menu-nav__list" href="/#/register"><li>Registrate</li></a>
                         <a class= "menu-nav__list" href={`/#/auth`}><li>Accede</li></a> 
                   </ul> :
                 
 
                     <ul class="nav__menu">
-                        <a class= "menu-nav__list" href={`/#/ads`}><li>Busca un anuncio</li></a>
+                        <a class= "menu-nav__list" href={`/#/ad`}><li>Busca un anuncio</li></a>
                         <a class= "menu-nav__list"  href={`/#/publish`}><li>Publica tu anuncio</li></a>
-                        <a class= "menu-nav__list"  href={`/#/publish`}><li>Ver mis anuncios</li></a>
+                        <hr/>
+                        <a class= "menu-nav__list" href={`/#/favorites`}><li>Mis favoritos</li></a>
+                        <a class= "menu-nav__list"  href={`/#/myads`}><li>Ver mis anuncios</li></a>
                         <hr/>
                         <a class= "menu-nav__list" href={`/#/message`}><li>Mensajes</li></a>
+                        
                         <a class= "menu-nav__list"  href={`/#/`} onClick={() => handleLogout()}><li>Logout</li></a> 
                   </ul>
 
@@ -49,3 +55,5 @@ export default function({ }) {
 
     </>
 }
+
+export default withRouter(Nav);

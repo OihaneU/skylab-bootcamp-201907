@@ -11,6 +11,8 @@ export default function (adId, image) {
     //headers: { 'content-type': 'multipart/form-data', authorization: `bearer ${token}` },
 
     return (async () => {
+
+        // if(image !== undefined)
         const response = await fetch(`${REACT_APP_API_URL}/users/ads/${adId}/upload`, {
             method: 'post',
             headers: { authorization: `bearer ${token}` },

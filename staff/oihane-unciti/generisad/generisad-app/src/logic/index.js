@@ -4,6 +4,20 @@ import publish from './publish'
 import upload from "./upload"
 import search from "./search"
 import retrieveAd from "./retrieve-ad"
+import retrieveMessage from "./retrieve-message"
+import detail from "./detail"
+import sendEmail from "./send-email"
+import favorite from "./favorite"
+import retrieveFavorites from "./retrieve-favorites"
+import response from "./response"
+
+import retrieveMyAds from "./retrieve-my-ads"
+import removeAd from "./delete-ad"
+
+
+
+
+
 
 //import translateError from './translate-error'
 
@@ -33,6 +47,14 @@ export default {
     retrieveAd,
     publish,
     upload,
+    retrieveMessage,
+    detail,
+    sendEmail, 
+    favorite,
+    retrieveFavorites, 
+    response,
+    retrieveMyAds,
+    removeAd
     //translateError
 }
 

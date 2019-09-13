@@ -11,6 +11,13 @@ import Results from '../Results'
 import queryString from 'query-string'
 import Detail from '../Detail'
 import Publish from '../Publish'
+import Message from '../Message'
+import Favorites from '../Favorites'
+import SendEmail from '../Send-Email'
+import Response from "../Response"
+import RetrieveAd from "../RetrieveAd"
+import Delete from "../Delete"
+
 
 
 import { withRouter, Route, Redirect } from 'react-router-dom'
@@ -22,6 +29,8 @@ function App({history}) {debugger
 
   const { } = useContext(Context)
   const [query, setQuery] = useState()
+  const [response, setresponse] = useState()
+  const [message, setMessage] = useState(  )
 
   
   // const { } = useContext(Context)
@@ -29,7 +38,7 @@ function App({history}) {debugger
     function handleSearch(query) {
         setQuery(query)
 
-        history.push(`/search?q=${query}`)
+        history.push(`/search?query=${query}`)
       }
 
       useEffect(() => {
@@ -37,6 +46,7 @@ function App({history}) {debugger
 
         setQuery(query)
       }, [])
+
 
 
 
@@ -51,6 +61,14 @@ function App({history}) {debugger
         <Route path="/register" render={() => <Register />} />
         <Route path="/auth" render={() => <Login />} />
         <Route path='/publish' render={() => <Publish/> } /> 
+        <Route path='/message' render={() => <Message /> } /> 
+        <Route path='/favorites' render={() => <Favorites/> } /> 
+        <Route path='/send/:id' render={history => <SendEmail id={history.match.params.id} /> } /> 
+        <Route path='/response/:id' render={() => <Response /> } /> 
+        <Route path='/myads' render={() => <RetrieveAd /> } /> 
+        <Route path='/delete/:id' render={() => <Delete /> } /> 
+
+
         {/* <Route path="/ad/search" render={() => <Results query={query} />} /> */}
       {/* <Route path="/ad/search/:id" render={props => <Detail id={props.match.params.id} />} /> */}
       

@@ -1,14 +1,21 @@
 import React from 'react'
-
-export default function ({onSearch}) {
-    return <form onSubmit={event => {
+import Nav from "../Nav"
+import { withRouter } from 'react-router-dom'
+function Search ({history}) {
+    return <>
+    
+    <Nav />
+    <form onSubmit={event => {
         event.preventDefault()
 
         const { target: { query: { value: query }}} = event
 
-        onSearch(query)
+        history.push(`/search?query=${query}`)
     }}>
         <input type="text" name="query" />
         <button>Search</button>
     </form>
+
+    </>
 }
+export default withRouter(Search)

@@ -5,15 +5,24 @@ export default function (query)  {
 
     return(async () => {
         debugger;
-        const response = await fetch(`${REACT_APP_API_URL}/ads/search`, {
+        const response = await fetch(`${REACT_APP_API_URL}/search?query=${query}`, {
             method: 'get',
             headers: { 'content-type': 'application/json'}, 
-            body: JSON.stringify({query})
+           
         })
+
+        if (response.status !== 200) {
+            const { error } = await response.json()
+
+            debugger
+
+            throw Error(error)
+        }
+
     
         const ads = await response.json()
     
-        return ads
+        return ads.ad
 
     })()
 }

@@ -1,21 +1,98 @@
 import React, { useState, useEffect } from 'react'
+import SendEmail from '../Send-Email'
 import logic from '../../logic'
 
-export default function ({ id }) {
+import { withRouter, Link, Route, Redirect } from 'react-router-dom'
+
+function Detail({ history, id }) {
     const [ad, setAd] = useState()
+    const [favorites, setFavorites] = useState()
+    const [error, setError] = useState()
+
+
+    function handleMessage() {
+
+        if (logic.isUserLoggedIn()) {
+
+
+            history.push('/send')
+        }
+        else {
+            history.push('/auth')
+        }
+
+    }
+
+    /*    function handleFav () {
+ 
+         if (logic.isUserLoggedIn()){
+             
+             onFavorites()
+         }
+         else{
+             history.push('/auth')
+         }
+        
+       }
+  */
+    async function handleFav() {
+        if (!logic.isUserLoggedIn()) {
+            history.push('/auth')
+        } else {
+            try {
+                await logic.favorite(id)
+                debugger
+                const favs = await logic.retrieveFavorites()
+                const fav = favs.find(favid => favid === id)
+                debugger
+                setFavorites(fav)
+                console.log("corectly add")
+            } catch (error) {
+                console.log(error.message)
+
+            }
+        }
+    }
+
+
+
+
 
     useEffect(() => {
         (async () => {
-            const ad = await logic.retrieveAd(id)
 
-            setAd(ad)
+            try {
+                const _ad = await logic.detail(id)
+                setAd(_ad)
+                const favs = await logic.retrieveFavorites()
+                const fav = favs.find(favid => favid === id)
+                debugger
+                setFavorites(fav)
+            } catch (error) {
+                setError("No esta disponible este anuncio")
+            }
         })()
     }, [])
 
+
+
     return <section>
         {ad && <>
+            <img src={ad.image}></img>
             <h2>{ad.title}</h2>
-            <span>{ad.price}</span>
+            <p>{ad.description}</p>
+            <p>{ad.price}</p>
+            <p>{ad.location}</p>
+
+            <Link to={`/send/${id}`} >Contacta</Link>
+            {favorites ?
+                <button onClick={() => handleFav(ad._id)}>Quitar</button>
+                :
+                <button onClick={() => handleFav(ad._id)}>Favorites</button>
+            }
+
         </>}
     </section>
 }
+
+export default withRouter(Detail)

@@ -23,7 +23,7 @@ function Publish ({history}) {
             const publish= await logic.publish(image,title, description, price, location)
             adId=publish
           
-
+            
             await logic.upload(adId, image)
 
             history.push("/")

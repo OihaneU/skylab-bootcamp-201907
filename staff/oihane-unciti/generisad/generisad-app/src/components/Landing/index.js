@@ -4,6 +4,7 @@ import Nav from "../Nav"
 
 
 
+
 export default function() {
     return <>
 
@@ -16,7 +17,7 @@ export default function() {
                         <div class="mosaic__text">
                             <p>Encuentra lo que necesites</p>
                         </div>
-                        <img src="http://source.unsplash.com/random/2000x1250" alt="img_00.jpg"></img>
+                        <img src="../../public/img/bistro.jpg" alt="img_00.jpg"></img>
                     </a>
                 </section>
 
@@ -25,7 +26,7 @@ export default function() {
                         <div class="mosaic__text">
                             <p>Publica tu anuncio</p>
                         </div>
-                        <img src="http://source.unsplash.com/random/2000x1250" alt="img_00.jpg"></img>
+                        <img src="../../public/img/confort.jpg" alt="img_00.jpg"></img>
                     </a>
                 </section> 
             </main>
