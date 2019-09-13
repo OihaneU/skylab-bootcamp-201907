@@ -1,8 +1,9 @@
 const logic = require('../logic')
 
 module.exports = (req, res) => {
-    const { body:{query} } = req
 
+    const { query: { query } } = req
+    
     try {
         logic.searchAd(query)
             .then(ad => res.json({ message: 'ad retrieved correctly', ad }))

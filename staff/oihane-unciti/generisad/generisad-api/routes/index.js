@@ -29,10 +29,10 @@ const jsonBodyParser = bodyParser.json()
 router.post('/users', jsonBodyParser, registerUser)
 router.post('/auth', jsonBodyParser, authenticateUser)
 router.get('/users', [tokenMiddleware, jsonBodyParser], retrieveUser)
-router.get('/ads/owner', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
+router.get('/product/owner', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
 
 router.get('/users/favorites', [tokenMiddleware, jsonBodyParser], retrieveFav)
-router.post('/ads/:id/favorite', [tokenMiddleware, jsonBodyParser], toggleUserFav)
+router.post('/users/ads/:id/favorite', [tokenMiddleware, jsonBodyParser], toggleUserFav)
 
 //IMAGE
 
@@ -43,9 +43,9 @@ router.post('/users/ads/:id/upload', [tokenMiddleware], uploadPhoto)
 //AD
 router.post('/users/ads', [tokenMiddleware, jsonBodyParser], registerAd)
 router.get('/ads',  jsonBodyParser, retrieveAllAd)
-router.get('/ads/search',  jsonBodyParser, searchAd)
-router.get('/ads/:id', jsonBodyParser, retrieveAd)
-router.delete('/ads/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
+router.get('/search',  jsonBodyParser, searchAd)
+router.get('/product/:id', jsonBodyParser, retrieveAd)
+router.delete('/product/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
 
 //MAIl
 router.post('/users/ads/:id/message', [tokenMiddleware, jsonBodyParser], sendMessage)

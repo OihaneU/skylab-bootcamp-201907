@@ -14,9 +14,11 @@ module.exports = function(userId) {
 
     return (async () => { 
 
-        const result = await User.findById(userId)
-        if (!result) throw Error(`User with id ${userId} does not exist.`)
-            return result.favorites
+        if (!(await User.findById(userId))) throw Error(`User with id ${userId} does not exist.`)
+        const res = await User.findById(userId).populate('favorites').lean()
 
+        return res
+
+    
     })()
 }

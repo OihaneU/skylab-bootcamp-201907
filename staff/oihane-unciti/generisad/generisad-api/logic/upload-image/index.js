@@ -50,6 +50,8 @@ module.exports = function (userId, adId, image) {
             image.pipe(upload_stream)
         })
 
+        console.log(_image.secure_url);
+
         await Advertisement.findByIdAndUpdate(adId, { image: _image.secure_url }, { new: true, runValidators: true })
     })()
 }

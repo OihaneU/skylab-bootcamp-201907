@@ -4,6 +4,7 @@ module.exports = {
     retrieveUser: require('./retrieve-user'),
     retrieveUserAd: require('./retrieve-user-ad'),
     toggleUserFav: require("./toggle-user-fav"),
+    retrieveFav: require("./retrieve-fav"),
     
 
     registerAd: require('./register-ad'),
