@@ -1,6 +1,6 @@
 const logic = require('../logic')
 
-module.exports = (req, res) => { debugger
+module.exports = (req, res) => { 
     const { userId }= req
 
     try {

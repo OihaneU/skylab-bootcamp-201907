@@ -11,7 +11,7 @@ describe('logic - conversation message', () => {
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
     let image, title, description, price, location, date, name, surname, email, password, titleAd, body, owner
 
-    beforeEach(async () => {debugger
+    beforeEach(async () => {
 
         await Mail.deleteMany()
         title1 =`titlemessage-${Math.random()}`
@@ -50,7 +50,7 @@ describe('logic - conversation message', () => {
 
     })
 
-    it('should succeed on correct data', async () =>{debugger
+    it('should succeed on correct data', async () =>{
         const message = await responseEmail(id, mailId, title, body)
             expect(message).to.exist
 

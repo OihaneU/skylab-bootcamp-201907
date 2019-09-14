@@ -68,7 +68,7 @@ describe('logic - toggle fav', () => {
 
     it("should fail on unexisting user" , async () => {
         
-        try{debugger
+        try{
             await toggleUserFav( "5d717e463a7bd156f0294270", adId )
             const ad = await Advertisement.findById(adId)
             expect(ad).to.be.null

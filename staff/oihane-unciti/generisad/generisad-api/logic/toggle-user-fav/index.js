@@ -32,6 +32,7 @@ module.exports = function(userId, adId ) {
        
         await user.save()
        
+        debugger;
 
         return user.favorites
     })()

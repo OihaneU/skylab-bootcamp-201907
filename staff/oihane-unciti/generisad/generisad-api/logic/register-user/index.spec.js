@@ -24,7 +24,7 @@ describe('logic - register user', () => {
         await User.deleteMany()
     })
 
-    it('should succeed on correct data', async () =>{debugger
+    it('should succeed on correct data', async () =>{
         const result = await registerUser(name, surname, email, password, favorites)
             expect(result).to.exist
 
