@@ -22,7 +22,7 @@ function Response ({ history }) {
     }
 
     async function handleResponse(title, body) {
-        debugger
+        
         try {
             await logic.response(_id, title,body)
             history.push('/message')

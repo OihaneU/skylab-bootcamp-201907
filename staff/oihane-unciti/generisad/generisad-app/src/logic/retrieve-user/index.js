@@ -13,12 +13,12 @@ export default function (token) {
             }
         })
 
-        debugger
+        
 
         if (response.status !== 200) {
             const { error } = await response.json()
 
-            debugger
+            
 
             throw Error(error)
         }

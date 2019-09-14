@@ -25,7 +25,7 @@ import { withRouter, Route, Redirect } from 'react-router-dom'
 
 
 
-function App({history}) {debugger
+function App({history}) {
 
   const { } = useContext(Context)
   const [query, setQuery] = useState()
@@ -66,7 +66,7 @@ function App({history}) {debugger
         <Route path='/send/:id' render={history => <SendEmail id={history.match.params.id} /> } /> 
         <Route path='/response/:id' render={() => <Response /> } /> 
         <Route path='/myads' render={() => <RetrieveAd /> } /> 
-        <Route path='/delete/:id' render={() => <Delete /> } /> 
+        <Route path='/delete' render={() => <Delete /> } /> 
 
 
         {/* <Route path="/ad/search" render={() => <Results query={query} />} /> */}

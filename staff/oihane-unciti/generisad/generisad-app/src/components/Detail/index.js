@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import SendEmail from '../Send-Email'
+
 import logic from '../../logic'
 
-import { withRouter, Link, Route, Redirect } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 function Detail({ history, id }) {
     const [ad, setAd] = useState()
     const [favorites, setFavorites] = useState()
     const [error, setError] = useState()
 
+    // function handleMessage() {
 
-    function handleMessage() {
-
-        if (logic.isUserLoggedIn()) {
+    //     if (logic.isUserLoggedIn()) {
 
 
-            history.push('/send')
-        }
-        else {
-            history.push('/auth')
-        }
+    //         history.push('/send')
+    //     }
+    //     else {
+    //         history.push('/auth')
+    //     }
 
-    }
+    // }
 
     /*    function handleFav () {
  
@@ -40,23 +39,24 @@ function Detail({ history, id }) {
             history.push('/auth')
         } else {
             try {
-                await logic.favorite(id)
-                debugger
+                
                 const favs = await logic.retrieveFavorites()
-                const fav = favs.find(favid => favid === id)
-                debugger
-                setFavorites(fav)
-                console.log("corectly add")
+
+                const fav = favs.favorites.find( ({ _id }) => _id === id )
+                await logic.favorite(id)
+
+                if(fav){
+                    setFavorites(null)
+                }else{
+                    setFavorites(id)
+                }
+
             } catch (error) {
                 console.log(error.message)
 
             }
         }
     }
-
-
-
-
 
     useEffect(() => {
         (async () => {
@@ -65,9 +65,14 @@ function Detail({ history, id }) {
                 const _ad = await logic.detail(id)
                 setAd(_ad)
                 const favs = await logic.retrieveFavorites()
-                const fav = favs.find(favid => favid === id)
-                debugger
-                setFavorites(fav)
+                const fav = favs.favorites.find( ({ _id }) => _id === id )
+
+                if(fav){
+                    setFavorites(fav._id)
+                }else{
+                    setFavorites(null)
+                }
+                
             } catch (error) {
                 setError("No esta disponible este anuncio")
             }

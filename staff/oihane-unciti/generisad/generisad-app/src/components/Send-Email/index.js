@@ -3,10 +3,10 @@ import logic from '../../logic'
 import { withRouter } from 'react-router-dom'
 
 function SendEmail ({history}) {
-    debugger
+    
     const _id =history.location.pathname.slice(6)
     console.log(_id)
-    debugger
+    
     //const [message, setMessage] = useState(null)
 
     function handleSubmit(event) {
@@ -16,7 +16,7 @@ function SendEmail ({history}) {
     }
 
     async function handleMessage(title, body) {
-        debugger
+        
         try {
             await logic.sendEmail(_id, title, body)
             history.push('/message')

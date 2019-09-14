@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react'
 import Context from '../Context'
 import { Link , withRouter } from 'react-router-dom'
 import logic from '../../logic'
-//import Feedback from '../Feedback'
+import Feedback from '../Feedback'
 
 
-function Login({ history }) {debugger
+function Login({ history }) {
     
   const { } = useContext(Context)
   const  [error, setError]  = useState()
@@ -20,10 +20,10 @@ function Login({ history }) {debugger
       try {
           await logic.authenticateUser(email, password)
           
-          
           history.push('/')
-      } catch(error) {
-        console.log(error.message)
+      } catch({message}) {
+          const translatedMessage = logic.translateMessage(message , email)
+            setError(translatedMessage)
         //let translatedMessage = logic.translateError(message , email)
         //setError(message)
       }
@@ -46,7 +46,7 @@ function Login({ history }) {debugger
                 <input class="modal__input" type="password" name="password" id=""/>
 
                 <p class="modal__p">¿Todavia no tienes cuenta? <a href={`/#/register`}>Accede</a></p>
-                {/* {error && <Feedback message={error} />} */}
+                {error && <Feedback message={error} />} 
                 <button class= "button">Accede</button>
             </form>
             

@@ -5,7 +5,7 @@ export default function (id, title, body) {
     // validate fields
     const token = logic.userCredentials
     
-    return (async () => { debugger
+    return (async () => { 
         const response = await fetch(`${REACT_APP_API_URL}/users/ads/${id}/message`, {
             method: 'post',
             headers: { 'content-type': 'application/json', authorization: `bearer ${token}` },

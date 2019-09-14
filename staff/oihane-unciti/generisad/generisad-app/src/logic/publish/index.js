@@ -11,7 +11,7 @@ export default function ({name}, title, description, price, location) {
             headers: { 'content-type': 'application/json', authorization: `bearer ${token}` },
             body: JSON.stringify({image , title, description, price, location })
         })
-        debugger
+        
         if (response.status === 201) {
             const { adId } = await response.json()
             return adId

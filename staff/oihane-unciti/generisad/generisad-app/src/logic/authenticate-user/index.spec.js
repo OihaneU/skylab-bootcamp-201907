@@ -19,7 +19,7 @@ describe('logic-authenticate user', ()=>{
                 body: JSON.stringify({ name, surname, email, password })
             })
             // const {email: email2, password: password2} = response
-            debugger
+            
             await fetch(`${REACT_APP_API_URL}/auth`, {
                 method: 'post', 
                 headers: {'content-type':'application/json'},

@@ -6,7 +6,7 @@ import Nav from "../Nav"
 
 function Message ({ history }) {
     const [myAds, setMyAds] = useState()
-debugger
+
 
 
 
@@ -34,7 +34,7 @@ debugger
    
   }
 
-  async function onFavorites(){debugger
+  async function onFavorites(){
     try{
          await logic.delete(id)
          console.log("corectly add")

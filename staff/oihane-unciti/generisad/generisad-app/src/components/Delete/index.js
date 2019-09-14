@@ -1,12 +1,13 @@
 import React from 'react'
+import logic from '../../logic'
 
 import { withRouter, Route, Redirect } from 'react-router-dom'
 
 
-function Delete({ history }) {debugger
+function Delete({ history }) {
     
     
-  
+    
       return <>
           
         <h1>Lo has borrado correctamente</h1>

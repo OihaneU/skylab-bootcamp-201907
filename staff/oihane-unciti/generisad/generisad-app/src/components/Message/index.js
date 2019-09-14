@@ -6,7 +6,7 @@ import Nav from "../Nav"
 
 function Message ({ history }) {
     const [mails, setMails] = useState()
-debugger
+
 
 function handleResponse () {
 

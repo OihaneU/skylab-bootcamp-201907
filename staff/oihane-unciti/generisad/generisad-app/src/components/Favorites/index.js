@@ -3,7 +3,7 @@ import logic from '../../logic'
 
 export default function ({ }) {
     const [favs, setFavs] = useState()
-    debugger
+    
     useEffect(() => {
         (async () => {
             const _favs = await logic.retrieveFavorites()

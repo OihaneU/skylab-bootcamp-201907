@@ -20,10 +20,10 @@ function Results ({ history }) {
         async function search() {
             try{
                 const { query } = queryString.parse(history.location.search)
-                debugger
+                
     
                 const _ads = await logic.search(query)
-                debugger
+                
                 setAds(_ads)
             }
             catch(error){

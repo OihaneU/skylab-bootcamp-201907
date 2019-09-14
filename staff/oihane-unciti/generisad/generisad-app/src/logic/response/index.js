@@ -6,13 +6,13 @@ export default function (id, body, title) {
     const token = logic.userCredentials
 
     return (async () => {
-        debugger
+        
         const response = await fetch(`${REACT_APP_API_URL}/users/message/${id}`, {
             method: 'post',
             headers: { 'content-type': 'application/json', authorization: `bearer ${token}` },
             body: JSON.stringify({body, title })
         })
-        debugger
+        
         if (response.status === 201) {
             const { adId } = await response.json()
             return adId

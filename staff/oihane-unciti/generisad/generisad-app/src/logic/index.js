@@ -15,11 +15,7 @@ import retrieveMyAds from "./retrieve-my-ads"
 import removeAd from "./delete-ad"
 
 
-
-
-
-
-//import translateError from './translate-error'
+import translateMessage from './translate-error'
 
 
 //import authenticateUser from './authenticate-user'
@@ -54,8 +50,8 @@ export default {
     retrieveFavorites, 
     response,
     retrieveMyAds,
-    removeAd
-    //translateError
+    removeAd,
+    translateMessage
 }
 
 

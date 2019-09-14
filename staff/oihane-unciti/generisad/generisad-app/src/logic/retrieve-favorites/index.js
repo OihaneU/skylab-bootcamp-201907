@@ -17,7 +17,7 @@ export default function () {
         
                         throw Error(error)
                 }
-                debugger   
+                   
                 const res = await response.json()
 
                 return res.ad

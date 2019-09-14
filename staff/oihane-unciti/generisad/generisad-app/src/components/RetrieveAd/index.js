@@ -6,7 +6,7 @@ import Nav from "../Nav"
 
 function RetrieveAd ({ history }) {
     const [myAds, setMyAds] = useState()
-debugger
+
 
     async function handleDelete(i) {
         if (!logic.isUserLoggedIn()) {
@@ -14,7 +14,7 @@ debugger
         } else {
             try {
                 await logic.removeAd(i)
-                debugger
+                history.push('/delete')
                 console.log("delete add")
             } catch (error) {
                 console.log(error.message)

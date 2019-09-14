@@ -1,6 +1,7 @@
 
 import React from 'react'
 import Nav from "../Nav"
+import Footer from "../Footer"
 
 
 
@@ -17,7 +18,7 @@ export default function() {
                         <div class="mosaic__text">
                             <p>Encuentra lo que necesites</p>
                         </div>
-                        <img src="../../public/img/bistro.jpg" alt="img_00.jpg"></img>
+                        <img src="../../../img/bistro.jpg" alt="img_00.jpg"></img>
                     </a>
                 </section>
 
@@ -30,6 +31,8 @@ export default function() {
                     </a>
                 </section> 
             </main>
+
+        <Footer/>
 
         
     </>

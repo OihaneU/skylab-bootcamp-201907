@@ -9,7 +9,7 @@ export default function (name, surname, email, password) {
     // validate.email(email, 'email')
     // validate.string(password, 'password')
 
-    return (async () => {debugger
+    return (async () => {
         const response = await fetch(`${REACT_APP_API_URL}/users`, {
             method: 'post',
             headers: { 'content-type': 'application/json' },

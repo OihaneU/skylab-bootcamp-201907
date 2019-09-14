@@ -13,7 +13,7 @@ function Register({ history }) {
       async function handleRegister(name, surname, email, password) {
         try {
             await logic.registerUser(name, surname, email, password)
-            debugger
+            
             history.push('/auth')
         } catch(error) {
             console.log(error.message)

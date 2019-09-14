@@ -12,9 +12,14 @@ function Search ({history}) {
 
         history.push(`/search?query=${query}`)
     }}>
-        <input type="text" name="query" />
-        <button>Search</button>
+        <section class="search">
+                <p class="wrapper"><input className ="search__input" type="text" name="query" placeholder="&#61442; Encuentra tu producto"/><button className ="search__button">🏸</button></p>
+                
+        </section>
+        
     </form>
+
+    
 
     </>
 }
