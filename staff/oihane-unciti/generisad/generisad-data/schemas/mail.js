@@ -23,7 +23,8 @@ module.exports = new Schema({
 
     read: { 
         type: Boolean,
-        default: false
+        default: false,
+        require: true
     },
     
     advertisement: { type: ObjectId, ref: 'Product' }
