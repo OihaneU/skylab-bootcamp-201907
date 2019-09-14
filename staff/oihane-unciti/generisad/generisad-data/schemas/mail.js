@@ -20,6 +20,11 @@ module.exports = new Schema({
         type: String,
         required: true
     },
+
+    read: { 
+        type: Boolean,
+        default: false
+    },
     
     advertisement: { type: ObjectId, ref: 'Product' }
 })
