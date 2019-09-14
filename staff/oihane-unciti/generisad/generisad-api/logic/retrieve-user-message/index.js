@@ -21,6 +21,7 @@ module.exports = function(userId) {
         const mail = await Mail.find({$or:[{receiver: userId},{sender:userId}]})
             if (!mail) throw Error(`There are not message`)
             else {
+                await Mail.updateMany({receiver: userId}, {$set: { "read" : "true"}} )
                 return mail
             }
     })()
