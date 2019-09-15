@@ -24,8 +24,7 @@ function Login({ history }) {
       } catch({message}) {
           const translatedMessage = logic.translateMessage(message , email)
             setError(translatedMessage)
-        //let translatedMessage = logic.translateError(message , email)
-        //setError(message)
+        
       }
   }
     return <>

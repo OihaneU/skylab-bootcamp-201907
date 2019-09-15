@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import logic from '../../logic'
 import { withRouter } from 'react-router-dom'
+import Nav from "../Nav"
+import Footer from "../Footer"
+import Feedback from '../Feedback'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 function SendEmail ({history}) {
     
     const _id =history.location.pathname.slice(6)
-    console.log(_id)
     
-    //const [message, setMessage] = useState(null)
+    const  [error, setError] = useState()
+    
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -20,48 +26,33 @@ function SendEmail ({history}) {
         try {
             await logic.sendEmail(_id, title, body)
             history.push('/message')
-        } catch(error) {
-            console.log(error.message)
+        } catch(message) {
+            const translatedMessage = logic.translateMessage(message )
+            setError(translatedMessage)
         }
     }
 
-//    { useEffect(() => {
+    return <>
 
-//         async function handleUser() {
+    <Nav/>
     
-//             try {
-//               (async () => {
-//                 const mails = await logic.retrieveMessage()
-                
-//                 setMessage(mails)
-//               })()
-         
-//             } catch (error) {
-//               setError(error)
-//             }
-//           }
-      
-        // todo funcion selfie - llame a logica - endpoint
-        //return lo seteas a usestate
-        // en render condicionas que si hay usestate pinte-
+    <section className="email">
 
-    // }),[]()}
-
-    
-    return <section>
-        <h1>Message</h1>
+        <h1 className="email__title">Mensaje</h1>
 
         <form onSubmit={handleSubmit}>
-                <label for="">Title</label>
-                <input class="modal__input" type="text" name="title" id=""/>
-                <label for="">Email</label>
-                <input class="modal__input" type="text" name="body" id=""/>
-
-                <button class= "button">Enviar</button>
+                <label for="">Titulo</label>
+                <input className="email__write" type="text" name="title" id=""/>
+                <label for="">Contenido</label>
+                <textarea className="email__write--description" type="text" name="body" id=""></textarea>
+                {error && <Feedback message={error} />}
+                <button class="email__button"><FontAwesomeIcon icon={faPaperPlane} size="50px" color="gray"/> Enviar</button>
         </form>
 
-    
     </section>
+    <Footer/>
+   
+</>
 }
 
 export default withRouter(SendEmail)

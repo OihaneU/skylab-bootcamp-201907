@@ -1,20 +1,46 @@
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import logic from '../../logic'
 
 import { withRouter, Route, Redirect } from 'react-router-dom'
 
 
 function Nav ({ history}) {
+    const [read, setRead] = useState()
 
     function handleLogout ()  {
         logic.logoutUser()
         history.push("/")
     }
 
+    function handleRead ()  {
+        logic.unreadMessage()
+        history.push("/message")
+        setRead(0)
+    }
+
+
+
     // const { credentials} = useContext(Context)
     
     const token = logic.userCredentials
+
+    useEffect(() => {
+        (async () => {
+            try{
+                const _mails = await logic.unreadMessage()
+                if(_mails){
+                    setRead(_mails.length)
+                }else{
+                    setRead(0)
+                }
+                
+            }catch(error){
+                console.log(error.message)
+            }
+         
+        })()
+    }, [])
 
     return <>
        <nav class="nav">   
@@ -41,7 +67,12 @@ function Nav ({ history}) {
                         <a class= "menu-nav__list" href={`/#/favorites`}><li>Mis favoritos</li></a>
                         <a class= "menu-nav__list"  href={`/#/myads`}><li>Ver mis anuncios</li></a>
                         <hr/>
-                        <a class= "menu-nav__list" href={`/#/message`}><li>Mensajes</li></a>
+                        {!read ?
+                            <a class= "menu-nav__list" href={`/#/message`}><li>Mensajes</li></a>
+                            :
+                            <a class= "menu-nav__list" href={`/#/message`} onClick={() => handleRead()}><li>Mensajes (Nuevos {read})</li></a>
+                        }
+                        
                         
                         <a class= "menu-nav__list"  href={`/#/`} onClick={() => handleLogout()}><li>Logout</li></a> 
                   </ul>
@@ -49,7 +80,7 @@ function Nav ({ history}) {
                 }
               
         </div>         
-        <p class="nav__branch">Marca de Web</p>
+        <img className="logo" src={require('../../img/logo.jpg')} alt="img_00.jpg"></img>
     </nav>
 
 

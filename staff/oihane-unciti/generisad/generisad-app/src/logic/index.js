@@ -7,12 +7,18 @@ import retrieveAd from "./retrieve-ad"
 import retrieveMessage from "./retrieve-message"
 import detail from "./detail"
 import sendEmail from "./send-email"
+
+import unreadMessage from "./unread-message"
 import favorite from "./favorite"
 import retrieveFavorites from "./retrieve-favorites"
 import response from "./response"
 
 import retrieveMyAds from "./retrieve-my-ads"
 import removeAd from "./delete-ad"
+import retrieveAllAd from "./retrieve-all-ad"
+
+
+
 
 
 import translateMessage from './translate-error'
@@ -26,7 +32,15 @@ export default {
     },
 
     get userCredentials(){
-        return sessionStorage.token
+        return sessionStorage.token 
+    },
+
+    set userEmail(email){
+        sessionStorage.email = email
+    },
+
+    get userEmail(){
+        return sessionStorage.email 
     },
 
     isUserLoggedIn(){
@@ -51,7 +65,9 @@ export default {
     response,
     retrieveMyAds,
     removeAd,
-    translateMessage
+    translateMessage,
+    unreadMessage, 
+    retrieveAllAd
 }
 
 

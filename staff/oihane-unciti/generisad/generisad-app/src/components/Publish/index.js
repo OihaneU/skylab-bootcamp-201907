@@ -1,10 +1,15 @@
 
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import logic from '../../logic'
 import { withRouter } from 'react-router-dom'
+import Nav from "../Nav"
+import Footer from "../Footer"
+import Feedback from '../Feedback'
+
 
 function Publish ({history}) {
     let adId
+    const  [error, setError]  = useState()
 
     function handleSubmit(event){
         event.preventDefault()
@@ -22,41 +27,39 @@ function Publish ({history}) {
         try{
             const publish= await logic.publish(image,title, description, price, location)
             adId=publish
-          
-            
             await logic.upload(adId, image)
-
             history.push("/")
 
-
-
-        }catch(error){
-            console.log(error.message)
+        }catch(message){debugger
+            console.log(message)
+            const translatedMessage = logic.translateMessage(message)
+            setError(translatedMessage)
 
         }
     }
     return  <>
-        <section class="publish__content">
+     <Nav/>
+        <section class="publish">
+            <div class="publish__content">
             <h3 class="publish__title">Publica tu anuncio</h3>
 
-                <form onSubmit={handleSubmit} method="post" enctype="multipart/form-data" > 
-                    <label htmlFor="">Image</label>
-                    <input class="modal__input"  type="file" name="image" id="" />
+                <form className="publish__form" onSubmit={handleSubmit} method="post" enctype="multipart/form-data" > 
+                    <label htmlFor="">Imagen</label>
+                    <input class="publish__input"  type="file"  name="image" id="" required />
                     <label htmlFor="">Título del anuncio</label>
-                    <input class="modal__input"  type="text" name="title" id=""/>
+                    <input class="publish__input"  type="text" name="title" id=""/>
                     <label htmlFor="">Descrición del producto</label>
-                    <input class="modal__input"type="text" name="description" id=""/>
+                    <textarea class="publish__input--description" type="text" name="description" id=""></textarea>
                     <label htmlFor="">Precio</label>
-                    <input class="modal__input"type="text" name="price" id=""/>
+                    <input class="publish__input"type="text" name="price" id=""/>
                     <label htmlFor="">Localización</label>
-                    <input class="modal__input"type="text" name="location" id=""/>
-                     {/* {error && <Feedback message={error} />} */}  
-                    <button class= "button">Subir tu anuncio</button>
-
+                    <input class="publish__input" type="text" name="location" id=""/>
+                    {error && <Feedback message={error} />} 
+                    <button class= "publish__button">Subir tu anuncio</button>
             </form>
-
+            </div>
         </section>
-        
+        <Footer/>  
     </>
 }
 

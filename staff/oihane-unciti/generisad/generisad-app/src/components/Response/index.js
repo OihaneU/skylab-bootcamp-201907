@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import logic from '../../logic'
+import Feedback from '../Feedback'
+import Nav from "../Nav"
+import Footer from "../Footer"
 
-import { withRouter, Route, Redirect } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+
+import { withRouter } from 'react-router-dom'
 
 function Response ({ history }) {
 
     const _id =history.location.pathname.slice(10)
-    console.log(_id)
     
-    const [response, setResponse] = useState()
     const  [error, setError] = useState()
-    // const state = history.location.state.item_id
-
-
-
     
     function handleSubmit(event) {
         event.preventDefault()
@@ -26,28 +26,33 @@ function Response ({ history }) {
         try {
             await logic.response(_id, title,body)
             history.push('/message')
-        } catch(error) {
-            console.log(error.message)
+        } catch(message) {
+            const translatedMessage = logic.translateMessage(message )
+            setError(translatedMessage)
         }
     }
 
-   
+    return <>
 
+    <Nav/>
     
-    return <section>
-        <h1>Message</h1>
+    <section className="email">
+
+        <h1 className="email__title">Mensaje</h1>
 
         <form onSubmit={handleSubmit}>
-                <label for="">Title</label>
-                <input class="modal__input" type="text" name="title" id=""/>
-                <label for="">Email</label>
-                <input class="modal__input" type="text" name="body" id=""/>
-
-                <button class= "button">Enviar</button>
+                <label for="">Titulo</label>
+                <input className="email__write" type="text" name="title" id=""/>
+                <label for="">Contenido</label>
+                <textarea className="email__write--description" type="text" name="body" id=""></textarea>
+                {error && <Feedback message={error} />}
+                <button class="email__button"><FontAwesomeIcon icon={faPaperPlane} size="50px" color="gray"/> Enviar</button>
         </form>
 
-    
     </section>
+    <Footer/>
+   
+</>
 }
 
 export default withRouter(Response)

@@ -4,30 +4,31 @@ import Nav from "../Nav"
 import Footer from "../Footer"
 
 
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAtom } from '@fortawesome/free-solid-svg-icons'
 
 export default function() {
     return <>
 
         <Nav/>
 
-            <main>
-
+            <main className="main">
+            
                 <section class="mosaic__tile">
                     <a href={`/#/ad`}>
                         <div class="mosaic__text">
-                            <p>Encuentra lo que necesites</p>
+                            <p><strong>Encuentra lo que necesites</strong></p>
                         </div>
-                        <img src="../../../img/bistro.jpg" alt="img_00.jpg"></img>
+                        <img className= "nav__logo" src={require('../../img/bistro.jpg')} alt="img_00.jpg"></img>
                     </a>
                 </section>
 
                 <section class="mosaic__tile">
                 <a href={`/#/publish`}>
                         <div class="mosaic__text">
-                            <p>Publica tu anuncio</p>
+                            <p><strong>Publica tu anuncio</strong></p>
                         </div>
-                        <img src="../../public/img/confort.jpg" alt="img_00.jpg"></img>
+                        <img src={require('../../img/confort.jpg')}alt="img_00.jpg"></img>
                     </a>
                 </section> 
             </main>

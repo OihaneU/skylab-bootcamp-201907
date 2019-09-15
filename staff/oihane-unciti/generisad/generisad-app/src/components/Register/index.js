@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import logic from '../../logic'
 import { withRouter } from 'react-router-dom'
+import Feedback from '../Feedback'
 
 function Register({ history }) {
+    const  [error, setError]  = useState()
 
       function handleSubmit(event) {
         event.preventDefault()
@@ -15,8 +17,9 @@ function Register({ history }) {
             await logic.registerUser(name, surname, email, password)
             
             history.push('/auth')
-        } catch(error) {
-            console.log(error.message)
+        } catch(message) {
+            const translatedMessage = logic.translateMessage(message , email)
+            setError(translatedMessage)
         }
     }
 
@@ -40,7 +43,7 @@ function Register({ history }) {
                 <input class="modal__input" type="email" name="email" id=""/>
                 <label for="">Contraseña</label>
                 <input class="modal__input" type="text" name="password" id=""/>
-                {/* {error && <Feedback message={error} />} */}
+                {error && <Feedback message={error} />} 
 
                 <p class="modal__p">¿Ya estas registrado en nuestra web? <a href={`/#/auth`}>Accede</a></p>
                 <button class= "button">Registrate</button>

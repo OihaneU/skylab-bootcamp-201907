@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
-
+import Nav from "../Nav"
+import Footer from "../Footer"
 import logic from '../../logic'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 import { withRouter, Link } from 'react-router-dom'
 
@@ -9,31 +13,7 @@ function Detail({ history, id }) {
     const [favorites, setFavorites] = useState()
     const [error, setError] = useState()
 
-    // function handleMessage() {
 
-    //     if (logic.isUserLoggedIn()) {
-
-
-    //         history.push('/send')
-    //     }
-    //     else {
-    //         history.push('/auth')
-    //     }
-
-    // }
-
-    /*    function handleFav () {
- 
-         if (logic.isUserLoggedIn()){
-             
-             onFavorites()
-         }
-         else{
-             history.push('/auth')
-         }
-        
-       }
-  */
     async function handleFav() {
         if (!logic.isUserLoggedIn()) {
             history.push('/auth')
@@ -81,23 +61,49 @@ function Detail({ history, id }) {
 
 
 
-    return <section>
-        {ad && <>
-            <img src={ad.image}></img>
-            <h2>{ad.title}</h2>
-            <p>{ad.description}</p>
-            <p>{ad.price}</p>
-            <p>{ad.location}</p>
+    return <>
 
-            <Link to={`/send/${id}`} >Contacta</Link>
-            {favorites ?
-                <button onClick={() => handleFav(ad._id)}>Quitar</button>
-                :
-                <button onClick={() => handleFav(ad._id)}>Favorites</button>
-            }
+        <Nav/>
+    
+    
+    <section className= "detail">
+        {ad && <>
+            
+             <div className= "detail__mosaic">
+                    <div className= "detail__fav" >
+                        {favorites ?
+                            <button className = "heart" onClick={() => handleFav(ad._id)}><FontAwesomeIcon icon={faHeart} size="3x" color="#ec2c2c"
+                            transform="left-1 rotate-15"/></button>
+                            :
+                            <button className = "heart" onClick={() => handleFav(ad._id)}><FontAwesomeIcon icon={faHeart} size="3x" color="gray"/></button>
+                            }
+                    </div>
+                <img  className= "detail__image" src={ad.image}></img>
+            </div>   
+           
+            <div className= "detail__text" >
+                <h2  className= "detail__price">{ad.price}</h2>
+                <h2  className= "detail__title">{ad.title}</h2>
+                
+                <hr/>
+                
+                <p  className= "detail__description">{ad.description}</p>
+                <p className= "detail__location">{ad.location}</p>
+            </div>
+           
+                <button className= "detail__button">
+                    <Link className= "detail__button--decoration" to={`/send/${id}`} ><FontAwesomeIcon icon={faPaperPlane} size="50px" color="gray"/> Contacta con el vendedor</Link>
+                </button>
+            
+
 
         </>}
     </section>
+
+    <Footer/>
+
+        
+</>
 }
 
 export default withRouter(Detail)
