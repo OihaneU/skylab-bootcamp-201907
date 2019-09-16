@@ -6,7 +6,7 @@ module.exports = (req, res) => {
     const busboy = new Busboy({ headers: req.headers })
     busboy.on('file', (fieldname, file, filename, encoding, mimetype) =>
         logic.uploadImage(userId, id, file)
-            .then(()  => res.json({ message: 'Deployment image successfully uploaded.'}))
+            .then(()  => res.json({ message: 'Image successfully uploaded.'}))
     )
     //busboy.on('finish', () => )
     req.pipe(busboy)

@@ -6,9 +6,9 @@ const routes = require('./routes')
 const cors = require('cors')
 const { database } = require('generisad-data')
 
-const { env: { PORT, DB_URL, DB_URL_TEST } } = process
+const { env: { PORT, DB_URL } } = process
 
-database.connect(DB_URL_TEST, { useNewUrlParser: true })
+database.connect(DB_URL, { useNewUrlParser: true })
     .then(() => {
         const app = express()
 
