@@ -5,11 +5,14 @@ export default function ({name}, title, description, price, location) {
     // validate fields
     const token = logic.userCredentials
     const image = name
+
+    let domain = window.location.hostname;
+
     return (async () => {
         const response = await fetch(`${REACT_APP_API_URL}/users/ads`, {
             method: 'post',
             headers: { 'content-type': 'application/json', authorization: `bearer ${token}` },
-            body: JSON.stringify({image , title, description, price, location })
+            body: JSON.stringify({image , title, description, price, location, domain })
         })
         
         if (response.status === 201) {

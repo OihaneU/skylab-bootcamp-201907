@@ -5,11 +5,13 @@ const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 export default function (email, password) {
     // validate fields
 
+    let domain = window.location.hostname;
+
     return (async () => { 
         const response = await fetch(`${REACT_APP_API_URL}/auth`, {
             method: 'post',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, domain })
         })
 
         if (response.status === 200) {

@@ -5,9 +5,10 @@ const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 export default function () {
 
         const token = logic.userCredentials
+        let domain = window.location.hostname;
 
         return (async () => { 
-                const response = await fetch(`${REACT_APP_API_URL}/users/favorites`, {
+                const response = await fetch(`${REACT_APP_API_URL}/users/favorites/${domain}`, {
                         method: 'get',
                         headers: {authorization: `bearer ${token}`}
                 })

@@ -5,12 +5,14 @@ export default function (id, body, title) {
     // validate fields
     const token = logic.userCredentials
 
+    let domain = window.location.hostname;
+
     return (async () => {
         
         const response = await fetch(`${REACT_APP_API_URL}/users/message/${id}`, {
             method: 'post',
             headers: { 'content-type': 'application/json', authorization: `bearer ${token}` },
-            body: JSON.stringify({body, title })
+            body: JSON.stringify({body, title, domain })
         })
         
         if (response.status === 201) {

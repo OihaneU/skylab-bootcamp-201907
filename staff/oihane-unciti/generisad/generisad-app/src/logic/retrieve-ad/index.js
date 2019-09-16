@@ -3,7 +3,7 @@ const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 export default function (id) {
 
         return (async () => { 
-                const response = await fetch(`${REACT_APP_API_URL}/ads/${id}`, {
+                const response = await fetch(`${REACT_APP_API_URL}/product/${id}`, {
                         method: 'get',
                         headers: {}
                 })
