@@ -18,6 +18,7 @@ const searchAd = require('./search-ad')
 const sendMessage = require('./send-message')
 const responseEmail = require("./response-email")
 const retrieveUserMessage =  require("./retrieve-user-message")
+const retrieveUserMessageRead =require("./retrieve-message-read")
 
 const uploadPhoto =  require("./upload-photo")
 
@@ -42,7 +43,7 @@ router.post('/users/ads/:id/upload', [tokenMiddleware], uploadPhoto)
 
 //AD
 router.post('/users/ads', [tokenMiddleware, jsonBodyParser], registerAd)
-router.get('/ads',  jsonBodyParser, retrieveAllAd)
+router.get('/product',  jsonBodyParser, retrieveAllAd)
 router.get('/search',  jsonBodyParser, searchAd)
 router.get('/product/:id', jsonBodyParser, retrieveAd)
 router.delete('/product/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
@@ -51,6 +52,7 @@ router.delete('/product/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
 router.post('/users/ads/:id/message', [tokenMiddleware, jsonBodyParser], sendMessage)
 router.post('/users/message/:id', [tokenMiddleware, jsonBodyParser], responseEmail)
 router.get('/users/message', [tokenMiddleware, jsonBodyParser], retrieveUserMessage)
+router.get('/users/message/read', [tokenMiddleware, jsonBodyParser], retrieveUserMessageRead)
 
 
 

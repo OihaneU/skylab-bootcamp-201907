@@ -18,14 +18,10 @@ module.exports = function(userId) {
         const user = await User.findById(userId)
         if (!user) throw Error(`user with id ${userId} not found`)
 
-
-
-        const mail = await Mail.find({$or:[{receiver: userId},{sender:userId}]}).populate("receiver sender").lean().sort({date: -1})
+        const mail = await Mail.find({$and:[{receiver: userId},{read:false}]})
             if (!mail) throw Error(`There are not message`)
             else {
-               
-                await Mail.updateMany({receiver: userId}, {$set: { "read" : "true"}} )
-                return mail
+               return mail
             }
     })()
 }
