@@ -35,12 +35,6 @@ describe('logic-authenticate user', ()=>{
 
         expect(logic.userCredentials).toBeDefined()
     })
-    // it('should fail on incorrect data', async ()=>{
-    //     let password = "fail"
-    //     try {
-    //         await authenticateUser(email, password)
-    //     } catch({message}) {
-    //      expect(message).toBe(`Wrong credentials.`)
-    //     }
-    // })
+
+   
 })

@@ -32,7 +32,7 @@ function Publish ({history}) {
 
         }catch(message){debugger
             console.log(message)
-            const translatedMessage = logic.translateMessage(message)
+            const translatedMessage = logic.translateMessage(message.message)
             setError(translatedMessage)
 
         }

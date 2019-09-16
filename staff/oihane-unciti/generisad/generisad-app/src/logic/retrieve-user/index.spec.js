@@ -1,5 +1,5 @@
 import retrieveUser from '.'
-// import { database, models } from 'generisad-data'
+import { database, models } from 'generisad-data'
 import jwt from 'jsonwebtoken'
 
 const { User } = models
@@ -8,7 +8,7 @@ const { User } = models
 const REACT_APP_DB_URL_TEST = process.env.REACT_APP_DB_URL_TEST
 const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 
-describe('logic - retrieve user', () => {
+describe.only('logic - retrieve user', () => {
     beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
 
     let name, surname, email, password, id
@@ -26,11 +26,10 @@ describe('logic - retrieve user', () => {
         id = user.id
     })
 
-    it('should succeed on correct data', async () => {
+    it('should succeed on correct data', async () => {debugger
         const token = jwt.sign({ sub: id }, REACT_APP_JWT_SECRET_TEST)
 
-        await retrieveUser(id, token)
-            .then(user => {
+        const user = await retrieveUser(id, token)
                 expect(user).toBeDefined()
                 expect(user.id).toBe(id)
                 expect(user._id).toBeUndefined()
@@ -38,7 +37,6 @@ describe('logic - retrieve user', () => {
                 expect(user.surname).toBe(surname)
                 expect(user.email).toBe(email)
                 expect(user.password).toBeUndefined()
-            })
         })
 
     afterAll(() => database.disconnect())

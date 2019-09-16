@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState} from 'react'
 import logic from '../../logic'
 import { withRouter } from 'react-router-dom'
 import Feedback from '../Feedback'
@@ -17,8 +17,8 @@ function Register({ history }) {
             await logic.registerUser(name, surname, email, password)
             
             history.push('/auth')
-        } catch(message) {
-            const translatedMessage = logic.translateMessage(message , email)
+        } catch(message) { debugger
+            const translatedMessage = logic.translateMessage(message.message, email)
             setError(translatedMessage)
         }
     }
@@ -30,8 +30,8 @@ function Register({ history }) {
         <section class = "modal">
         <div class="modal-content">
           <div class="modal__-header">
-          <span class="close"><a href={`/#/`} >&times;</a></span>
-            <h2 class="register-title">Registrate</h2>
+          <span ><a class="close"href={`/#/`} >&times;</a></span>
+            <h2 class="register-title">Regístrate</h2>
           </div>
           <div class="modal__body">
           <form onSubmit={handleSubmit}>
@@ -43,10 +43,10 @@ function Register({ history }) {
                 <input class="modal__input" type="email" name="email" id=""/>
                 <label for="">Contraseña</label>
                 <input class="modal__input" type="text" name="password" id=""/>
-                {error && <Feedback message={error} />} 
+                {error && <Feedback className ="feedback" message={error} />} 
 
                 <p class="modal__p">¿Ya estas registrado en nuestra web? <a href={`/#/auth`}>Accede</a></p>
-                <button class= "button">Registrate</button>
+                <button class= "modal__button">Regístrate</button>
             </form>
           </div>
         </div>

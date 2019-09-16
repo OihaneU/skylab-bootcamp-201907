@@ -16,6 +16,7 @@ export default function (email, password) {
             const { token } = await response.json()
 
             this.userCredentials = token
+            this.userEmail =email
         }else{
             const { error } = await response.json()
             throw new Error (error)

@@ -27,7 +27,7 @@ function SendEmail ({history}) {
             await logic.sendEmail(_id, title, body)
             history.push('/message')
         } catch(message) {
-            const translatedMessage = logic.translateMessage(message )
+            const translatedMessage = logic.translateMessage(message.message )
             setError(translatedMessage)
         }
     }

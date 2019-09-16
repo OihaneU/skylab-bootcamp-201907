@@ -4,7 +4,7 @@ import Footer from "../Footer"
 import logic from '../../logic'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faPaperPlane, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { withRouter, Link } from 'react-router-dom'
 
@@ -71,6 +71,8 @@ function Detail({ history, id }) {
             
              <div className= "detail__mosaic">
                     <div className= "detail__fav" >
+                        <button className = "heart" onClick ={() => history.go(-1)}><FontAwesomeIcon icon={faArrowLeft} size="2x" color="gray"/> </button>
+                        
                         {favorites ?
                             <button className = "heart" onClick={() => handleFav(ad._id)}><FontAwesomeIcon icon={faHeart} size="3x" color="#ec2c2c"
                             transform="left-1 rotate-15"/></button>

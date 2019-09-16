@@ -55,7 +55,7 @@ function Nav ({ history}) {
                         <a class= "menu-nav__list" href={`/#/ad`}><li>Busca un anuncio</li></a>
                         <a class= "menu-nav__list"  href={`/#/publish`}><li>Publica tu anuncio</li></a>
                         <hr/>
-                        <a class= "menu-nav__list" href="/#/register"><li>Registrate</li></a>
+                        <a class= "menu-nav__list" href="/#/register"><li>Regístrate</li></a>
                         <a class= "menu-nav__list" href={`/#/auth`}><li>Accede</li></a> 
                   </ul> :
                 
