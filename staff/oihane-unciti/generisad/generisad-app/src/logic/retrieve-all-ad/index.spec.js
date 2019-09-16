@@ -9,7 +9,7 @@ const REACT_APP_DB_URL_TEST = process.env.REACT_APP_DB_URL_TEST
 
 const { random } = Math
 
-fdescribe('logic - retrieve all ads', () => {
+describe('logic - retrieve all ads', () => {
     beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
 
     let name, surname, email, password, id
@@ -52,7 +52,7 @@ fdescribe('logic - retrieve all ads', () => {
         debugger
     })
 
-    fit('should succeed on correct data', async () => {
+    it('should succeed on correct data', async () => {
         const ad = await retrieveAllAd()
         debugger
         expect(ad).toBeDefined()

@@ -46,9 +46,9 @@ function Nav ({ history}) {
        <nav class="nav">   
         <div class="nav__menuToggle"> 
             <input type="checkbox" />
-                <span></span>
-                <span></span>
-                <span></span>
+                <span className="span"></span>
+                <span className="span"></span>
+                <span className="span"></span>
 
                 {!token ?
                    <ul class="nav__menu">
