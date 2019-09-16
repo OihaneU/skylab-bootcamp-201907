@@ -6,9 +6,7 @@ export default function () {
 
 
         return (async () => { 
-                const response = await fetch(`${REACT_APP_API_URL}/product`, {
-                     
-                })
+                const response = await fetch(`${REACT_APP_API_URL}/product`)
 
                 if (response.status !== 200) {
                         const { error } = await response.json()
