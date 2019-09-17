@@ -21,6 +21,7 @@ module.exports = function(email, password, domain) {
 
         const merchant = await Merchant.findOne({ domain })
         let merchant_id = merchant._id
+    
 
         const user = await User.findOne({ email : email, merchant_owner : merchant_id })
 

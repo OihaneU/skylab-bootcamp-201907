@@ -3,13 +3,13 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const retrieveAllAd = require('.')
-const { database, models: {User, Advertisement } } = require('generisad-data')
+const { database, models: {User, Advertisement, Merchant} } = require('generisad-data')
 //const { random: { number, boolean, value } } = require('generisad-utils')
 const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
 
-describe('logic - retrieve all ads', () => {
+describe.only('logic - retrieve all ads', () => {
     before(() => database.connect(DB_URL_TEST))
     let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2 
 
@@ -34,20 +34,26 @@ describe('logic - retrieve all ads', () => {
         location2 = `location-${Math.random()}`
         date2 = new Date()
 
-            
+        name_domain = `name_domain-${Math.random()}`
+        domain = `domain-${Math.random()}`
+
+        await Merchant.deleteMany()
+        const _merchant = await Merchant.create({ name: name_domain, domain })
+        merchant = _merchant.id
+
         await User.deleteMany()
-        const user = await User.create({ name, surname, email, password })
+        const user = await User.create({ name, surname, email, password, merchant_owner: merchant })
             id = user.id       
             await Advertisement.deleteMany()
-            const ad1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1, owner:id })
+            const ad1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1, owner:id, merchant_owner: merchant })
                 adId1 = ad1.id
 
-            const ad2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:id})
+            const ad2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:id, merchant_owner: merchant})
                 adId2 = ad2.id
     })
 
     it('should succeed on correct data', async () =>{
-        const ad = await retrieveAllAd()
+        const ad = await retrieveAllAd(domain)
                 expect(ad).to.exist
                 expect(ad.length).to.equal(2)
                 expect(ad[0]).to.exist
@@ -56,6 +62,7 @@ describe('logic - retrieve all ads', () => {
                 expect(ad[0].description).to.equal(description1)
                 expect(ad[0].price).to.equal(price1)
                 expect(ad[0].location).to.equal(location1)
+                expect(ad[0].merchant_owner.toString()).to.equal(merchant)
 
                 expect(ad[1]).to.exist
                 expect(ad[1].image).to.equal(image2)
@@ -63,6 +70,7 @@ describe('logic - retrieve all ads', () => {
                 expect(ad[1].description).to.equal(description2)
                 expect(ad[1].price).to.equal(price2)
                 expect(ad[1].location).to.equal(location2)
+                expect(ad[1].merchant_owner.toString()).to.equal(merchant)
     })
 
     after(() => database.disconnect())
