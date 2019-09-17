@@ -85,7 +85,7 @@ function Nav ({ history}) {
         <img className="logo" src={require('../../img/logo.jpg')} alt="img_00.jpg"></img>
     </nav>
 
-    <nav>
+    {/* <nav>
     <ul class="nav__menu">
                         <a class= "menu-nav__list" href={`/#/ad`}><li><FontAwesomeIcon className="message__icon" icon={faSearch} size="50px" color="gray"/></li></a>
                         <a class= "menu-nav__list"  href={`/#/publish`}><li><FontAwesomeIcon className="message__icon" icon={faUpload} size="50px" color="gray"/></li></a>
@@ -103,7 +103,7 @@ function Nav ({ history}) {
                         <a class= "menu-nav__list"  href={`/#/`} onClick={() => handleLogout()}><li><FontAwesomeIcon className="message__icon" icon={fa} size="50px" color="gray"/></li></a> 
                   </ul>
 
-    </nav>
+    </nav> */}
 
 
     </>
