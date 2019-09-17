@@ -23,9 +23,9 @@ module.exports = new Schema({
 
     read: { 
         type: Boolean,
-        default: false,
-        require: true
+        default: false
     },
     
-    advertisement: { type: ObjectId, ref: 'Product' }
+    advertisement: { type: ObjectId, ref: 'Product' },
+    merchant_owner:  { type: ObjectId, ref: 'Merchant' }
 })
