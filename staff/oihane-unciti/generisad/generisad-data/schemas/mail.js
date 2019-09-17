@@ -26,5 +26,6 @@ module.exports = new Schema({
         default: false
     },
     
-    advertisement: { type: ObjectId, ref: 'Product' }
+    advertisement: { type: ObjectId, ref: 'Product' },
+    merchant_owner:  { type: ObjectId, ref: 'Merchant' }
 })

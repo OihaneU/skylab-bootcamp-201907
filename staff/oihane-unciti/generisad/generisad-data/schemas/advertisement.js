@@ -29,5 +29,6 @@ module.exports = new Schema({
         type: ObjectId, 
         ref: 'User',
         required: true
-    }
+    },
+    merchant_owner:  { type: ObjectId, ref: 'Merchant' }
 })
