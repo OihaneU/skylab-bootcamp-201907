@@ -9,7 +9,7 @@ const REACT_APP_DB_URL_TEST = process.env.REACT_APP_DB_URL_TEST
 const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 
 
-describe('logic - retrieve user', () => {
+describe('logic - search', () => {
     beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
 
     let name, surname, email, password, image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2, query 
@@ -23,14 +23,14 @@ describe('logic - retrieve user', () => {
 
 
         image1 = `img-${Math.random()}`
-        title1 = `TitLe-${random()}`
+        title1 = `TitLe-${Math.random()}`
         description1 = `description-${Math.random()}`
         price1 = `price-${Math.random()}`
         location1 = `location-${Math.random()}`
         date1 = new Date()
 
         image2 = `img-${Math.random()}`
-        title2 = `TitLe-${random()}`
+        title2 = `TitLe-${Math.random()}`
         description2 = `description-${Math.random()}`
         price2 = `price-${Math.random()}`
         location2 = `location-${Math.random()}`
