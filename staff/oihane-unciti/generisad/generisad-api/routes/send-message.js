@@ -2,9 +2,10 @@ const logic = require('../logic')
 
 module.exports = (req, res) => {
 
-    const { userId, params:{id}, body: { title, body } } = req
+    const { userId, params:{id}, body: { title, body, domain } } = req
+
     try { 
-        logic.sendMessage(userId, id, title, body )
+        logic.sendMessage(userId, id, title, body, domain )
             .then(() => res.status(201).json({ message: 'message correctly sent' }))
             .catch(({ message }) => res.status(400).json({ error: message }))
     } catch ({ message }) {

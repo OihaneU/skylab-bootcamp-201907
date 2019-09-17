@@ -1,4 +1,4 @@
-const { models: { Advertisement } } = require('generisad-data')
+const { models: { Advertisement, Merchant } } = require('generisad-data')
 const { validate } = require('generisad-utils')
 
 /**
@@ -9,12 +9,17 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
-module.exports = function(userId) {
+module.exports = function(userId, domain) {
     validate.string(userId ,"userId")
+    validate.string(domain ,"domain")
 
     return (async () => { 
 
-        const ads = await Advertisement.find({owner :userId},{ __v: 0 }).lean();
+        const merchant = await Merchant.findOne({ domain })
+        if(!merchant) throw Error(`domain ${domain} not found`)
+        let merchant_id = merchant._id
+
+        const ads = await Advertisement.find({owner :userId, merchant_owner : merchant_id},{ __v: 0 }).lean();
             if (!ads) throw Error(`User does not have an ad with ad id`)
             else {
                 return ads

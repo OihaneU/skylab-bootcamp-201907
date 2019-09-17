@@ -5,10 +5,10 @@ const { env: { JWT_SECRET } } = process
 
 module.exports = (req, res) => {
     
-    const { body: { email, password } } = req
+    const { body: { email, password, domain } } = req
 
     try {
-        logic.authenticateUser(email, password)
+        logic.authenticateUser(email, password, domain)
             .then(id => {
                 const token = jwt.sign({ sub: id }, JWT_SECRET)
 

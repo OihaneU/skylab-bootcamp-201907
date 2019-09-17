@@ -1,4 +1,4 @@
-const { models: { Advertisement, User } } = require('generisad-data')
+const { models: { Advertisement, User, Merchant } } = require('generisad-data')
 const { validate } = require('generisad-utils')
 
 /**
@@ -12,7 +12,7 @@ const { validate } = require('generisad-utils')
  * @returns {Promise}
  */
 
-module.exports = function(image, title, description, price, location, userId) {
+module.exports = function(image, title, description, price, location, userId, domain) {
 
     validate.string(image, 'image')
     validate.string(title, 'title')
@@ -21,12 +21,18 @@ module.exports = function(image, title, description, price, location, userId) {
     validate.string(location, 'location')
     
     validate.string(userId, "userId")
+    validate.string(domain, "domain")
     
     const date = new Date()
     return (async () => {
         const user = await User.findById(userId)
         if(!user) throw Error(`user with id ${userId} not found`)
-       const ad = await Advertisement.create({image, title, description, price, location, date , owner: userId})
+
+        const merchant = await Merchant.findOne({ domain })
+        if(!merchant) throw Error(`domain ${domain} not found`)
+        let merchant_id = merchant._id
+
+       const ad = await Advertisement.create({image, title, description, price, location, date , owner: userId, merchant_owner: merchant_id})
        return ad.id.toString()
     })()    
 }

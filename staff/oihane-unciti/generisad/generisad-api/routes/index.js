@@ -30,9 +30,9 @@ const jsonBodyParser = bodyParser.json()
 router.post('/users', jsonBodyParser, registerUser)
 router.post('/auth', jsonBodyParser, authenticateUser)
 router.get('/users', [tokenMiddleware, jsonBodyParser], retrieveUser)
-router.get('/product/owner', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
+router.get('/product/owner/:merchant', [tokenMiddleware, jsonBodyParser], retrieveUserAd)
 
-router.get('/users/favorites', [tokenMiddleware, jsonBodyParser], retrieveFav)
+router.get('/users/favorites/:merchant', [tokenMiddleware, jsonBodyParser], retrieveFav)
 router.post('/users/ads/:id/favorite', [tokenMiddleware, jsonBodyParser], toggleUserFav)
 
 //IMAGE
@@ -43,7 +43,7 @@ router.post('/users/ads/:id/upload', [tokenMiddleware], uploadPhoto)
 
 //AD
 router.post('/users/ads', [tokenMiddleware, jsonBodyParser], registerAd)
-router.get('/product',  jsonBodyParser, retrieveAllAd)
+router.get('/products/:merchant',  jsonBodyParser, retrieveAllAd)
 router.get('/search',  jsonBodyParser, searchAd)
 router.get('/product/:id', jsonBodyParser, retrieveAd)
 router.delete('/product/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
@@ -51,8 +51,8 @@ router.delete('/product/:id', [tokenMiddleware, jsonBodyParser], deleteAd)
 //MAIl
 router.post('/users/ads/:id/message', [tokenMiddleware, jsonBodyParser], sendMessage)
 router.post('/users/message/:id', [tokenMiddleware, jsonBodyParser], responseEmail)
-router.get('/users/message', [tokenMiddleware, jsonBodyParser], retrieveUserMessage)
-router.get('/users/message/read', [tokenMiddleware, jsonBodyParser], retrieveUserMessageRead)
+router.get('/users/message/:merchant', [tokenMiddleware, jsonBodyParser], retrieveUserMessage)
+router.get('/users/message/read/:merchant', [tokenMiddleware, jsonBodyParser], retrieveUserMessageRead)
 
 
 

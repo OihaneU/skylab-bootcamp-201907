@@ -1,4 +1,4 @@
-const { models: { Advertisement } } = require('generisad-data')
+const { models: { Advertisement, Merchant } } = require('generisad-data')
 const { validate } = require('generisad-utils')
 
 /**
@@ -10,10 +10,16 @@ const { validate } = require('generisad-utils')
  */
 
  //idowner
- module.exports = function() {
+ module.exports = function(domain) {
+
+    validate.string(domain, "domain")
     
     return (async () => {
-        const ads = await Advertisement.find( {},{ __v: 0 }).sort({_id:1}).lean() 
+        const merchant = await Merchant.findOne({ domain })
+        if(!merchant) throw Error(`domain ${domain} not found`)
+        let merchant_id = merchant._id
+
+        const ads = await Advertisement.find( {merchant_owner : merchant_id},{ __v: 0 }).sort({_id:1}).lean() 
         if (!ads) throw Error(`there are not ads`)   
         
         return ads

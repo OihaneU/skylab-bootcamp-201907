@@ -23,7 +23,7 @@ module.exports = {
     unreadMessage: require("./unread_message"),
     
 
-    uploadImage: require("./upload-image")
+    uploadImage: require("./upload-image"),
 
 
     // updateUser: require('./update-user'),
