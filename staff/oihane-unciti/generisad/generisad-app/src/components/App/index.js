@@ -13,7 +13,7 @@ import Detail from '../Detail'
 import Publish from '../Publish'
 import Message from '../Message'
 import Favorites from '../Favorites'
-import SendEmail from '../Send-Email'
+import SendEmail from '../SendEmail'
 import Response from "../Response"
 import RetrieveAd from "../RetrieveAd"
 import Delete from "../Delete"

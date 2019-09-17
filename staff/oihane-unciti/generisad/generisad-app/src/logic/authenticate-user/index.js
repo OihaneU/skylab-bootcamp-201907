@@ -1,9 +1,11 @@
-
+import logic from '..'
+const {validate}= require("generisad-utils")
 
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
 export default function (email, password) {
-    // validate fields
+    validate.string(email, 'email')
+    validate.string(paswword, 'password')
 
     let domain = window.location.hostname;
 

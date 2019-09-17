@@ -1,40 +1,62 @@
 import logic from '..'
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
-const {random} = Math
+import { database, models } from 'generisad-data'
+const jwt = require('jsonwebtoken') 
+import bcrypt from 'bcryptjs'
+
+const { User, Advertisement, Merchant } = models
+
+const REACT_APP_DB_URL_TEST = process.env.REACT_APP_DB_URL_TEST
+const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
+
+const { random } = Math
 
 describe('logic-authenticate user', ()=>{
-    let name, surname, email, password
+    debugger
+    
+    beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
+    
+    let name, surname, email, password, userId
+    let domain, name_domain, merchant
+    
     beforeEach(()=>{
-        sessionStorage.clear()
+        
+        name_domain = `name_domain-${Math.random()}`
+        domain = `domain-${Math.random()}`
+
+        await Merchant.deleteMany()
+        const _merchant = await Merchant.create({ name: name_domain, domain })
+        merchant = _merchant.id
+
         name= `name-${random()}`
         surname= `surname-${random()}`
         email= `email-${random()}@mail.com`
         password= `password-${random()}`
         
-        return (async () => {
-            const response = await fetch(`${REACT_APP_API_URL}/users`, {
-                method: 'post',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify({ name, surname, email, password })
-            })
-            // const {email: email2, password: password2} = response
-            
-            await fetch(`${REACT_APP_API_URL}/auth`, {
-                method: 'post', 
-                headers: {'content-type':'application/json'},
-                body: JSON.stringify ({email, password})
-            })
-    })()
+        await User.deleteMany()
+
+        const hash = await bcrypt.hash(password, 10)
+
+        const user = await User.create({ name, surname, email, password: hash })
+
+        id = user.id
 })
     it('should succeed on correct data', async () => {
         
-         const resp = await logic.authenticateUser(email, password)
-       
-        expect(resp).toBeUndefined()
+        const result = await logic.authenticateUser(email, password)
 
-        expect(logic.userCredentials).toBeDefined()
+        expect(result).toBeUndefined()
+
+        logic.userCredentials = token
+
+        expect(token).toBe('string')
+        expect(token.length).toBeGreaterThan(0)
+
+        const { sub } = jwt.verify(token, REACT_APP_JWT_SECRET_TEST)
+
+        expect(sub).toBe(id)
     })
 
-   
+    afterAll(() => database.disconnect())
+
 })
