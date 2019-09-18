@@ -24,14 +24,17 @@ module.exports = function(name, surname, email, password, domain) {
 
     return(async ()=>{
 
+        
+
+        const merchant = await Merchant.findOne({ domain })
+
+        let merchant_id = merchant._id
+        
         const user = await User.findOne({ email })
          
         if(user) throw new Error (`user with e-mail ${email} already exists`)
 
         const hash = await bcrypt.hash(password,10)
-
-        const merchant = await Merchant.findOne({ domain })
-        let merchant_id = merchant._id
         
         await User.create({ name , surname ,  email , password : hash , merchant_owner : merchant_id})
         return { }

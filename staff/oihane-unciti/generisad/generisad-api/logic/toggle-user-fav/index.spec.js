@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const toggleUserFav = require('.')
-const { database, models: { User, Advertisement } } = require('generisad-data')
+const { database, models: { User, Advertisement, Merchant } } = require('generisad-data')
 const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
@@ -11,7 +11,9 @@ const { env: { DB_URL_TEST }} = process
 describe('logic - toggle fav', () => {
     before(() => database.connect(DB_URL_TEST))
     
-    let name, surname, email, password, favorites, image, title, description, price, location, date, id
+    let name, surname, email, password, favorites, id
+    let image, title, description, price, location, date, adId
+    let domain, name_domain, merchant
 
     beforeEach(async () => {
         name = `name-${Math.random()}`
@@ -26,12 +28,19 @@ describe('logic - toggle fav', () => {
         price = `price-${Math.random()}`
         location = `location-${Math.random()}`
         date = new Date()
+        
+        name_domain = `name_domain-${Math.random()}`
+        domain = `domain-${Math.random()}`
+
+        await Merchant.deleteMany()
+        const _merchant = await Merchant.create({ name: name_domain, domain })
+        merchant = _merchant.id
 
         await User.deleteMany()
-        const user = await User.create({ name, surname, email, password, favorites })
+        const user = await User.create({ name, surname, email, password, favorites, merchant_owner: merchant })
         id = user.id
         await Advertisement.deleteMany()
-        const ad = await Advertisement.create({ image, title, description, price, location, date, owner:id})
+        const ad = await Advertisement.create({ image, title, description, price, location, date, owner:id, merchant_owner: merchant})
         adId = ad.id
     })
 

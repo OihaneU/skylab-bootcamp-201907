@@ -9,7 +9,7 @@ const { random } = Math
 
 const { env: { DB_URL_TEST }} = process
 
-describe.only('logic - retrieve all ads', () => {
+describe('logic - retrieve all ads', () => {
     before(() => database.connect(DB_URL_TEST))
     let image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2 
 
@@ -43,13 +43,14 @@ describe.only('logic - retrieve all ads', () => {
 
         await User.deleteMany()
         const user = await User.create({ name, surname, email, password, merchant_owner: merchant })
-            id = user.id       
-            await Advertisement.deleteMany()
-            const ad1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1, owner:id, merchant_owner: merchant })
-                adId1 = ad1.id
+        id = user.id       
+        
+        await Advertisement.deleteMany()
+        const ad1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1, owner:id, merchant_owner: merchant })
+        adId1 = ad1.id
 
-            const ad2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:id, merchant_owner: merchant})
-                adId2 = ad2.id
+        const ad2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:id, merchant_owner: merchant})
+        adId2 = ad2.id
     })
 
     it('should succeed on correct data', async () =>{
@@ -72,6 +73,32 @@ describe.only('logic - retrieve all ads', () => {
                 expect(ad[1].location).to.equal(location2)
                 expect(ad[1].merchant_owner.toString()).to.equal(merchant)
     })
+
+    it('should fail on wrong domain', async () =>{ 
+
+        let wrongDomain= '5d65115f8f58cc540cc376ca'
+        try{
+        const res = await retrieveAllAd(wrongDomain)
+            expect(res).not.to.exist
+        }catch(error) {
+                expect(error).to.exist
+                expect(error.message).to.equal(`domain ${wrongDomain} not found`)
+            }
+    })
+
+    it('should fail on empty or blanck', () => 
+    expect(() => retrieveAllAd(" ")).to.throw(`domain is empty or blank`)
+    )
+    it('should fail on wrong ad id type', () => 
+    expect(() => retrieveAllAd(123)).to.throw(`domain with value 123 is not a string`)
+    )
+    it('should fail on wrong ad id type', () => 
+    expect(() => retrieveAllAd(undefined)).to.throw(`domain with value undefined is not a string`)
+
+  
+
+    )
+    
 
     after(() => database.disconnect())
 })

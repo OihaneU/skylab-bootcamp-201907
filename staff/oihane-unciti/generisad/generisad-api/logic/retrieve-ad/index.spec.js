@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const retrieveAd = require('.')
-const { database, models: { User, Advertisement } } = require('generisad-data')
+const { database, models: { User, Advertisement, Merchant} } = require('generisad-data')
 const { random: { number, boolean, value } } = require('generisad-utils')
 const { random } = Math
 
@@ -13,7 +13,10 @@ describe('logic - retrieve ad detail', () => {
     before(() => database.connect(DB_URL_TEST))
     
 
-    let name, surname, email, password, image1, title1, description1, price1, location1, date1, image2, title2, description2, price2, location2, date2 
+    let name, surname, email, password,id
+    let image1, title1, description1, price1, location1, date1, adId1
+    let image2, title2, description2, price2, location2, date2, adId2
+    let domain, name_domain, merchant
 
     beforeEach(async () => {
         name = `name-${Math.random()}`
@@ -35,16 +38,24 @@ describe('logic - retrieve ad detail', () => {
         location2 = `location-${Math.random()}`
         date2 = new Date()
 
+        name_domain = `name_domain-${Math.random()}`
+        domain = `domain-${Math.random()}`
+
+        await Merchant.deleteMany()
+        const _merchant = await Merchant.create({ name: name_domain, domain })
+        merchant = _merchant.id
+
           
         await User.deleteMany()
-                const user = await User.create({ name, surname, email, password })
-                    id = user.id
+        const user = await User.create({ name, surname, email, password,  merchant_owner: merchant  })
+        id = user.id
+        
         await Advertisement.deleteMany()
-        const ad1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1, owner:id })
-            adId1 = ad1.id
+        const ad1 = await Advertisement.create({ image: image1, title: title1, description: description1, price: price1, location: location1, date: date1, owner:id,  merchant_owner: merchant  })
+        adId1 = ad1.id
 
-        const ad2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:id})
-            adId2 = ad2.id
+        const ad2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:id,  merchant_owner: merchant })
+        adId2 = ad2.id
     })
 
 
@@ -56,6 +67,8 @@ describe('logic - retrieve ad detail', () => {
                 expect(ad.description).to.equal(description1)
                 expect(ad.price).to.equal(price1)
                 expect(ad.location).to.equal(location1)
+                expect(ad.merchant_owner.toString()).to.equal(merchant)
+
 
     })
 
@@ -68,7 +81,6 @@ describe('logic - retrieve ad detail', () => {
                 expect(error.message).to.equal(`Advertisement with id 5d65115f8f58cc540cc376ca does not exist.`)
             }
     })
-
 
     it('should fail on empty or blanck', () => 
     expect(() => retrieveAd(" ")).to.throw(`ad id is empty or blank`)

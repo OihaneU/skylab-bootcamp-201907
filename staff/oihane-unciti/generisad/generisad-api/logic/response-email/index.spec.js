@@ -10,7 +10,7 @@ describe('logic - conversation message', () => {
     before(() => database.connect(DB_URL_TEST))
     //before(() => mongoose.connect('mongodb://localhost/my-api-test', { useNewUrlParser: true }))
     let image, title, description, price, location, date,adId
-    let titleAd, body, mail
+    let titleAd, body, mailId
     let name, surname, email, password, id ,domain, name_domain, merchant
     beforeEach(async () => {
 
@@ -43,19 +43,19 @@ describe('logic - conversation message', () => {
         merchant = _merchant.id
 
         await User.deleteMany()
-            const user = await User.create({ name, surname, email, password : password, merchant_owner: merchant })
-                id = user.id
+        const user = await User.create({ name, surname, email, password : password, merchant_owner: merchant })
+        id = user.id
             
-            const userSend = await User.create({name, surname, email, password : password, merchant_owner: merchant  })
-                idSend = userSend.id
+        const userSend = await User.create({name, surname, email, password : password, merchant_owner: merchant  })
+        idSend = userSend.id
        
         await Advertisement.deleteMany()
-            const ad = await Advertisement.create({ image, title:titleAd, description, price, location, date, owner: id, merchant_owner: merchant })
-            adId = ad.id
+        const ad = await Advertisement.create({ image, title:titleAd, description, price, location, date, owner: id, merchant_owner: merchant })
+        adId = ad.id
         
         await Mail.deleteMany()
-            const mail = await Mail.create({ sender: idSend, receiver: id, date, title:title1, body:body1, advertisement: adId, merchant_owner: merchant  })
-            mailId = mail.id
+        const mail = await Mail.create({ sender: idSend, receiver: id, date, title:title1, body:body1, advertisement: adId, merchant_owner: merchant  })
+        mailId = mail.id
 
     })
 

@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const retrieveUser = require('.')
-const { database, models: { User } } = require('generisad-data')
+const { database, models: { User, Merchant } } = require('generisad-data')
 
 const { env: { DB_URL_TEST }} = process
 
@@ -11,16 +11,24 @@ describe('logic - retrieve user', () => {
     before(() => database.connect(DB_URL_TEST))
 
     let name, surname, email, password, id
+    let domain, name_domain, merchant
 
     beforeEach(async () => {
         name = `name-${Math.random()}`
         surname = `surname-${Math.random()}`
         email = `email-${Math.random()}@domain.com`
         password = `password-${Math.random()}`
+        
+        name_domain = `name_domain-${Math.random()}`
+        domain = `domain-${Math.random()}`
+
+        await Merchant.deleteMany()
+        const _merchant = await Merchant.create({ name: name_domain, domain })
+        merchant = _merchant.id
 
         await User.deleteMany()
-            const user = await User.create({ name, surname, email, password })
-            id = user.id
+        const user = await User.create({ name, surname, email, password, merchant_owner: merchant  })
+        id = user.id
     })
 
     it('should succeed on correct data', async () =>{
@@ -32,6 +40,7 @@ describe('logic - retrieve user', () => {
                 expect(user.surname).to.equal(surname)
                 expect(user.email).to.equal(email)
                 expect(user.password).not.to.exist
+                expect(user.merchant_owner.toString()).to.equal(merchant)
     })
     it('should throw an error with a wrong id', async () =>{
         try{

@@ -11,7 +11,10 @@ describe('logic - retrieve user fav', () => {
     before(() => database.connect(DB_URL_TEST))
     
 
-    let name, surname, email, password,id, image1, title1, description1, price1, location1, date1, adId1, image2, title2, description2, price2, location2, date2, adId2, domain, name_domain, merchant
+    let name, surname, email, password,id 
+    let image1, title1, description1, price1, location1, date1, adId1
+    let image2, title2, description2, price2, location2, date2, adId2
+    let domain, name_domain, merchant
 
     beforeEach(async () => { 
          name = `name-${Math.random()}`
@@ -70,9 +73,33 @@ describe('logic - retrieve user fav', () => {
             
         }
     })
+    
+    it('should fail on wrong domain', async () =>{ 
 
+        let wrongDomain= '5d65115f8f58cc540cc376ca'
+        try{
+        const res = await retrieveFav(id, wrongDomain)
+            expect(res).not.to.exist
+        }catch(error) {
+                expect(error).to.exist
+                expect(error.message).to.equal(`domain ${wrongDomain} not found`)
+            }
+    })
+
+    it('should fail on empty or blanck', () => 
+    expect(() => retrieveFav(id, " ")).to.throw(`domain is empty or blank`)
+    )
+    it('should fail on wrong ad id type', () => 
+    expect(() => retrieveFav(id, 123)).to.throw(`domain with value 123 is not a string`)
+    )
+    it('should fail on wrong ad id type', () => 
+    expect(() => retrieveFav(id, undefined)).to.throw(`domain with value undefined is not a string`)
+    )
     it('should fail on empty user id', () => 
     expect(() => retrieveFav("", domain)).to.throw("userId is empty or blank")
+    )
+    it('should fail on empty user id', () => 
+    expect(() => retrieveFav(undefined, domain)).to.throw("userId with value undefined is not a string")
     )
 
     it('should fail on wrong user id type', () => 

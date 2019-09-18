@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const { expect } = require('chai')
 const uploadImage = require('.')
-const { database, models: { User, Advertisement } } = require('generisad-data')
+const { database, models: { User, Advertisement, Merchant } } = require('generisad-data')
 const { random } = Math
 const fs = require('fs')
 
@@ -13,6 +13,7 @@ describe('logic - upload image', () => {
     before(() => database.connect(DB_URL_TEST))
 
     let name, surname, email, password, favorites, image, title, description, price, location, date, id, adId
+    let domain, name_domain, merchant
 
     beforeEach(async () => {
         name = `name-${random()}`
@@ -21,18 +22,25 @@ describe('logic - upload image', () => {
         password = `password-${random()}`
         favorites = []
 
-        await User.deleteMany()
-        const user = await User.create({ name, surname, email, password, favorites })
-        id = user.id
-
         title = `TitLe-${random()}`
         description = `description-${Math.random()}`
         price = `price-${Math.random()}`
         location = `location-${Math.random()}`
         date = new Date()
 
+        name_domain = `name_domain-${Math.random()}`
+        domain = `domain-${Math.random()}`
+
+        await Merchant.deleteMany()
+        const _merchant = await Merchant.create({ name: name_domain, domain })
+        merchant = _merchant.id
+
+        await User.deleteMany()
+        const user = await User.create({ name, surname, email, password, favorites, merchant_owner: merchant   })
+        id = user.id
+
         await Advertisement.deleteMany()
-        const ad = await Advertisement.create({ title, description, price, location, date, owner: id })
+        const ad = await Advertisement.create({ title, description, price, location, date, owner: id , merchant_owner: merchant  })
         adId = ad.id
 
         image = fs.createReadStream('./test/smiley.png')

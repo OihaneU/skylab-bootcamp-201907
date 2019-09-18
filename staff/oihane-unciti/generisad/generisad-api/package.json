@@ -10,7 +10,7 @@
     "test": "npx mocha logic/**/*.spec.js --timeout 10000",
     "test-debug": "npx mocha debug logic/**/*.spec.js --timeout 10000",
     "test-inspect": "npx mocha --inspect-brk logic/**/*.spec.js --timeout 10000",
-    "test:coverage": "nyc --reporter=html --reporter=text mocha logic/**/*.spec.js --runInBand"
+    "test:coverage": "nyc --reporter=html --reporter=text mocha logic/**/*.spec.js --runInBand --timeout 10000"
   },
   "keywords": [],
   "author": "",
