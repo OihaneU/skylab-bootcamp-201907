@@ -4,7 +4,6 @@ module.exports = (req, res) => {
 
     const { params: { merchant : domain } } = req
 
-    console.log(domain)
 
     try {
         logic.retrieveAllAd(domain)
