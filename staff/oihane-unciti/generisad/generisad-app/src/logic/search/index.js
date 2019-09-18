@@ -1,11 +1,11 @@
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
 
-export default function (query)  {
+export default function (query, domain)  {
 
     return(async () => {
-        ;
-        const response = await fetch(`${REACT_APP_API_URL}/search?query=${query}`, {
+        
+        const response = await fetch(`${REACT_APP_API_URL}/search/?query=${query}&domain=${domain}`, {
             method: 'get',
             headers: { 'content-type': 'application/json'}, 
            

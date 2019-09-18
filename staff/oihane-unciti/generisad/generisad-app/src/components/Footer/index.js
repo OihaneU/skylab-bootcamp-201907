@@ -1,8 +1,7 @@
 import React from 'react'
 import logic from '../../logic'
-import { withRouter, Route, Redirect } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  } from '@fortawesome/free-solid-svg-icons'
+import { withRouter } from 'react-router-dom'
+
 
 function Footer (){
 
@@ -11,12 +10,14 @@ function Footer (){
         <ul class="footer__menu">
 
         <li class="footer__list">
-                    <p className= "footer__title">Contacta con nosotros en <strong>buscoropa@gmail.com</strong><br/>O a través de nuestras redes sociales </p>
-                    <img className="icons_social_media" width="50"  src={require('../../img/iconfinder_Facebook.png')}alt="Facebook.png"></img>
-                    <img className="icons_social_media" width="50"  src={require('../../img/iconfinder_Pinterest.png')}alt="Pinterest.png"></img>
-                    <img className="icons_social_media" width="50"  src={require('../../img/iconfinder_Twitter.png')}alt="Twitter.png"></img>
-                    <img className="icons_social_media" width="50"  src={require('../../img/iconfinder_Youtube.png')}alt="Youtube.png"></img>
-
+            <p className= "footer__title">Contacta con nosotros en <strong>generisad@generis.com</strong><br/>O a través de nuestras redes sociales </p>
+            <a href="https://www.facebook.com"><img className="icons_social_media" width="50"  src={require('../../img/iconfinder_Facebook.png')}alt="Facebook.png"></img></a>
+            <a href="https://www.pinterest.com"> <img className="icons_social_media" width="50"  src={require('../../img/iconfinder_Pinterest.png')}alt="Pinterest.png"></img></a>
+                
+            <a href="https://www.twitter.com"><img className="icons_social_media" width="50"  src={require('../../img/iconfinder_Twitter.png')}alt="Twitter.png"></img>
+ </a>
+            <a href="https://www.youtube.com"><img className="icons_social_media" width="50"  src={require('../../img/iconfinder_Youtube.png')}alt="Youtube.png"></img> </a>
+                
             </li>
 
         <li class="footer__list">

@@ -10,9 +10,10 @@ const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 
 const { random } = Math
 
-describe.only('logic - register ad', () => {
-    let name, surname, email, password, userId ,domain, name_domain, merchant 
-    let image, title, description, price, location, date
+describe.only('logic - detail ad', () => {
+    let name, surname, email, password, userId, favorites
+    let domain, name_domain, merchant
+    let image, title, description, price, date, location, adId
     let token
     
     beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
@@ -44,22 +45,24 @@ describe.only('logic - register ad', () => {
 
         const token = jwt.sign({ sub: userId }, REACT_APP_JWT_SECRET_TEST)
         logic.userCredentials = token
-        debugger
+        
+        await Advertisement.deleteMany()
+        const ad = await Advertisement.create({ image, title, description, price, location, 'owner': userId, merchant_owner: merchant })
+        adId = ad.id
 
     })
 
-    it('should succeed on correct data', async () => {debugger
-        const idAdvertisement = await logic.publish(image, title, description, price, location, userId, domain)
-        const result = await Advertisement.findById(idAdvertisement) 
-            expect(result).toBeDefined()
-            expect(result.id).toBe(idAdvertisement)
-            expect(result.image).toBe(image)
-            expect(result.title).toBe(title)
-            expect(result.description).toBe(description)
-            expect(result.price).toBe(price)
-            expect(result.location).toBe(location)
-            expect(result.owner.toString()).toBe(id)
-            expect(result.merchant_owner.toString()).toBe(merchant)
+    it('should succeed on correct data', async () => {
+        const ad = await logic.detail(adId)
+
+        console.log(ad)
+                expect(ad).toBeDefined()
+                expect(ad.image).toBe(image)
+                expect(ad.title).toBe(title)
+                expect(ad.description).toBe(description)
+                expect(ad.price).toBe(price)
+                expect(ad.location).toBe(location)
+                expect(ad.merchant_owner.toString()).toBe(merchant)
     })
 
     // it('should fail if the user ad does not exist', async () => {
@@ -77,32 +80,31 @@ describe.only('logic - register ad', () => {
     // it("should fail on unexisting user" , async () => {
 
     //     try{
-    //         await logic.removeAd( "5d712e2v7ea98990acdc78bd", adId )
+    //         await deleteAd( "5d712e2v7ea98990acdc78bd", adId )
     //         const ad = await Advertisement.findById(adId)
     //         expect(ad).toBeUndefined()
     //     }catch(error){
-    //         expect(error).toBeDefined()
-    //         //expect(error.message).toBe(`user with id 5d712e2v7ea98990acdc78bd is not owner of advertisement with id ${adId}`)
+    //         expect(error).tobeDefined()
+    //         expect(error.message).toBe(`user with id 5d712e2v7ea98990acdc78bd is not owner of advertisement with id ${adId}`)
     //     }
 
     // })
     // it('should fail on empty user id', () => 
-    //     expect(() => removeAd("", adId)).to.throw('user id is empty or blank')
+    //     expect(() => deleteAd("", adId)).to.throw('user id is empty or blank')
     // )
 
     // it('should fail on wrong user id type', () => 
-    //     expect(() => removeAd( 123, adId)).to.throw('user id with value 123 is not a string')
+    //     expect(() => deleteAd( 123, adId)).to.throw('user id with value 123 is not a string')
     // )
 
     // it('should fail on empty ad id', () => 
-    //     expect(() => removeAd(userId, "" )).to.throw('id is empty or blank')
+    //     expect(() => deleteAd(userId, "" )).to.throw('id is empty or blank')
     // )
 
     // it('should fail on wrong ad id type', () => 
-    //     expect(() => removeAd( userId, 123 )).to.throw('id with value 123 is not a string')
+    //     expect(() => deleteAd( userId, 123 )).to.throw('id with value 123 is not a string')
     // )
 
 
     afterAll(() => database.disconnect())
 })
-

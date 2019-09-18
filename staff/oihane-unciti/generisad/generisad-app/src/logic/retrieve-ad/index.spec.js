@@ -10,9 +10,10 @@ const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 
 const { random } = Math
 
-describe.only('logic - register ad', () => {
-    let name, surname, email, password, userId ,domain, name_domain, merchant 
-    let image, title, description, price, location, date
+describe.only('logic - retrieve ad', () => {
+    let name, surname, email, password, userId
+    let domain, name_domain, merchant
+    let image, title, description, price, date, location, adId
     let token
     
     beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
@@ -44,22 +45,24 @@ describe.only('logic - register ad', () => {
 
         const token = jwt.sign({ sub: userId }, REACT_APP_JWT_SECRET_TEST)
         logic.userCredentials = token
-        debugger
+        
+        await Advertisement.deleteMany()
+        const ad = await Advertisement.create({ image, title, description, price, location, 'owner': userId, merchant_owner: merchant })
+        adId = ad.id
 
     })
 
     it('should succeed on correct data', async () => {debugger
-        const idAdvertisement = await logic.publish(image, title, description, price, location, userId, domain)
-        const result = await Advertisement.findById(idAdvertisement) 
-            expect(result).toBeDefined()
-            expect(result.id).toBe(idAdvertisement)
-            expect(result.image).toBe(image)
-            expect(result.title).toBe(title)
-            expect(result.description).toBe(description)
-            expect(result.price).toBe(price)
-            expect(result.location).toBe(location)
-            expect(result.owner.toString()).toBe(id)
-            expect(result.merchant_owner.toString()).toBe(merchant)
+        const ad = await logic.retrieveAd(adId)
+
+            expect(ad).toBeDefined()
+            expect(ad.image).toBe(image)
+            expect(ad.title).toBe(title)
+            expect(ad.description).toBe(description)
+            expect(ad.price).toBe(price)
+            expect(ad.location).toBe(location)
+            expect(ad.merchant_owner.toString()).toBe(merchant)
+        
     })
 
     // it('should fail if the user ad does not exist', async () => {
@@ -105,4 +108,3 @@ describe.only('logic - register ad', () => {
 
     afterAll(() => database.disconnect())
 })
-

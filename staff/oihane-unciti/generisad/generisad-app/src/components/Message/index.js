@@ -14,7 +14,6 @@ function Message ({ history }) {
 
     const userEmail = logic.userEmail
 
-    debugger
     
         useEffect(() => {
             (async () => {

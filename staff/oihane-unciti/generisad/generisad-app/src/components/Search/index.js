@@ -10,25 +10,29 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 function Search ({history}) {
     const [search, setSearch] = useState()
+    let domain = window.location.hostname;
 
 
-    useEffect(() => {debugger
+    useEffect(() => {
             (async () => {
                 try{
+
+                    let domain = window.location.hostname;
+
                     //TODO this is not efficient, find a better way
                     let shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
-                    let _search = await logic.retrieveAllAd()
+                    let _search = await logic.retrieveAllAd(domain)
                     if(_search){
                         shuffle(_search)
-                        if(_search.length > 10){
-                            _search = _search.slice(0,10)
+                        if(_search.length > 20){
+                            _search = _search.slice(0,20)
                         }
                     }
                    
                     setSearch(_search)
 
-                }catch(error){debugger
+                }catch(error){
                     console.log(error.message)
                 }
             

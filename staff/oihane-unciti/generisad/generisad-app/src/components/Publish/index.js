@@ -25,12 +25,13 @@ function Publish ({history}) {
 
     async function onPublish(image, title, description, price, location){
         try{
-            const publish= await logic.publish(image,title, description, price, location)
+            let domain = window.location.hostname
+            const publish= await logic.publish(image,title, description, price, location, domain)
             adId=publish
             await logic.upload(adId, image)
             history.push("/")
 
-        }catch(message){debugger
+        }catch(message){
             console.log(message)
             const translatedMessage = logic.translateMessage(message.message)
             setError(translatedMessage)

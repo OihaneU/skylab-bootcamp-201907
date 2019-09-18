@@ -2,9 +2,8 @@ import logic from '..'
 
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
-export default function () {
+export default function (domain) {
 
-        let domain = window.location.hostname;
 
         return (async () => { 
                 const response = await fetch(`${REACT_APP_API_URL}/products/${domain}`)

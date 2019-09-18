@@ -1,18 +1,21 @@
+
 import logic from '..'
 
 import { database, models } from 'generisad-data'
 const jwt = require('jsonwebtoken') 
 
-const { User, Advertisement, Merchant } = models
+const { User, Advertisement, Merchant, Mail } = models
 
 const REACT_APP_DB_URL_TEST = process.env.REACT_APP_DB_URL_TEST
 const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 
 const { random } = Math
 
-describe.only('logic - register ad', () => {
-    let name, surname, email, password, userId ,domain, name_domain, merchant 
-    let image, title, description, price, location, date
+describe.only('logic - response ad', () => {
+    let name, surname, email, password, userId
+    let domain, name_domain, merchant
+    let image, title, description, price, date, location, adId
+    let titleMail1,titleMail2, body, body1, mailId
     let token
     
     beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
@@ -32,7 +35,15 @@ describe.only('logic - register ad', () => {
 
         name_domain = `name_domain-${Math.random()}`
         domain = `domain-${Math.random()}`
+        
+        titleMail1 =`titlemessage-${Math.random()}`
+        body = `msg-${Math.random()}`
 
+        titleMail2 =`titlemessage-${Math.random()}`
+        body1 = `msg-${Math.random()}`
+
+        
+        await Mail.deleteMany()
         await Merchant.deleteMany()
         const _merchant = await Merchant.create({ name: name_domain, domain })
         merchant = _merchant.id
@@ -44,22 +55,29 @@ describe.only('logic - register ad', () => {
 
         const token = jwt.sign({ sub: userId }, REACT_APP_JWT_SECRET_TEST)
         logic.userCredentials = token
-        debugger
+        
+        
+        await Advertisement.deleteMany()
+        const ad = await Advertisement.create({ image, title, description, price, location, 'owner': userId, merchant_owner: merchant })
+        adId = ad.id
+        
+        
+        const mail = await Mail.create({ sender: userId, receiver: userId, date, title:titleMail1, body, advertisement: adId, merchant_owner: merchant })
+        mailId = mail.id
 
     })
 
-    it('should succeed on correct data', async () => {debugger
-        const idAdvertisement = await logic.publish(image, title, description, price, location, userId, domain)
-        const result = await Advertisement.findById(idAdvertisement) 
-            expect(result).toBeDefined()
-            expect(result.id).toBe(idAdvertisement)
-            expect(result.image).toBe(image)
-            expect(result.title).toBe(title)
-            expect(result.description).toBe(description)
-            expect(result.price).toBe(price)
-            expect(result.location).toBe(location)
-            expect(result.owner.toString()).toBe(id)
-            expect(result.merchant_owner.toString()).toBe(merchant)
+    it('should succeed on correct data', async () => { debugger
+        const message = await logic.response(mailId, titleMail2, body1, domain)
+        expect(message).toBeDefined()
+
+      const result = await Mail.findById(message) 
+
+        expect(result).beDefined()
+        expect(result.id).toBe(message)
+        expect(result.title).toBe(title)
+        expect(result.body).toBe(body)
+        expect(result.merchant_owner.toString()).toBe(merchant)
     })
 
     // it('should fail if the user ad does not exist', async () => {

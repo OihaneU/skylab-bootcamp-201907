@@ -26,7 +26,7 @@ describe.only('logic - retrieve user', () => {
         id = user.id
     })
 
-    it('should succeed on correct data', async () => {debugger
+    it('should succeed on correct data', async () => {
         const token = jwt.sign({ sub: id }, REACT_APP_JWT_SECRET_TEST)
 
         const user = await retrieveUser(id, token)

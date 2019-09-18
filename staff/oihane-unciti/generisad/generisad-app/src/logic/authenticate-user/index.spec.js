@@ -12,14 +12,15 @@ const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 const { random } = Math
 
 describe('logic-authenticate user', ()=>{
-    debugger
+    
     
     beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
     
-    let name, surname, email, password, userId
+    let name, surname, email, password, id
     let domain, name_domain, merchant
+    let token
     
-    beforeEach(()=>{
+    beforeEach( async ()=>{
         
         name_domain = `name_domain-${Math.random()}`
         domain = `domain-${Math.random()}`
@@ -37,19 +38,19 @@ describe('logic-authenticate user', ()=>{
 
         const hash = await bcrypt.hash(password, 10)
 
-        const user = await User.create({ name, surname, email, password: hash })
+        const user = await User.create({ name, surname, email, password: hash, merchant_owner: merchant })
 
         id = user.id
 })
     it('should succeed on correct data', async () => {
         
-        const result = await logic.authenticateUser(email, password)
+        const result = await logic.authenticateUser(email, password, domain)
 
         expect(result).toBeUndefined()
 
-        logic.userCredentials = token
+        token= logic.userCredentials 
 
-        expect(token).toBe('string')
+        expect(typeof token).toBe('string')
         expect(token.length).toBeGreaterThan(0)
 
         const { sub } = jwt.verify(token, REACT_APP_JWT_SECRET_TEST)

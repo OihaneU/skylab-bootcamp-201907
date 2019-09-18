@@ -10,14 +10,20 @@ const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 
 const { random } = Math
 
-describe.only('logic - register ad', () => {
-    let name, surname, email, password, userId ,domain, name_domain, merchant 
-    let image, title, description, price, location, date
+describe.only('logic - retrieve fav', () => {
+    let name, surname, email, password, userId
+    let domain, name_domain, merchant
+    let image, title, description, price, date, location, adId
     let token
     
     beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
     
     beforeEach(async () => { 
+
+        await Merchant.deleteMany()
+        await User.deleteMany()
+        await Advertisement.deleteMany()
+
         name = `name-${random()}`
         surname = `surname-${random()}`
         email = `email-${random()}@domain.com`
@@ -33,33 +39,29 @@ describe.only('logic - register ad', () => {
         name_domain = `name_domain-${Math.random()}`
         domain = `domain-${Math.random()}`
 
-        await Merchant.deleteMany()
+        
         const _merchant = await Merchant.create({ name: name_domain, domain })
         merchant = _merchant.id
      
-
-        await User.deleteMany()
         const user = await User.create({ name, surname, email, password, merchant_owner: merchant })
         userId = user.id
 
         const token = jwt.sign({ sub: userId }, REACT_APP_JWT_SECRET_TEST)
         logic.userCredentials = token
-        debugger
+        
+        
+        const ad = await Advertisement.create({ image, title, description, price, location, 'owner': userId, merchant_owner: merchant })
+        adId = ad.id
+
+        user.favorites.push(adId)
+        await user.save()
 
     })
 
     it('should succeed on correct data', async () => {debugger
-        const idAdvertisement = await logic.publish(image, title, description, price, location, userId, domain)
-        const result = await Advertisement.findById(idAdvertisement) 
-            expect(result).toBeDefined()
-            expect(result.id).toBe(idAdvertisement)
-            expect(result.image).toBe(image)
-            expect(result.title).toBe(title)
-            expect(result.description).toBe(description)
-            expect(result.price).toBe(price)
-            expect(result.location).toBe(location)
-            expect(result.owner.toString()).toBe(id)
-            expect(result.merchant_owner.toString()).toBe(merchant)
+        await logic.retrieveFavorites(domain)
+            expect(result).to.exist
+            expect(result.favorites.length).to.equal(1)
     })
 
     // it('should fail if the user ad does not exist', async () => {
@@ -77,12 +79,12 @@ describe.only('logic - register ad', () => {
     // it("should fail on unexisting user" , async () => {
 
     //     try{
-    //         await logic.removeAd( "5d712e2v7ea98990acdc78bd", adId )
+    //         await logic.removeAd( "5d712e2v7ea98990acdc78bd", adId, )
     //         const ad = await Advertisement.findById(adId)
     //         expect(ad).toBeUndefined()
     //     }catch(error){
     //         expect(error).toBeDefined()
-    //         //expect(error.message).toBe(`user with id 5d712e2v7ea98990acdc78bd is not owner of advertisement with id ${adId}`)
+            //expect(error.message).toBe(`user with id 5d712e2v7ea98990acdc78bd is not owner of advertisement with id ${adId}`)
     //     }
 
     // })

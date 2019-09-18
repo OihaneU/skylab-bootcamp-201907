@@ -24,7 +24,8 @@ function Response ({ history }) {
     async function handleResponse(title, body) {
         
         try {
-            await logic.response(_id, title,body)
+            let domain = window.location.hostname
+            await logic.response(_id, title,body, domain)
             history.push('/message')
         } catch(message) {
             const translatedMessage = logic.translateMessage(message.message )

@@ -64,7 +64,7 @@ function RetrieveAd ({ history }) {
                                 <button className="myads__button" onClick={() => handleDelete(item._id)}><FontAwesomeIcon icon={faTrashAlt} color="gray"/></button>
                             </div>
                                             
-                    </li>)}
+                    </li>)||<li className="myads__none">No tienes ninguno anuncio todavía</li>}
                 </ul>
         </section>
         

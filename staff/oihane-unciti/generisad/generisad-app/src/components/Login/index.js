@@ -18,10 +18,11 @@ function Login({ history }) {
 
   async function handleLogin(email, password) {
       try {
-          await logic.authenticateUser(email, password)
+          let domain = window.location.hostname
+          await logic.authenticateUser(email, password, domain)
           
           history.push('/')
-      } catch({message}) {debugger
+      } catch({message}) {
           const translatedMessage = logic.translateMessage(message , email)
             setError(translatedMessage)
         

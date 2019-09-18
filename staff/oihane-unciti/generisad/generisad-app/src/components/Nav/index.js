@@ -15,6 +15,11 @@ function Nav ({ history}) {
         history.push("/")
     }
 
+    function handleHome (event)  {
+        event.preventDefault()
+        history.push("/")
+    }
+
     function handleRead ()  {
         logic.unreadMessage()
         history.push("/message")
@@ -82,7 +87,7 @@ function Nav ({ history}) {
                 }
               
         </div>         
-        <img className="logo" src={require('../../img/logo.jpg')} alt="img_00.jpg"></img>
+        <img className="logo" onClick={handleHome} src={require('../../img/logo.jpg')} alt="img_00.jpg"></img>
     </nav>
 
     {/* <nav>

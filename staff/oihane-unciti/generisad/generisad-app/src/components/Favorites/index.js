@@ -5,11 +5,11 @@ import Footer from "../Footer"
 
 export default function ({ }) {
     const [favs, setFavs] = useState()
+    let domain = window.location.hostname
     
     useEffect(() => {
         (async () => {
-            const _favs = await logic.retrieveFavorites()
-            debugger
+            const _favs = await logic.retrieveFavorites(domain)
 
             setFavs(_favs.favorites)
 

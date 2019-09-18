@@ -11,13 +11,15 @@ function Results ({ history }) {
     const [ads, setAds] = useState([])
 
 
-    useEffect(() => {debugger
+    useEffect(() => {
         async function search() {
             try{
+
+                let domain = window.location.hostname;
                 const { query } = queryString.parse(history.location.search)
                 
     
-                const _ads = await logic.search(query)
+                const _ads = await logic.search(query, domain)
                 
                 setAds(_ads)
             }

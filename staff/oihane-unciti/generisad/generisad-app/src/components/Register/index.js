@@ -14,10 +14,11 @@ function Register({ history }) {
 
       async function handleRegister(name, surname, email, password) {
         try {
-            await logic.registerUser(name, surname, email, password)
+          let domain = window.location.hostname
+            await logic.registerUser(name, surname, email, password, domain)
             
             history.push('/auth')
-        } catch(message) { debugger
+        } catch(message) { 
             const translatedMessage = logic.translateMessage(message.message, email)
             setError(translatedMessage)
         }
@@ -42,7 +43,7 @@ function Register({ history }) {
                 <label for="">Email</label>
                 <input class="modal__input" type="email" name="email" id=""/>
                 <label for="">Contraseña</label>
-                <input class="modal__input" type="text" name="password" id=""/>
+                <input class="modal__input" type="password" name="password" id=""/>
                 {error && <Feedback className ="feedback" message={error} />} 
 
                 <p class="modal__p">¿Ya estas registrado en nuestra web? <a href={`/#/auth`}>Accede</a></p>

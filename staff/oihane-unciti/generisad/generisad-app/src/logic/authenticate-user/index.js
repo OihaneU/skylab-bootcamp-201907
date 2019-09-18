@@ -3,11 +3,12 @@ const {validate}= require("generisad-utils")
 
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 
-export default function (email, password) {
+export default function (email, password, domain) {
     validate.string(email, 'email')
-    validate.string(paswword, 'password')
+    validate.string(password, 'password')
+    validate.string(domain, 'domain')
 
-    let domain = window.location.hostname;
+    
 
     return (async () => { 
         const response = await fetch(`${REACT_APP_API_URL}/auth`, {
@@ -21,6 +22,7 @@ export default function (email, password) {
 
             this.userCredentials = token
             this.userEmail =email
+        
         }else{
             const { error } = await response.json()
             throw new Error (error)

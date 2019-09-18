@@ -4,7 +4,7 @@ import Footer from "../Footer"
 import logic from '../../logic'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faPaperPlane, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faPaperPlane, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { withRouter, Link } from 'react-router-dom'
 
@@ -13,6 +13,7 @@ function Detail({ history, id }) {
     const [favorites, setFavorites] = useState()
     const [error, setError] = useState()
 
+    let domain = window.location.hostname;
 
     async function handleFav() {
         if (!logic.isUserLoggedIn()) {
@@ -20,7 +21,7 @@ function Detail({ history, id }) {
         } else {
             try {
                 
-                const favs = await logic.retrieveFavorites()
+                const favs = await logic.retrieveFavorites(domain)
 
                 const fav = favs.favorites.find( ({ _id }) => _id === id )
                 await logic.favorite(id)
@@ -44,7 +45,7 @@ function Detail({ history, id }) {
             try {
                 const _ad = await logic.detail(id)
                 setAd(_ad)
-                const favs = await logic.retrieveFavorites()
+                const favs = await logic.retrieveFavorites(domain)
                 const fav = favs.favorites.find( ({ _id }) => _id === id )
 
                 if(fav){
@@ -96,8 +97,6 @@ function Detail({ history, id }) {
                 <button className= "detail__button">
                     <Link className= "detail__button--decoration" to={`/send/${id}`} ><FontAwesomeIcon icon={faPaperPlane} size="50px" color="gray"/> Contacta con el vendedor</Link>
                 </button>
-            
-
 
         </>}
     </section>

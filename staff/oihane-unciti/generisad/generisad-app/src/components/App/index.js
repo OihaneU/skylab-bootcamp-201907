@@ -16,7 +16,6 @@ import Favorites from '../Favorites'
 import SendEmail from '../SendEmail'
 import Response from "../Response"
 import RetrieveAd from "../RetrieveAd"
-import Delete from "../Delete"
 
 
 
@@ -53,7 +52,7 @@ function App({history}) {
   return (
     <div className="App">
     <Context.Provider value={{}}>
-
+      
         <Route exact path="/" render={() => <Landing/>} />
         <Route path="/ad" render={() => <Search onSearch={handleSearch} />} /> 
         <Route path="/search" render={() => <Results query={query} />} />
@@ -66,7 +65,6 @@ function App({history}) {
         <Route path='/send/:id' render={history => <SendEmail id={history.match.params.id} /> } /> 
         <Route path='/response/:id' render={() => <Response /> } /> 
         <Route path='/myads' render={() => <RetrieveAd /> } /> 
-        <Route path='/delete' render={() => <Delete /> } /> 
 
 
         {/* <Route path="/ad/search" render={() => <Results query={query} />} /> */}

@@ -7,6 +7,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "generisad-utils": "file:../generisad-utils",
     "node-sass": "^4.12.0",
     "query-string": "^6.8.3",
