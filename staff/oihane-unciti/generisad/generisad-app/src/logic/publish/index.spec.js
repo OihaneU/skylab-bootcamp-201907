@@ -44,11 +44,11 @@ describe.only('logic - register ad', () => {
 
         const token = jwt.sign({ sub: userId }, REACT_APP_JWT_SECRET_TEST)
         logic.userCredentials = token
-        debugger
+        
 
     })
 
-    it('should succeed on correct data', async () => {debugger
+    it('should succeed on correct data', async () => {
         const idAdvertisement = await logic.publish(image, title, description, price, location, userId, domain)
         const result = await Advertisement.findById(idAdvertisement) 
             expect(result).toBeDefined()

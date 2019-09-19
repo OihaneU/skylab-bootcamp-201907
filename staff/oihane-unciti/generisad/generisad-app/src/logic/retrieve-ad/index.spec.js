@@ -52,7 +52,7 @@ describe.only('logic - retrieve ad', () => {
 
     })
 
-    it('should succeed on correct data', async () => {debugger
+    it('should succeed on correct data', async () => {
         const ad = await logic.retrieveAd(adId)
 
             expect(ad).toBeDefined()

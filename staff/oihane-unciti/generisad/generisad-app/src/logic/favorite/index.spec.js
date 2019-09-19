@@ -55,7 +55,6 @@ describe.only('logic -toggle ad', () => {
 
     it('should succeed on correct data', async () => {
         const result = await logic.favorite(adId)
-        debugger
             expect(result).toBeUndefined()
     
     })

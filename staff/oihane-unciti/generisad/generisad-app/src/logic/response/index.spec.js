@@ -67,7 +67,7 @@ describe.only('logic - response ad', () => {
 
     })
 
-    it('should succeed on correct data', async () => { debugger
+    it('should succeed on correct data', async () => { 
         const message = await logic.response(mailId, titleMail2, body1, domain)
         expect(message).toBeDefined()
 

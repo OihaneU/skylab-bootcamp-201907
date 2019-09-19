@@ -66,12 +66,6 @@ function App({history}) {
         <Route path='/response/:id' render={() => <Response /> } /> 
         <Route path='/myads' render={() => <RetrieveAd /> } /> 
 
-
-        {/* <Route path="/ad/search" render={() => <Results query={query} />} /> */}
-      {/* <Route path="/ad/search/:id" render={props => <Detail id={props.match.params.id} />} /> */}
-      
-      {/* <Route path="/search" render={() => <Results query={query} />} />
-      <Route path="/ducks/:id" render={props => <Detail id={props.match.params.id} />} /> */}
     </Context.Provider>
     
 

@@ -58,7 +58,7 @@ describe.only('logic - retrieve fav', () => {
 
     })
 
-    it('should succeed on correct data', async () => {debugger
+    it('should succeed on correct data', async () => {
         await logic.retrieveFavorites(domain)
             expect(result).to.exist
             expect(result.favorites.length).to.equal(1)

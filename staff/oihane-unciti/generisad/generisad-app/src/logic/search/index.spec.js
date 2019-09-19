@@ -45,7 +45,7 @@ describe('logic - search', () => {
         domain = `domain-${Math.random()}`
 
     try{
-        debugger
+        
        await Merchant.deleteMany()
         const _merchant = await Merchant.create({ name: name_domain, domain })
         merchant = _merchant.id
@@ -64,14 +64,14 @@ describe('logic - search', () => {
         const product2 = await Advertisement.create({image: image2, title: title2, description:  description2, price: price2, location: location2, date: date2, owner:userId, merchant_owner: merchant})
         product2Id= product2.id 
     }catch(error){
-        debugger
+        
         console.log(error)
     }
         
     })
     it('should succeed on correct data', async () =>{
         query = "title"
-        debugger
+
         const result = await logic.search(query, domain)
                 expect(result[0]).query = "title"
         // const ad = await search(query, domain)
